@@ -114,6 +114,10 @@ class ForeignKeyConstraint extends Constraint implements TableProperty {
   String referencedTable;
   ForeignKeyDeletionMode deletionMode;
   ForeignKeyUpdateMode updateMode;
+  bool _isTableProperty = false;
+  bool _isMultiColumn = false;
+  String foreignKeyColumn = "";
+  Map<String, String> columnNames = {};
 
   ForeignKeyConstraint({
     super.name,
@@ -123,53 +127,56 @@ class ForeignKeyConstraint extends Constraint implements TableProperty {
     this.updateMode = ForeignKeyUpdateMode.undefined,
   });
 
+  /// Constructor for defining foreign keys as [TableProperty].
+  ///
+  /// Results in sql snippet like e.g. `FOREIGN KEY (product_group_id) REFERENCES product_groups`
+  ForeignKeyConstraint.tableProperty({
+    super.name,
+    this.referencedColumn,
+    required this.referencedTable,
+    this.deletionMode = ForeignKeyDeletionMode.undefined,
+    this.updateMode = ForeignKeyUpdateMode.undefined,
+    required this.foreignKeyColumn,
+  }) : _isTableProperty = true;
+
+  /// Constructor for defining multiColumn foreign keys.
+  ///
+  /// Only to be used as [TableProperty]
+  ///
+  /// The [columnNames] must be provided as a map in the format of:
+  /// ```{
+  ///   "foreignKeyColumnName": "referencedColumnName"
+  /// }```
+  ///
+  /// Results in sql snippet like e.g. `FOREIGN KEY (b, c) REFERENCES other_table (c1, c2)`
+  ForeignKeyConstraint.multiColumn({
+    super.name,
+    required this.referencedTable,
+    this.deletionMode = ForeignKeyDeletionMode.undefined,
+    this.updateMode = ForeignKeyUpdateMode.undefined,
+    required this.columnNames,
+  })  : _isTableProperty = true,
+        _isMultiColumn = true;
+
   @override
   String get constraint {
     String columnReference =
         referencedColumn != null ? " (\"${referencedColumn!}\")" : "";
+    String tablePropertySnippet =
+        _isTableProperty ? "FOREIGN KEY (\"$foreignKeyColumn\") " : "";
+    if (!_isMultiColumn) {
+      return "${tablePropertySnippet}REFERENCES \"$referencedTable\"$columnReference${updateMode.sqlString}${deletionMode.sqlString}";
+    } else {
+      List<String> keyColumns =
+          columnNames.keys.map((column) => "\"$column\"").toList();
+      List<String> referencedColumns =
+          columnNames.values.map((column) => "\"$column\"").toList();
 
-    return "REFERENCES \"$referencedTable\"$columnReference${updateMode.sqlString}${deletionMode.sqlString}}";
-  }
+      String keyColumnsString = keyColumns.join(', ');
+      String referencedColumnsString = referencedColumns.join(', ');
 
-  @override
-  String get sqlSnippet => fullConstraint;
-}
-
-/// Class for defining combined foreign keys.
-///
-/// Must only be used
-///
-/// The [columnNames] must be provided as a map in the format of:
-/// ```{
-///   "foreignKeyColumnName": "referencedColumnName"
-/// }```
-///
-/// *In case a single column should be marked as a foreign key, use the [ForeignKeyConstraint] instead or define it via the column's `foreignKeyForTable` property.*
-class CombinedForeignKeyConstraint extends Constraint implements TableProperty {
-  Map<String, String> columnNames;
-  String referencedTable;
-  ForeignKeyDeletionMode deletionMode;
-  ForeignKeyUpdateMode updateMode;
-
-  CombinedForeignKeyConstraint({
-    super.name,
-    required this.referencedTable,
-    required this.columnNames,
-    this.deletionMode = ForeignKeyDeletionMode.undefined,
-    this.updateMode = ForeignKeyUpdateMode.undefined,
-  });
-
-  @override
-  String get constraint {
-    List<String> keyColumns =
-        columnNames.keys.map((column) => "\"$column\"").toList();
-    List<String> referencedColumns =
-        columnNames.values.map((column) => "\"$column\"").toList();
-
-    String keyColumnsString = keyColumns.join(', ');
-    String referencedColumnsString = referencedColumns.join(', ');
-
-    return "FOREIGN KEY ($keyColumnsString) REFERENCES \"$referencedTable\" ($referencedColumnsString)${updateMode.sqlString}${deletionMode.sqlString}";
+      return "FOREIGN KEY ($keyColumnsString) REFERENCES \"$referencedTable\" ($referencedColumnsString)${updateMode.sqlString}${deletionMode.sqlString}";
+    }
   }
 
   @override
