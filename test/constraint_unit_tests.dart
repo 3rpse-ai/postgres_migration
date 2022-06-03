@@ -5,7 +5,7 @@ import 'package:postgres_migration/src/model/model.dart';
 
 void executeConstraintUnitTests() {
   test(
-    '1.1.1 CheckConstraint type test',
+    '1.1 CheckConstraint type test',
     () {
       CheckConstraint check = CheckConstraint(check: "");
       expect(check, isA<Constraint>());
@@ -14,7 +14,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.1.2 CheckConstraint simple test',
+    '1.2 CheckConstraint simple test',
     () {
       CheckConstraint checkConstraint = CheckConstraint(check: "i < 10");
       expect(checkConstraint.sqlSnippet, equals('CHECK(i < 10)'));
@@ -22,7 +22,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.1.3 CheckConstraint with name test',
+    '1.3 CheckConstraint with name test',
     () {
       CheckConstraint checkConstraint =
           CheckConstraint(check: "i < 10", name: "check_constraint");
@@ -32,7 +32,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.1 UniqueConstraint type test',
+    '2.1 UniqueConstraint type test',
     () {
       UniqueConstraint unique = UniqueConstraint();
       expect(unique, isA<Constraint>());
@@ -41,7 +41,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.2 UniqueConstraint simple test',
+    '2.2 UniqueConstraint simple test',
     () {
       UniqueConstraint checkConstraint = UniqueConstraint();
       expect(checkConstraint.sqlSnippet, equals('UNIQUE'));
@@ -49,7 +49,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.3 UniqueConstraint with name test',
+    '2.3 UniqueConstraint with name test',
     () {
       UniqueConstraint checkConstraint =
           UniqueConstraint(name: "unique_constraint");
@@ -59,7 +59,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.4 UniqueConstraint simple with single column test',
+    '2.4 UniqueConstraint simple with single column test',
     () {
       UniqueConstraint checkConstraint =
           UniqueConstraint(columnNames: ["first_column"]);
@@ -68,7 +68,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.5 UniqueConstraint simple with multiples column test',
+    '2.5 UniqueConstraint simple with multiples column test',
     () {
       UniqueConstraint checkConstraint = UniqueConstraint(
         columnNames: [
@@ -83,7 +83,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.6 UniqueConstraint with name & single column test',
+    '2.6 UniqueConstraint with name & single column test',
     () {
       UniqueConstraint checkConstraint = UniqueConstraint(
           columnNames: ["first_column"], name: "unique_constraint");
@@ -93,7 +93,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.2.7 UniqueConstraint  with name & with multiple columns test',
+    '2.7 UniqueConstraint  with name & with multiple columns test',
     () {
       UniqueConstraint checkConstraint = UniqueConstraint(
         columnNames: [
@@ -111,7 +111,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.3.1 ManualConstraint type test',
+    '3.1 ManualConstraint type test',
     () {
       ManualConstraint manual =
           ManualConstraint("EXCLUDE USING gist (c with &&)");
@@ -121,7 +121,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.3.2 ManualConstraint simple test',
+    '3.2 ManualConstraint simple test',
     () {
       ManualConstraint manual =
           ManualConstraint("EXCLUDE USING gist (c with &&)");
@@ -130,7 +130,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.3.3 ManualConstraint with name test',
+    '3.3 ManualConstraint with name test',
     () {
       ManualConstraint manual =
           ManualConstraint("EXCLUDE USING gist (c with &&)");
@@ -140,7 +140,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.1 PrimaryKeyConstraint type test',
+    '4.1 PrimaryKeyConstraint type test',
     () {
       PrimaryKeyConstraint primary = PrimaryKeyConstraint();
       expect(primary, isA<Constraint>());
@@ -149,7 +149,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.2 PrimaryKeyConstraint simple test',
+    '4.2 PrimaryKeyConstraint simple test',
     () {
       PrimaryKeyConstraint primary = PrimaryKeyConstraint();
       expect(primary.sqlSnippet, equals('PRIMARY KEY'));
@@ -157,7 +157,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.3 PrimaryKeyConstraint simple with single column test',
+    '4.3 PrimaryKeyConstraint simple with single column test',
     () {
       PrimaryKeyConstraint primary =
           PrimaryKeyConstraint(columnNames: ["first_column"]);
@@ -166,7 +166,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.4 PrimaryKeyConstraint simple with multiple columns test',
+    '4.4 PrimaryKeyConstraint simple with multiple columns test',
     () {
       PrimaryKeyConstraint primary =
           PrimaryKeyConstraint(columnNames: ["first_column", "second_column"]);
@@ -176,7 +176,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.5 PrimaryKeyConstraint with name test',
+    '4.5 PrimaryKeyConstraint with name test',
     () {
       PrimaryKeyConstraint primary =
           PrimaryKeyConstraint(name: "primary_constraint");
@@ -186,7 +186,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.6 PrimaryKeyConstraint with name & single column test',
+    '4.6 PrimaryKeyConstraint with name & single column test',
     () {
       PrimaryKeyConstraint primary = PrimaryKeyConstraint(
           name: "primary_constraint", columnNames: ["first_column"]);
@@ -198,7 +198,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.4.7 PrimaryKeyConstraint with name & multiple columns test',
+    '4.7 PrimaryKeyConstraint with name & multiple columns test',
     () {
       PrimaryKeyConstraint primary = PrimaryKeyConstraint(
           name: "primary_constraint",
@@ -211,7 +211,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.1 ForeignKeyConstraint type test',
+    '5.1 ForeignKeyConstraint type test',
     () {
       ForeignKeyConstraint foreign =
           ForeignKeyConstraint(referencedTable: "reference_table");
@@ -221,7 +221,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.2 ForeignKeyConstraint simple test',
+    '5.2 ForeignKeyConstraint simple test',
     () {
       ForeignKeyConstraint foreign =
           ForeignKeyConstraint(referencedTable: "referenced_table");
@@ -230,7 +230,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.3 ForeignKeyConstraint with name test',
+    '5.3 ForeignKeyConstraint with name test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
           referencedTable: "referenced_table", name: "foreign_constraint");
@@ -242,7 +242,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.4 ForeignKeyConstraint simple with updateMode test',
+    '5.4 ForeignKeyConstraint simple with updateMode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
           referencedTable: "referenced_table",
@@ -253,7 +253,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.5 ForeignKeyConstraint with name & updateMode test',
+    '5.5 ForeignKeyConstraint with name & updateMode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
           name: "foreign_constraint",
@@ -267,7 +267,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.6 ForeignKeyConstraint simple with deletionMode test',
+    '5.6 ForeignKeyConstraint simple with deletionMode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
           referencedTable: "referenced_table",
@@ -282,7 +282,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.7 ForeignKeyConstraint with name & deletionMode test',
+    '5.7 ForeignKeyConstraint with name & deletionMode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
           name: "foreign_constraint",
@@ -298,7 +298,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.8 ForeignKeyConstraint simple with referenced column test',
+    '5.8 ForeignKeyConstraint simple with referenced column test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         referencedTable: "referenced_table",
@@ -314,7 +314,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.9 ForeignKeyConstraint with name & referenced column test',
+    '5.9 ForeignKeyConstraint with name & referenced column test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         name: "foreign_constraint",
@@ -331,7 +331,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.10 ForeignKeyConstraint simple with referenced column  & deletion mode test',
+    '5.10 ForeignKeyConstraint simple with referenced column  & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         referencedTable: "referenced_table",
@@ -348,7 +348,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.11 ForeignKeyConstraint with name & referenced column & deletion mode test',
+    '5.11 ForeignKeyConstraint with name & referenced column & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         name: "foreign_constraint",
@@ -366,7 +366,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.12 ForeignKeyConstraint simple with referenced column  & update mode test',
+    '5.12 ForeignKeyConstraint simple with referenced column  & update mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         referencedTable: "referenced_table",
@@ -383,7 +383,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.13 ForeignKeyConstraint with name & referenced column & update mode test',
+    '5.13 ForeignKeyConstraint with name & referenced column & update mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         name: "foreign_constraint",
@@ -401,7 +401,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.14 ForeignKeyConstraint simple with referenced column  & update mode & deletion mode test',
+    '5.14 ForeignKeyConstraint simple with referenced column  & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         referencedTable: "referenced_table",
@@ -419,7 +419,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.15 ForeignKeyConstraint with name & referenced column & update mode & deletion mode test',
+    '5.15 ForeignKeyConstraint with name & referenced column & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint(
         name: "foreign_constraint",
@@ -438,7 +438,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.16 ForeignKeyConstraint.tableProperty simple with referenced column & update mode & deletion mode test',
+    '5.16 ForeignKeyConstraint.tableProperty simple with referenced column & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.tableProperty(
         foreignKeyColumn: "foreign_key_column",
@@ -457,7 +457,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.17 ForeignKeyConstraint.tableProperty with name & referenced column & update mode & deletion mode test',
+    '5.17 ForeignKeyConstraint.tableProperty with name & referenced column & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.tableProperty(
         name: "foreign_constraint",
@@ -477,7 +477,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.18 ForeignKeyConstraint.multiColumn simple with single column & update mode & deletion mode test',
+    '5.18 ForeignKeyConstraint.multiColumn simple with single column & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.multiColumn(
         columnNames: {'1_foreign_key': "1_referenced"},
@@ -491,7 +491,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.19 ForeignKeyConstraint.multiColumn with name & multiple columns & update mode & deletion mode test',
+    '5.19 ForeignKeyConstraint.multiColumn with name & multiple columns & update mode & deletion mode test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.multiColumn(
         name: "foreign_constraint",
@@ -506,7 +506,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.20 ForeignKeyConstraint.multiColumn with name & multiple columns test',
+    '5.20 ForeignKeyConstraint.multiColumn with name & multiple columns test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.multiColumn(
         name: "foreign_constraint",
@@ -524,7 +524,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.5.21 ForeignKeyConstraint.multiColumn simple with multiple columns test',
+    '5.21 ForeignKeyConstraint.multiColumn simple with multiple columns test',
     () {
       ForeignKeyConstraint foreign = ForeignKeyConstraint.multiColumn(
         columnNames: {
@@ -541,7 +541,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.1 ForeignKeyDeletionMode.setNull value check',
+    '6.1 ForeignKeyDeletionMode.setNull value check',
     () {
       expect(ForeignKeyDeletionMode.setNull.sqlString,
           equals(" ON DELETE SET NULL"));
@@ -549,7 +549,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.2 ForeignKeyDeletionMode.setDefault value check',
+    '6.2 ForeignKeyDeletionMode.setDefault value check',
     () {
       expect(ForeignKeyDeletionMode.setDefault.sqlString,
           equals(" ON DELETE SET DEFAULT"));
@@ -557,7 +557,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.3 ForeignKeyDeletionMode.cascade value check',
+    '6.3 ForeignKeyDeletionMode.cascade value check',
     () {
       expect(ForeignKeyDeletionMode.cascade.sqlString,
           equals(" ON DELETE CASCADE"));
@@ -565,7 +565,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.4 ForeignKeyDeletionMode.restrict value check',
+    '6.4 ForeignKeyDeletionMode.restrict value check',
     () {
       expect(ForeignKeyDeletionMode.restrict.sqlString,
           equals(" ON DELETE RESTRICT"));
@@ -573,7 +573,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.5 ForeignKeyDeletionMode.noAction value check',
+    '6.5 ForeignKeyDeletionMode.noAction value check',
     () {
       expect(ForeignKeyDeletionMode.noAction.sqlString,
           equals(" ON DELETE NO ACTION"));
@@ -581,14 +581,14 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.6.6 ForeignKeyDeletionMode.undefined value check',
+    '6.6 ForeignKeyDeletionMode.undefined value check',
     () {
       expect(ForeignKeyDeletionMode.undefined.sqlString, equals(""));
     },
   );
 
   test(
-    '1.7.1 ForeignKeyUpdateMode.setNull value check',
+    '7.1 ForeignKeyUpdateMode.setNull value check',
     () {
       expect(ForeignKeyUpdateMode.setNull.sqlString,
           equals(" ON UPDATE SET NULL"));
@@ -596,7 +596,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.7.2 ForeignKeyUpdateMode.setDefault value check',
+    '7.2 ForeignKeyUpdateMode.setDefault value check',
     () {
       expect(ForeignKeyUpdateMode.setDefault.sqlString,
           equals(" ON UPDATE SET DEFAULT"));
@@ -604,7 +604,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.7.3 ForeignKeyUpdateMode.cascade value check',
+    '7.3 ForeignKeyUpdateMode.cascade value check',
     () {
       expect(
           ForeignKeyUpdateMode.cascade.sqlString, equals(" ON UPDATE CASCADE"));
@@ -612,7 +612,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.7.4 ForeignKeyUpdateMode.restrict value check',
+    '7.4 ForeignKeyUpdateMode.restrict value check',
     () {
       expect(ForeignKeyUpdateMode.restrict.sqlString,
           equals(" ON UPDATE RESTRICT"));
@@ -620,7 +620,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.7.5 ForeignKeyUpdateMode.noAction value check',
+    '7.5 ForeignKeyUpdateMode.noAction value check',
     () {
       expect(ForeignKeyUpdateMode.noAction.sqlString,
           equals(" ON UPDATE NO ACTION"));
@@ -628,7 +628,7 @@ void executeConstraintUnitTests() {
   );
 
   test(
-    '1.7.6 ForeignKeyUpdateMode.undefined value check',
+    '7.6 ForeignKeyUpdateMode.undefined value check',
     () {
       expect(ForeignKeyUpdateMode.undefined.sqlString, equals(""));
     },
