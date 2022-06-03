@@ -1,5 +1,7 @@
-import 'constraint.dart';
-import 'table_property.dart';
+import '../constraint.dart';
+import '../table_property.dart';
+
+export 'numeric_columns.dart';
 
 abstract class Column<T> implements TableProperty {
   String name;
