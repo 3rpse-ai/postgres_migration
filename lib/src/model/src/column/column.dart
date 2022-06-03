@@ -88,7 +88,7 @@ abstract class Column<T> implements TableProperty {
 
   String get _defaultValueSnippet {
     String? manualOverDefaultString = manualDefaultValue ??
-        (defaultValue != null ? _defaultValueAsString : null);
+        (defaultValue != null ? defaultValueAsString : null);
     return manualOverDefaultString != null
         ? " DEFAULT $manualOverDefaultString"
         : "";
@@ -120,7 +120,7 @@ abstract class Column<T> implements TableProperty {
   String? manualDefaultValue;
 
   /// Overwrite this getter to provide a column specific default value. Otherwise `defaultValue.toString()` is returned.
-  String get _defaultValueAsString => defaultValue.toString();
+  String get defaultValueAsString => defaultValue.toString();
 
   /// Used to define a default value. Results in sql snippet `DEFAULT $_defaultValue`.
   ///
