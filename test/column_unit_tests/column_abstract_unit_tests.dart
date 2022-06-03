@@ -21,7 +21,7 @@ class ColumnImplementation extends Column {
   });
 }
 
-void executeColumnImplementationUnitTests() {
+void executeColumnAbstractClassUnitTests() {
   test('1 TableProperty type inheritance', () {
     final column = ColumnImplementation('column_name');
     expect(column, isA<TableProperty>());
