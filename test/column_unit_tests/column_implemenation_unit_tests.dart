@@ -226,4 +226,21 @@ void executeColumnImplementationUnitTests() {
     final column = CharColumn('column_name', defaultValue: "4.22");
     expect(column.sqlSnippet, '"column_name" char NOT NULL DEFAULT \'4.22\'');
   });
+
+  test('16.1 boolean simple column', () {
+    final column = BooleanColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" boolean NOT NULL');
+  });
+
+  test('16.2 boolean column with default true', () {
+    final column = BooleanColumn('column_name', defaultValue: true);
+    expect(column.sqlSnippet,
+        '"column_name" boolean NOT NULL DEFAULT true');
+  });
+
+  test('16.3 boolean column with default false', () {
+    final column = BooleanColumn('column_name', defaultValue: false);
+    expect(column.sqlSnippet,
+        '"column_name" boolean NOT NULL DEFAULT false');
+  });
 }
