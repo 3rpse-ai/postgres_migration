@@ -1,14 +1,3 @@
-// smallint
-// integer
-// bigint
-// decimal
-// numeric
-// real
-// double precision
-// smallserial
-// serial
-// bigserial
-
 import 'column.dart';
 
 /// Column for small-range integers
@@ -94,13 +83,7 @@ class BigIntColumn extends Column<int> {
 class NumericColumn extends Column<double> {
   @override
   String get type {
-    final args = [
-      if (precision != null) precision,
-      if (scale != null && precision != null) scale,
-    ];
-    String? argsString = args.isNotEmpty ? "(${args.join(", ")})" : "";
-
-    return "numeric$argsString";
+    return "numeric";
   }
 
   @override
@@ -146,7 +129,15 @@ class NumericColumn extends Column<double> {
     super.defaultValue,
     this.precision,
     this.scale,
-  });
+  }) : super(
+          // precision must always be provided if scale is provided.
+          args: (precision != null || (scale != null && precision != null))
+              ? [
+                  precision,
+                  if (scale != null) scale,
+                ].join(", ")
+              : null,
+        );
 }
 
 /// Column for storing numbers with large number of digits
@@ -164,6 +155,7 @@ class DecimalColumn extends NumericColumn {
   @override
   String get type {
     final type = super.type;
+    // just reusing [NumericColumn] implementation here.
     return type.replaceAll('numeric', 'decimal');
   }
 
@@ -246,10 +238,7 @@ class FloatColumn extends Column<double> {
   int? precision;
 
   @override
-  String get type {
-    String argument = precision != null ? "($precision)" : "";
-    return "float$argument";
-  }
+  String get type => "float";
 
   FloatColumn(
     super.name, {
@@ -265,7 +254,7 @@ class FloatColumn extends Column<double> {
     super.primaryKeyConstraint,
     super.uniqueConstraint,
     super.defaultValue,
-  });
+  }) : super(args: precision?.toString());
 }
 
 /// Column for creating auto incrementing small integers
