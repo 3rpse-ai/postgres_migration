@@ -1,4 +1,3 @@
-import 'package:postgres_migration/src/model/src/column/text_columns.dart';
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 

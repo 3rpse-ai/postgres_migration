@@ -2,6 +2,7 @@ import '../constraint.dart';
 import '../table_property.dart';
 
 export 'numeric_columns.dart';
+export 'text_columns.dart';
 
 abstract class Column<T> implements TableProperty {
   String name;
