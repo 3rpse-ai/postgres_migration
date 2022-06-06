@@ -3,6 +3,7 @@ import '../table_property.dart';
 
 export 'numeric_columns.dart';
 export 'text_columns.dart';
+export 'boolean_column.dart';
 
 abstract class Column<T> implements TableProperty {
   String name;
