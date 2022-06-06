@@ -1,6 +1,6 @@
 import 'column.dart';
 
-/// Column for storing a [String] of any length
+/// Column for storing a [bool]
 class BooleanColumn extends Column<bool> {
   @override
   String get type => 'boolean';
