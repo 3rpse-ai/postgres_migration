@@ -6,10 +6,16 @@ export 'numeric_columns.dart';
 abstract class Column<T> implements TableProperty {
   String name;
   String get type;
+  String? args;
+
+  String get typeWithArgs {
+    String argsString = args != null ? "($args)" : "";
+    return "$type$argsString";
+  }
 
   @override
   String get sqlSnippet =>
-      "\"$name\" $type$_constraintsSnippet$_defaultValueSnippet";
+      "\"$name\" $typeWithArgs$_constraintsSnippet$_defaultValueSnippet";
 
   /// Used to set check constraint.
   CheckConstraint? checkConstraint;
@@ -140,6 +146,7 @@ abstract class Column<T> implements TableProperty {
     this.primaryKeyConstraint,
     this.uniqueConstraint,
     this.defaultValue,
+    this.args,
   });
 }
 
