@@ -7,6 +7,9 @@ export 'text_columns.dart';
 abstract class Column<T> implements TableProperty {
   String name;
   String get type;
+
+  /// Set this parameter to provide column arguments.
+  /// E.g. type = "varchar", args = "9" results in varchar(9)
   String? args;
 
   String get typeWithArgs {
