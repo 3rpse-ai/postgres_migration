@@ -18,6 +18,7 @@ class ColumnImplementation extends Column {
     super.manualDefaultValue,
     super.primaryKeyConstraint,
     super.uniqueConstraint,
+    super.args,
   });
 }
 
@@ -154,7 +155,7 @@ void executeColumnAbstractClassUnitTests() {
     );
   });
 
-  test('10 Maximum example', () {
+  test('10 Maximum example w/o args', () {
     final column = ColumnImplementation(
       'column_name',
       checkConstraint: CheckConstraint(check: "check"),
@@ -177,6 +178,34 @@ void executeColumnAbstractClassUnitTests() {
       column.sqlSnippet,
       equals(
         '"column_name" column_type CONSTRAINT "primary_key_constraint" PRIMARY KEY CONSTRAINT "foreign_key_constraint" REFERENCES "referenced_table" CONSTRAINT "unique_constraint" UNIQUE CHECK(check) manual_constraint DEFAULT manual_default',
+      ),
+    );
+  });
+
+  test('10 Args with maximum declaration test', () {
+    final column = ColumnImplementation(
+      'column_name',
+      checkConstraint: CheckConstraint(check: "check"),
+      manualConstraint: ManualConstraint("manual_constraint"),
+      isNullable: true,
+      isPrimaryKey: true,
+      primaryKeyConstraint:
+          PrimaryKeyConstraint(name: "primary_key_constraint"),
+      foreignKeyForTable: "referenced_table",
+      foreignKeyConstraint: ForeignKeyConstraint(
+        referencedTable: "referenced_table",
+        name: "foreign_key_constraint",
+      ),
+      isUnique: true,
+      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      defaultValue: "default_value",
+      manualDefaultValue: "manual_default",
+      args: "ARGS"
+    );
+    expect(
+      column.sqlSnippet,
+      equals(
+        '"column_name" column_type(ARGS) CONSTRAINT "primary_key_constraint" PRIMARY KEY CONSTRAINT "foreign_key_constraint" REFERENCES "referenced_table" CONSTRAINT "unique_constraint" UNIQUE CHECK(check) manual_constraint DEFAULT manual_default',
       ),
     );
   });
