@@ -1,3 +1,4 @@
+import 'package:postgres_migration/src/model/src/column/text_columns.dart';
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 
@@ -79,10 +80,8 @@ void executeColumnImplementationUnitTests() {
   });
 
   test('4.9 numeric column with double.nan default', () {
-    final column =
-        NumericColumn('column_name', defaultValue: double.nan);
-    expect(column.sqlSnippet,
-        '"column_name" numeric NOT NULL DEFAULT \'NaN\'');
+    final column = NumericColumn('column_name', defaultValue: double.nan);
+    expect(column.sqlSnippet, '"column_name" numeric NOT NULL DEFAULT \'NaN\'');
   });
 
   test('5.1 decimal simple column', () {
@@ -132,10 +131,8 @@ void executeColumnImplementationUnitTests() {
   });
 
   test('5.9 decimal column with double.nan default', () {
-    final column =
-        DecimalColumn('column_name', defaultValue: double.nan);
-    expect(column.sqlSnippet,
-        '"column_name" decimal NOT NULL DEFAULT \'NaN\'');
+    final column = DecimalColumn('column_name', defaultValue: double.nan);
+    expect(column.sqlSnippet, '"column_name" decimal NOT NULL DEFAULT \'NaN\'');
   });
 
   test('6.1 real simple column', () {
@@ -155,7 +152,8 @@ void executeColumnImplementationUnitTests() {
 
   test('7.2 double precision column with default', () {
     final column = DoublePrecisionColumn('column_name', defaultValue: 2);
-    expect(column.sqlSnippet, '"column_name" double precision NOT NULL DEFAULT 2.0');
+    expect(column.sqlSnippet,
+        '"column_name" double precision NOT NULL DEFAULT 2.0');
   });
 
   test('8.1 float simple column', () {
@@ -169,7 +167,7 @@ void executeColumnImplementationUnitTests() {
   });
 
   test('8.3 float column with default', () {
-    final column = FloatColumn('column_name', defaultValue:  4.22);
+    final column = FloatColumn('column_name', defaultValue: 4.22);
     expect(column.sqlSnippet, '"column_name" float NOT NULL DEFAULT 4.22');
   });
 
@@ -187,5 +185,46 @@ void executeColumnImplementationUnitTests() {
     final column = BigSerialColumn('column_name');
     expect(column.sqlSnippet, '"column_name" bigserial');
   });
-}
 
+  test('13.1 text simple column', () {
+    final column = TextColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" text NOT NULL');
+  });
+
+  test('13.2 text column with default', () {
+    final column = TextColumn('column_name', defaultValue: "default_value");
+    expect(column.sqlSnippet,
+        '"column_name" text NOT NULL DEFAULT \'default_value\'');
+  });
+
+  test('14.1 varchar simple column', () {
+    final column = VarcharColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" varchar NOT NULL');
+  });
+
+  test('14.2 varchar column with max length', () {
+    final column = VarcharColumn('column_name', maxLength: 3);
+    expect(column.sqlSnippet, '"column_name" varchar(3) NOT NULL');
+  });
+
+  test('14.3 varchar column with default', () {
+    final column = VarcharColumn('column_name', defaultValue: "default_value");
+    expect(column.sqlSnippet,
+        '"column_name" varchar NOT NULL DEFAULT \'default_value\'');
+  });
+
+  test('15.1 char simple column', () {
+    final column = CharColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" char NOT NULL');
+  });
+
+  test('15.2 char column with length', () {
+    final column = CharColumn('column_name', length: 3);
+    expect(column.sqlSnippet, '"column_name" char(3) NOT NULL');
+  });
+
+  test('15.3 char column with default', () {
+    final column = CharColumn('column_name', defaultValue: "4.22");
+    expect(column.sqlSnippet, '"column_name" char NOT NULL DEFAULT \'4.22\'');
+  });
+}
