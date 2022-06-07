@@ -31,7 +31,7 @@ class TimestampColumn extends Column<DateTime> {
     if (defaultToCurrentTimeStamp) {
       return "now()";
     }
-    return super.defaultValueAsString;
+    return "'${super.defaultValueAsString}'";
   }
 
   TimestampColumn(
@@ -50,7 +50,11 @@ class TimestampColumn extends Column<DateTime> {
     super.primaryKeyConstraint,
     super.uniqueConstraint,
     super.defaultValue,
-  }) : super(args: precision?.toString());
+  }) : super(
+          args: precision?.toString(),
+          forceIncludeDefaultValue:
+              defaultToCurrentTimeStamp || defaultToCurrentTimestampInUTC,
+        );
 }
 
 /// Column for defining a timestamp (equivalent of dart DateTime) respecting time zones.
@@ -76,7 +80,7 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
       return "now()";
     }
     // Conversion toUtc() is needed to yield a timezone delacring String when constructing a DateTime without timezone information.
-    return (defaultValue?.toUtc().toIso8601String()).toString();
+    return "'${(defaultValue?.toUtc().toIso8601String()).toString()}'";
   }
 
   TimestampWithTimeZoneColumn(
@@ -94,7 +98,10 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
     super.primaryKeyConstraint,
     super.uniqueConstraint,
     super.defaultValue,
-  }) : super(args: precision?.toString());
+  }) : super(
+          args: precision?.toString(),
+          forceIncludeDefaultValue: defaultToCurrentTimeStamp,
+        );
 }
 
 /// Column for defining a date.
@@ -122,7 +129,7 @@ class DateColumn extends Column<DateTime> {
     if (defaultToCurrentDate) {
       return "now()";
     }
-    return super.defaultValueAsString;
+    return "'${super.defaultValueAsString}'";
   }
 
   DateColumn(
@@ -140,12 +147,18 @@ class DateColumn extends Column<DateTime> {
     super.primaryKeyConstraint,
     super.uniqueConstraint,
     super.defaultValue,
-  });
+  }) : super(
+          forceIncludeDefaultValue:
+              defaultToCurrentDate || defaultToCurrentDateInUTC,
+        );
 }
 
 class IntervalColumn extends Column<Interval> {
   @override
   String get type => 'interval';
+
+  @override
+  String get defaultValueAsString => "'${super.defaultValueAsString}'";
 
   IntervalColumn(
     super.name, {
