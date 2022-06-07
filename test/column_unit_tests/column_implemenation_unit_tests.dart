@@ -1,3 +1,4 @@
+import 'package:postgres_migration/src/model/src/column/implementations/uuid_column.dart';
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 
@@ -234,13 +235,24 @@ void executeColumnImplementationUnitTests() {
 
   test('16.2 boolean column with default true', () {
     final column = BooleanColumn('column_name', defaultValue: true);
-    expect(column.sqlSnippet,
-        '"column_name" boolean NOT NULL DEFAULT true');
+    expect(column.sqlSnippet, '"column_name" boolean NOT NULL DEFAULT true');
   });
 
   test('16.3 boolean column with default false', () {
     final column = BooleanColumn('column_name', defaultValue: false);
-    expect(column.sqlSnippet,
-        '"column_name" boolean NOT NULL DEFAULT false');
+    expect(column.sqlSnippet, '"column_name" boolean NOT NULL DEFAULT false');
+  });
+
+  test('16.1 uuid simple column', () {
+    final column = UUIDColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
+  });
+
+  test('16.2 uuid column with default true', () {
+    final column = UUIDColumn(
+      'column_name',
+      defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    );
+    expect(column.sqlSnippet, '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
   });
 }
