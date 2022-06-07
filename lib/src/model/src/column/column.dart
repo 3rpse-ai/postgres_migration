@@ -4,6 +4,7 @@ import '../table_property.dart';
 export 'implementations/numeric_columns.dart';
 export 'implementations/text_columns.dart';
 export 'implementations/boolean_column.dart';
+export 'implementations/date_time_columns.dart';
 
 abstract class Column<T> implements TableProperty {
   String name;
@@ -99,7 +100,9 @@ abstract class Column<T> implements TableProperty {
 
   String get _defaultValueSnippet {
     String? manualOverDefaultString = manualDefaultValue ??
-        (defaultValue != null ? defaultValueAsString : null);
+        ((defaultValue != null || forceIncludeDefaultValue)
+            ? defaultValueAsString
+            : null);
     return manualOverDefaultString != null
         ? " DEFAULT $manualOverDefaultString"
         : "";
@@ -138,6 +141,11 @@ abstract class Column<T> implements TableProperty {
   /// Override defaultValueAsString getter to transform value into an sql friendly string. Otherwise `defaultValue.toString()` will be inserted into sql query.
   final T? defaultValue;
 
+  /// Set this to true to enforce [defaultValueAsString] being included in [_defaultValueSnippet].
+  ///
+  /// In case [manualDefaultValue] is provided this flag is ignored.
+  bool forceIncludeDefaultValue;
+
   Column(
     this.name, {
     this.isNullable = false,
@@ -152,5 +160,6 @@ abstract class Column<T> implements TableProperty {
     this.uniqueConstraint,
     this.defaultValue,
     this.args,
+    this.forceIncludeDefaultValue = false,
   });
 }

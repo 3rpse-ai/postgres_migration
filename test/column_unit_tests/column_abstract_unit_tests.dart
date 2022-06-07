@@ -19,6 +19,7 @@ class ColumnImplementation extends Column {
     super.primaryKeyConstraint,
     super.uniqueConstraint,
     super.args,
+    super.forceIncludeDefaultValue,
   });
 }
 
@@ -173,6 +174,7 @@ void executeColumnAbstractClassUnitTests() {
       uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       defaultValue: "default_value",
       manualDefaultValue: "manual_default",
+      forceIncludeDefaultValue: true,
     );
     expect(
       column.sqlSnippet,
@@ -182,7 +184,7 @@ void executeColumnAbstractClassUnitTests() {
     );
   });
 
-  test('10 Args with maximum declaration test', () {
+  test('11 Args with maximum declaration test', () {
     final column = ColumnImplementation(
       'column_name',
       checkConstraint: CheckConstraint(check: "check"),
@@ -200,12 +202,24 @@ void executeColumnAbstractClassUnitTests() {
       uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       defaultValue: "default_value",
       manualDefaultValue: "manual_default",
-      args: "ARGS"
+      args: "ARGS",
+      forceIncludeDefaultValue: true,
     );
     expect(
       column.sqlSnippet,
       equals(
         '"column_name" column_type(ARGS) CONSTRAINT "primary_key_constraint" PRIMARY KEY CONSTRAINT "foreign_key_constraint" REFERENCES "referenced_table" CONSTRAINT "unique_constraint" UNIQUE CHECK(check) manual_constraint DEFAULT manual_default',
+      ),
+    );
+  });
+
+  test('11 Force include default value', () {
+    final column =
+        ColumnImplementation('column_name', forceIncludeDefaultValue: true);
+    expect(
+      column.sqlSnippet,
+      equals(
+        '"column_name" column_type NOT NULL DEFAULT null',
       ),
     );
   });
