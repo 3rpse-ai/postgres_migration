@@ -135,7 +135,7 @@ abstract class Column<T> implements TableProperty {
 
   /// Used to define a default value. Results in sql snippet `DEFAULT $_defaultValue`.
   ///
-  /// Override _defaultValueAsString getter to transform value into an sql friendly string. Otherwise `defaultValue.toString()` will be inserted into sql query.
+  /// Override defaultValueAsString getter to transform value into an sql friendly string. Otherwise `defaultValue.toString()` will be inserted into sql query.
   final T? defaultValue;
 
   Column(
