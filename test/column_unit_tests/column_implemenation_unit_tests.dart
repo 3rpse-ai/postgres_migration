@@ -248,11 +248,197 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
   });
 
-  test('16.2 uuid column with default true', () {
+  test('16.2 uuid column with default', () {
     final column = UUIDColumn(
       'column_name',
       defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
     );
-    expect(column.sqlSnippet, '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+    expect(column.sqlSnippet,
+        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+  });
+
+  test('17.1 timestamp simple column', () {
+    final column = TimestampColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" timestamp NOT NULL');
+  });
+
+  test('17.2 timestamp column with default', () {
+    final column = TimestampColumn(
+      'column_name',
+      defaultValue: DateTime(2022, 02, 30),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp NOT NULL DEFAULT \'2022-03-02 00:00:00.000\'');
+  });
+
+  test('17.3 timestamp column with defaultToCurrentTimestamp', () {
+    final column = TimestampColumn(
+      'column_name',
+      defaultToCurrentTimeStamp: true,
+    );
+    expect(column.sqlSnippet, '"column_name" timestamp NOT NULL DEFAULT now()');
+  });
+
+  test('17.4 timestamp column with default defaultToCurrentTimestampInUTC', () {
+    final column =
+        TimestampColumn('column_name', defaultToCurrentTimestampInUTC: true);
+    expect(column.sqlSnippet,
+        '"column_name" timestamp NOT NULL DEFAULT timezone(\'utc\', now())');
+  });
+
+  test('17.5 timestamp column default vs defaultToCurrentTimestamp', () {
+    final column = TimestampColumn(
+      'column_name',
+      defaultToCurrentTimeStamp: true,
+      defaultValue: DateTime(0),
+    );
+    expect(column.sqlSnippet, '"column_name" timestamp NOT NULL DEFAULT now()');
+  });
+
+  test(
+      '17.6 timestamp column default vs defaultToCurrentTimestamp vs defaultToCurrentTimestampInUTC',
+      () {
+    final column = TimestampColumn(
+      'column_name',
+      defaultToCurrentTimeStamp: true,
+      defaultToCurrentTimestampInUTC: true,
+      defaultValue: DateTime(0),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp NOT NULL DEFAULT timezone(\'utc\', now())');
+  });
+
+  test('18.1 timestamp with time zone simple column', () {
+    final column = TimestampWithTimeZoneColumn('column_name');
+    expect(
+        column.sqlSnippet, '"column_name" timestamp with time zone NOT NULL');
+  });
+
+  test('18.2 timestamp with time zone column with default', () {
+    final column = TimestampWithTimeZoneColumn(
+      'column_name',
+      defaultValue: DateTime.parse("2022-06-07 12:00:00.000+02"),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp with time zone NOT NULL DEFAULT \'2022-06-07T10:00:00.000Z\'');
+  });
+
+  test('18.3 timestamp with time zone column with defaultToCurrentTimestamp',
+      () {
+    final column = TimestampWithTimeZoneColumn(
+      'column_name',
+      defaultToCurrentTimeStamp: true,
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp with time zone NOT NULL DEFAULT now()');
+  });
+
+  test(
+      '18.4 timestamp with time zone column default vs defaultToCurrentTimestamp',
+      () {
+    final column = TimestampWithTimeZoneColumn(
+      'column_name',
+      defaultToCurrentTimeStamp: true,
+      defaultValue: DateTime(0),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp with time zone NOT NULL DEFAULT now()');
+  });
+
+  test('19.1 date simple column', () {
+    final column = DateColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" date NOT NULL');
+  });
+
+  test('19.2 date column with default', () {
+    final column = DateColumn(
+      'column_name',
+      defaultValue: DateTime(2022, 02, 30),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" date NOT NULL DEFAULT \'2022-03-02 00:00:00.000\'');
+  });
+
+  test('19.3 date column with defaultToCurrentDate', () {
+    final column = DateColumn(
+      'column_name',
+      defaultToCurrentDate: true,
+    );
+    expect(column.sqlSnippet, '"column_name" date NOT NULL DEFAULT now()');
+  });
+
+  test('19.4 date column with default defaultToCurrentDateInUTC', () {
+    final column = DateColumn(
+      'column_name',
+      defaultToCurrentDateInUTC: true,
+    );
+    expect(column.sqlSnippet,
+        '"column_name" date NOT NULL DEFAULT timezone(\'utc\', now())');
+  });
+
+  test('19.5 date column default vs defaultToCurrentDate', () {
+    final column = DateColumn(
+      'column_name',
+      defaultToCurrentDate: true,
+      defaultValue: DateTime(0),
+    );
+    expect(column.sqlSnippet, '"column_name" date NOT NULL DEFAULT now()');
+  });
+
+  test(
+      '19.6 date column default vs defaultToCurrentDate vs defaultToCurrentDateInUTC',
+      () {
+    final column = DateColumn(
+      'column_name',
+      defaultToCurrentDate: true,
+      defaultToCurrentDateInUTC: true,
+      defaultValue: DateTime(0),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" date NOT NULL DEFAULT timezone(\'utc\', now())');
+  });
+
+  test('20.1 interval simple column', () {
+    final column = IntervalColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" interval NOT NULL');
+  });
+
+  test('20.2 interval column with empty default', () {
+    final column = IntervalColumn(
+      'column_name',
+      defaultValue: Interval(),
+    );
+    expect(column.sqlSnippet, '"column_name" interval NOT NULL DEFAULT \'0\'');
+  });
+
+  test('20.3 interval column with year only', () {
+    final column = IntervalColumn(
+      'column_name',
+      defaultValue: Interval(year: 1),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" interval NOT NULL DEFAULT \'1 year\'');
+  });
+
+  test('20.4 interval column with default', () {
+    final column = IntervalColumn(
+      'column_name',
+      defaultValue: Interval(
+        millennium: 1,
+        century: 2,
+        decade: 3,
+        year: 4,
+        month: 5,
+        week: 6,
+        day: 7,
+        hour: 8,
+        minute: 9,
+        second: 10,
+        millisecond: 11,
+        microsecond: 12,
+      ),
+    );
+    expect(column.sqlSnippet,
+        '"column_name" interval NOT NULL DEFAULT \'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\'');
   });
 }
