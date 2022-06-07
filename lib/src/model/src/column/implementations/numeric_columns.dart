@@ -1,4 +1,4 @@
-import 'column.dart';
+import '../column.dart';
 
 /// Column for small-range integers
 ///

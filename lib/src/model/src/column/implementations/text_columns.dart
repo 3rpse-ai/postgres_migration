@@ -1,4 +1,4 @@
-import 'column.dart';
+import '../column.dart';
 
 /// Column for storing a [String] of any length
 class TextColumn extends Column<String> {

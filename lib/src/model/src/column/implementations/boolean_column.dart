@@ -1,4 +1,4 @@
-import 'column.dart';
+import '../column.dart';
 
 /// Column for storing a [bool]
 class BooleanColumn extends Column<bool> {
