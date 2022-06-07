@@ -206,24 +206,6 @@ class Interval {
     this.microsecond,
   });
 
-  /// This conversion method may be problematic due to e.g. daylight savings. Use with care.
-  ///
-  /// In doubt use the regular constructor
-  factory Interval.fromDuration(Duration duration) {
-    final zero = DateTime.utc(0);
-    final dateTime = zero.add(duration);
-    return Interval(
-      year: dateTime.year,
-      month: dateTime.month,
-      day: dateTime.day,
-      hour: dateTime.hour,
-      minute: dateTime.minute,
-      second: dateTime.second,
-      millisecond: dateTime.millisecond,
-      microsecond: dateTime.microsecond,
-    );
-  }
-
   @override
   String toString() {
     final units = [
