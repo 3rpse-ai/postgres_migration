@@ -1,4 +1,3 @@
-import 'package:postgres_migration/src/model/src/column/implementations/uuid_column.dart';
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 
@@ -441,4 +440,22 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet,
         '"column_name" interval NOT NULL DEFAULT \'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\'');
   });
+
+  test('20.1 enum simple column', () {
+    final column = EnumColumn('column_name', enumName: "test_enum");
+    expect(column.sqlSnippet, '"column_name" test_enum NOT NULL');
+  });
+
+  test('20.2 enum column with default', () {
+    final column = EnumColumn(
+      'column_name',
+      enumName: "test_enum",
+      defaultValue: TestEnum.firstValue,
+    );
+    expect(column.sqlSnippet,
+        '"column_name" test_enum NOT NULL DEFAULT \'firstValue\'');
+  });
 }
+
+/// Simple enum implementation for [EnumColumn] tests
+enum TestEnum { firstValue, secondValue, thirdValue }
