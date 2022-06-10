@@ -5,6 +5,7 @@ export 'implementations/numeric_columns.dart';
 export 'implementations/text_columns.dart';
 export 'implementations/boolean_column.dart';
 export 'implementations/date_time_columns.dart';
+export 'implementations/enum_column.dart';
 
 abstract class Column<T> implements TableProperty {
   String name;
