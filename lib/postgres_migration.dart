@@ -7,6 +7,8 @@ export 'package:postgres/postgres.dart';
 
 export 'src/model/model.dart';
 
-export 'src/migrator.dart';
+export 'src/migrators/migrators.dart';
+
+
 
 // TODO: Export any libraries intended for clients of this package.
