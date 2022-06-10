@@ -133,6 +133,9 @@ abstract class Column<T> implements TableProperty {
   /// Adding e.g. an IntegerColumn called "count" with default="0" will result in an SQL query "count integer DEFAULT 0"
   ///
   /// Always takes precedence over [defaultValue]
+  /// 
+  /// Be aware that some default values will require parantheses. This has to be included in the default. 
+  /// * E.g. `manualDefault: "'defaultWithParantheses'"`
   String? manualDefaultValue;
 
   /// Overwrite this getter to provide a column specific default value. Otherwise `defaultValue.toString()` is returned.
