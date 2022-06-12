@@ -12,13 +12,16 @@ abstract class Column<T> implements TableProperty {
   String name;
   String get type;
 
+  bool isArray;
+
   /// Set this parameter to provide column arguments.
   /// E.g. type = "varchar", args = "9" results in varchar(9)
   String? args;
 
   String get typeWithArgs {
     String argsString = args != null ? "($args)" : "";
-    return "$type$argsString";
+    String typeString = isArray ? "$type[]" : type;
+    return "$typeString$argsString";
   }
 
   @override
@@ -101,13 +104,21 @@ abstract class Column<T> implements TableProperty {
   }
 
   String get _defaultValueSnippet {
-    String? manualOverDefaultString = manualDefaultValue ??
-        ((defaultValue != null || forceIncludeDefaultValue)
-            ? defaultValueAsString
-            : null);
-    return manualOverDefaultString != null
-        ? " DEFAULT $manualOverDefaultString"
-        : "";
+    String? defaultValueString;
+
+    if (manualDefaultValue != null) {
+      defaultValueString = manualDefaultValue;
+    } else if (isArray) {
+      if (defaultArrayValue != null) {
+        final defaultValuesAsStrings = defaultArrayValue!
+            .map((value) => convertInputValueToString(value))
+            .toList();
+        defaultValueString = "'{${defaultValuesAsStrings.join(", ")}}'";
+      }
+    } else if (defaultValue != null || forceIncludeDefaultValue) {
+      defaultValueString = defaultValueAsString;
+    }
+    return defaultValueString != null ? " DEFAULT $defaultValueString" : "";
   }
 
   /// Set this value to allow / prohibit null values. Defaults to not nullable.
@@ -133,18 +144,30 @@ abstract class Column<T> implements TableProperty {
   /// Adding e.g. an IntegerColumn called "count" with default="0" will result in an SQL query "count integer DEFAULT 0"
   ///
   /// Always takes precedence over [defaultValue]
-  /// 
-  /// Be aware that some default values will require parantheses. This has to be included in the default. 
+  ///
+  /// Be aware that some default values will require parantheses. This has to be included in the default.
   /// * E.g. `manualDefault: "'defaultWithParantheses'"`
   String? manualDefaultValue;
 
-  /// Overwrite this getter to provide a column specific default value. Otherwise `defaultValue.toString()` is returned.
-  String get defaultValueAsString => defaultValue.toString();
+  /// Overwrite this getter to provide a column specific default value. Otherwise [convertInputValueToString] is returned, which again defaults to `defaultValue.toString()`.
+  String get defaultValueAsString => defaultValue != null
+      ? convertInputValueToString(defaultValue as T)
+      : defaultValue.toString();
 
   /// Used to define a default value. Results in sql snippet `DEFAULT $_defaultValue`.
   ///
-  /// Override defaultValueAsString getter to transform value into an sql friendly string. Otherwise `defaultValue.toString()` will be inserted into sql query.
+  /// Override [defaultValueAsString] getter to transform value into an sql friendly string. Otherwise `defaultValue.toString()` will be inserted into sql query.
   final T? defaultValue;
+
+  /// Converts data input to sql friendly string. Defaults to inputValue.toString(). Overwrite this method to e.g. support parantheses on around String inputs.
+  String convertInputValueToString(T inputValue) {
+    return inputValue.toString();
+  }
+
+  /// Used to define a default value for Array Columns. Results in sql snippet `DEFAULT {$_defaultValue[0], $_defaultValue[1]}`.
+  ///
+  /// Override [convertInputValueToString] method to transform separate input values into an sql friendly string. Otherwise `inputValue.toString()` will be inserted into sql query.
+  final List<T>? defaultArrayValue;
 
   /// Set this to true to enforce [defaultValueAsString] being included in [_defaultValueSnippet].
   ///
@@ -166,5 +189,24 @@ abstract class Column<T> implements TableProperty {
     this.defaultValue,
     this.args,
     this.forceIncludeDefaultValue = false,
-  });
+  })  : isArray = false,
+        defaultArrayValue = null;
+
+  Column.array(
+    this.name, {
+    this.isNullable = false,
+    this.manualDefaultValue,
+    this.isPrimaryKey = false,
+    this.isUnique = false,
+    this.foreignKeyForTable,
+    this.foreignKeyConstraint,
+    this.checkConstraint,
+    this.manualConstraint,
+    this.primaryKeyConstraint,
+    this.uniqueConstraint,
+    this.defaultArrayValue,
+    this.args,
+  })  : isArray = true,
+        forceIncludeDefaultValue = false,
+        defaultValue = null;
 }

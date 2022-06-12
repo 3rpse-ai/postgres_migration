@@ -21,6 +21,22 @@ class ColumnImplementation extends Column {
     super.args,
     super.forceIncludeDefaultValue,
   });
+
+  ColumnImplementation.array(
+    super.name, {
+    super.checkConstraint,
+    super.defaultArrayValue,
+    super.foreignKeyConstraint,
+    super.foreignKeyForTable,
+    super.isNullable,
+    super.isPrimaryKey,
+    super.isUnique,
+    super.manualConstraint,
+    super.manualDefaultValue,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.args,
+  }) : super.array();
 }
 
 void executeColumnAbstractClassUnitTests() {
@@ -213,13 +229,34 @@ void executeColumnAbstractClassUnitTests() {
     );
   });
 
-  test('11 Force include default value', () {
+  test('12 Force include default value', () {
     final column =
         ColumnImplementation('column_name', forceIncludeDefaultValue: true);
     expect(
       column.sqlSnippet,
       equals(
         '"column_name" column_type NOT NULL DEFAULT null',
+      ),
+    );
+  });
+
+  test('13 Minimal array example', () {
+    final column = ColumnImplementation.array('column_name');
+    expect(
+      column.sqlSnippet,
+      equals(
+        '"column_name" column_type[] NOT NULL',
+      ),
+    );
+  });
+
+  test('14 Array with default example', () {
+    final column = ColumnImplementation.array('column_name',
+        defaultArrayValue: ["default 1", "default 2", "default 3"]);
+    expect(
+      column.sqlSnippet,
+      equals(
+        '"column_name" column_type[] NOT NULL DEFAULT \'{default 1, default 2, default 3}\'',
       ),
     );
   });
