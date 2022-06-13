@@ -6,8 +6,8 @@ class TextColumn extends Column<String> {
   String get type => 'text';
 
   @override
-  String get defaultValueAsString {
-    return "'$defaultValue'";
+  String convertInputValueToString(String inputValue) {
+    return "'$inputValue'";
   }
 
   TextColumn(
@@ -24,6 +24,21 @@ class TextColumn extends Column<String> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  TextColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for storing String of variable length with optional maximum.
@@ -36,8 +51,8 @@ class VarcharColumn extends Column<String> {
   String get type => "varchar";
 
   @override
-  String get defaultValueAsString {
-    return "'$defaultValue'";
+  String convertInputValueToString(String inputValue) {
+    return "'$inputValue'";
   }
 
   VarcharColumn(
@@ -55,6 +70,22 @@ class VarcharColumn extends Column<String> {
     super.uniqueConstraint,
     super.defaultValue,
   }) : super(args: maxLength?.toString());
+
+  VarcharColumn.array(
+    super.name, {
+    int? maxLength,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array(args: maxLength?.toString());
 }
 
 /// Column for storing String of defined length.
@@ -67,8 +98,8 @@ class CharColumn extends Column<String> {
   String get type => "char";
 
   @override
-  String get defaultValueAsString {
-    return "'$defaultValue'";
+  String convertInputValueToString(String inputValue) {
+    return "'$inputValue'";
   }
 
   CharColumn(
@@ -86,4 +117,20 @@ class CharColumn extends Column<String> {
     super.uniqueConstraint,
     super.defaultValue,
   }) : super(args: length?.toString());
+
+  CharColumn.array(
+    super.name, {
+    int? length,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array(args: length?.toString());
 }
