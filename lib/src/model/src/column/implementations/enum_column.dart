@@ -7,14 +7,13 @@ import '../column.dart';
 /// Use [EnumMigrator] and it's convenience methods for handling enums.
 class EnumColumn<T extends Enum> extends Column<Enum> {
   String enumName;
-  final T? _defaultValue;
 
   @override
   String get type => enumName;
 
   @override
-  String get defaultValueAsString {
-    return "'${_defaultValue?.name}'";
+  String convertInputValueToString(Enum inputValue) {
+    return "'${inputValue.name}'";
   }
 
   EnumColumn(
@@ -30,7 +29,22 @@ class EnumColumn<T extends Enum> extends Column<Enum> {
     super.manualConstraint,
     super.primaryKeyConstraint,
     super.uniqueConstraint,
-    T? defaultValue,
-  })  : _defaultValue = defaultValue,
-        super(forceIncludeDefaultValue: defaultValue != null);
+    super.defaultValue,
+  });
+
+  EnumColumn.array(
+    super.name, {
+    required this.enumName,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
