@@ -260,4 +260,16 @@ void executeColumnAbstractClassUnitTests() {
       ),
     );
   });
+
+  test('15 Array with default and args example', () {
+    final column = ColumnImplementation.array('column_name',
+    args: "args",
+        defaultArrayValue: ["default 1", "default 2", "default 3"]);
+    expect(
+      column.sqlSnippet,
+      equals(
+        '"column_name" column_type(args)[] NOT NULL DEFAULT \'{default 1, default 2, default 3}\'',
+      ),
+    );
+  });
 }
