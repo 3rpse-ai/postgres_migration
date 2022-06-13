@@ -373,18 +373,16 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" boolean NOT NULL DEFAULT false');
   });
 
-  test('16.1 uuid simple column', () {
-    final column = UUIDColumn('column_name');
-    expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
+  test('16.4 boolean array column', () {
+    final column = BooleanColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" boolean[] NOT NULL');
   });
 
-  test('16.2 uuid column with default', () {
-    final column = UUIDColumn(
-      'column_name',
-      defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
-    );
+  test('16.5 boolean array column with default', () {
+    final column = BooleanColumn.array('column_name',
+        defaultArrayValue: [true, false, true]);
     expect(column.sqlSnippet,
-        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+        '"column_name" boolean[] NOT NULL DEFAULT \'{true, false, true}\'');
   });
 
   test('17.1 timestamp simple column', () {
@@ -572,12 +570,12 @@ void executeColumnImplementationUnitTests() {
         '"column_name" interval NOT NULL DEFAULT \'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\'');
   });
 
-  test('20.1 enum simple column', () {
+  test('21.1 enum simple column', () {
     final column = EnumColumn('column_name', enumName: "test_enum");
     expect(column.sqlSnippet, '"column_name" test_enum NOT NULL');
   });
 
-  test('20.2 enum column with default', () {
+  test('21.2 enum column with default', () {
     final column = EnumColumn(
       'column_name',
       enumName: "test_enum",
@@ -585,6 +583,20 @@ void executeColumnImplementationUnitTests() {
     );
     expect(column.sqlSnippet,
         '"column_name" test_enum NOT NULL DEFAULT \'firstValue\'');
+  });
+
+  test('22.1 uuid simple column', () {
+    final column = UUIDColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
+  });
+
+  test('22.2 uuid column with default', () {
+    final column = UUIDColumn(
+      'column_name',
+      defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    );
+    expect(column.sqlSnippet,
+        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
   });
 }
 
