@@ -327,6 +327,18 @@ void executeColumnImplementationUnitTests() {
         '"column_name" text NOT NULL DEFAULT \'default_value\'');
   });
 
+  test('13.3 text array column', () {
+    final column = TextColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" text[] NOT NULL');
+  });
+
+  test('13.4 text array column with default', () {
+    final column =
+        TextColumn.array('column_name', defaultArrayValue: ["1", "2", "3"]);
+    expect(column.sqlSnippet,
+        '"column_name" text[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+  });
+
   test('14.1 varchar simple column', () {
     final column = VarcharColumn('column_name');
     expect(column.sqlSnippet, '"column_name" varchar NOT NULL');
@@ -343,6 +355,27 @@ void executeColumnImplementationUnitTests() {
         '"column_name" varchar NOT NULL DEFAULT \'default_value\'');
   });
 
+  test('14.4 varchar array column', () {
+    final column = VarcharColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" varchar[] NOT NULL');
+  });
+
+  test('14.5 varchar array column with default', () {
+    final column = VarcharColumn.array(
+      'column_name',
+      defaultArrayValue: ["1", "2", "3"],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" varchar[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+  });
+
+  test('14.6 varchar array column with default & max length', () {
+    final column = VarcharColumn.array('column_name',
+        maxLength: 3, defaultArrayValue: ["1", "2", "3"]);
+    expect(column.sqlSnippet,
+        '"column_name" varchar(3)[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+  });
+
   test('15.1 char simple column', () {
     final column = CharColumn('column_name');
     expect(column.sqlSnippet, '"column_name" char NOT NULL');
@@ -356,6 +389,27 @@ void executeColumnImplementationUnitTests() {
   test('15.3 char column with default', () {
     final column = CharColumn('column_name', defaultValue: "4.22");
     expect(column.sqlSnippet, '"column_name" char NOT NULL DEFAULT \'4.22\'');
+  });
+
+  test('15.4 char array column', () {
+    final column = CharColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" char[] NOT NULL');
+  });
+
+  test('15.5 char array column with default', () {
+    final column = CharColumn.array(
+      'column_name',
+      defaultArrayValue: ["1", "2", "3"],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" char[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+  });
+
+  test('15.6 char array column with default & max length', () {
+    final column = CharColumn.array('column_name',
+        length: 3, defaultArrayValue: ["1", "2", "3"]);
+    expect(column.sqlSnippet,
+        '"column_name" char(3)[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
   });
 
   test('16.1 boolean simple column', () {
