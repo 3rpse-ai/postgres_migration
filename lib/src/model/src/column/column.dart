@@ -20,8 +20,8 @@ abstract class Column<T> implements TableProperty {
 
   String get typeWithArgs {
     String argsString = args != null ? "($args)" : "";
-    String typeString = isArray ? "$type[]" : type;
-    return "$typeString$argsString";
+    String arrayString = isArray ? "[]" : "";
+    return "$type$argsString$arrayString";
   }
 
   @override
