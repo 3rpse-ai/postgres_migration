@@ -598,6 +598,23 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet,
         '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
   });
+
+  test('22.4 uuid array column', () {
+    final column = UUIDColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" uuid[] NOT NULL');
+  });
+
+  test('22.5 uuid array column with default', () {
+    final column = UUIDColumn.array('column_name', defaultArrayValue: [
+      "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+    ]);
+    expect(
+      column.sqlSnippet,
+      '"column_name" uuid[] NOT NULL DEFAULT \'{a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11}\'',
+    );
+  });
 }
 
 /// Simple enum implementation for [EnumColumn] tests
