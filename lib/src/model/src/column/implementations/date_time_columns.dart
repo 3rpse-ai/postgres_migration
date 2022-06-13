@@ -31,7 +31,12 @@ class TimestampColumn extends Column<DateTime> {
     if (defaultToCurrentTimeStamp) {
       return "now()";
     }
-    return "'${super.defaultValueAsString}'";
+    return super.defaultValueAsString;
+  }
+
+  @override
+  String convertInputValueToString(DateTime inputValue) {
+    return "'$inputValue'";
   }
 
   TimestampColumn(
@@ -80,7 +85,12 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
       return "now()";
     }
     // Conversion toUtc() is needed to yield a timezone delacring String when constructing a DateTime without timezone information.
-    return "'${(defaultValue?.toUtc().toIso8601String()).toString()}'";
+    return super.defaultValueAsString;
+  }
+
+  @override
+  String convertInputValueToString(DateTime inputValue) {
+    return "'${(inputValue.toUtc().toIso8601String()).toString()}'";
   }
 
   TimestampWithTimeZoneColumn(
@@ -129,7 +139,12 @@ class DateColumn extends Column<DateTime> {
     if (defaultToCurrentDate) {
       return "now()";
     }
-    return "'${super.defaultValueAsString}'";
+    return super.defaultValueAsString;
+  }
+
+  @override
+  String convertInputValueToString(DateTime inputValue) {
+    return "'$inputValue'";
   }
 
   DateColumn(
@@ -158,7 +173,9 @@ class IntervalColumn extends Column<Interval> {
   String get type => 'interval';
 
   @override
-  String get defaultValueAsString => "'${super.defaultValueAsString}'";
+  String convertInputValueToString(Interval inputValue) {
+    return "'$inputValue'";
+  }
 
   IntervalColumn(
     super.name, {
