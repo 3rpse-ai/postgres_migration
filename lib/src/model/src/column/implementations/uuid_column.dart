@@ -21,4 +21,19 @@ class UUIDColumn extends Column<String> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  UUIDColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
