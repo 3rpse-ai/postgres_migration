@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 
@@ -12,6 +14,18 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" smallint NOT NULL DEFAULT 2');
   });
 
+  test('1.3 small int array column', () {
+    final column = SmallIntColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" smallint[] NOT NULL');
+  });
+
+  test('1.4 small int array column with default', () {
+    final column =
+        SmallIntColumn.array('column_name', defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" smallint[] NOT NULL DEFAULT \'{1, 2, 3}\'');
+  });
+
   test('2.1 integer simple column', () {
     final column = IntegerColumn('column_name');
     expect(column.sqlSnippet, '"column_name" integer NOT NULL');
@@ -22,6 +36,18 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" integer NOT NULL DEFAULT 2');
   });
 
+  test('2.3 integer array column', () {
+    final column = IntegerColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" integer[] NOT NULL');
+  });
+
+  test('2.4 integer array column with default', () {
+    final column =
+        IntegerColumn.array('column_name', defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" integer[] NOT NULL DEFAULT \'{1, 2, 3}\'');
+  });
+
   test('3.1 big int simple column', () {
     final column = BigIntColumn('column_name');
     expect(column.sqlSnippet, '"column_name" bigint NOT NULL');
@@ -30,6 +56,18 @@ void executeColumnImplementationUnitTests() {
   test('3.2 big int column with default', () {
     final column = BigIntColumn('column_name', defaultValue: 2);
     expect(column.sqlSnippet, '"column_name" bigint NOT NULL DEFAULT 2');
+  });
+
+  test('3.3 big int array column', () {
+    final column = BigIntColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" bigint[] NOT NULL');
+  });
+
+  test('3.4 big int array column with default', () {
+    final column =
+        BigIntColumn.array('column_name', defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" bigint[] NOT NULL DEFAULT \'{1, 2, 3}\'');
   });
 
   test('4.1 numeric simple column', () {
@@ -83,6 +121,31 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" numeric NOT NULL DEFAULT \'NaN\'');
   });
 
+  test('4.10 numeric array column', () {
+    final column = NumericColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" numeric[] NOT NULL');
+  });
+
+  test('4.11 numeric array column with default', () {
+    final column = NumericColumn.array(
+      'column_name',
+      defaultArrayValue: [1.1, 2.2, 3.3],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" numeric[] NOT NULL DEFAULT \'{1.1, 2.2, 3.3}\'');
+  });
+
+  test('4.12 numeric array column with default & args', () {
+    final column = NumericColumn.array(
+      'column_name',
+      defaultArrayValue: [1.1, 2.2, 3.3],
+      precision: 3,
+      scale: 2,
+    );
+    expect(column.sqlSnippet,
+        '"column_name" numeric(3, 2)[] NOT NULL DEFAULT \'{1.1, 2.2, 3.3}\'');
+  });
+
   test('5.1 decimal simple column', () {
     final column = DecimalColumn('column_name');
     expect(column.sqlSnippet, '"column_name" decimal NOT NULL');
@@ -134,6 +197,31 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" decimal NOT NULL DEFAULT \'NaN\'');
   });
 
+  test('5.10 decimal array column', () {
+    final column = DecimalColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" decimal[] NOT NULL');
+  });
+
+  test('5.11 decimal array column with default', () {
+    final column = DecimalColumn.array(
+      'column_name',
+      defaultArrayValue: [1.1, 2.2, 3.3],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" decimal[] NOT NULL DEFAULT \'{1.1, 2.2, 3.3}\'');
+  });
+
+  test('5.12 decimal array column with default & args', () {
+    final column = DecimalColumn.array(
+      'column_name',
+      defaultArrayValue: [1.1, 2.2, 3.3],
+      precision: 3,
+      scale: 2,
+    );
+    expect(column.sqlSnippet,
+        '"column_name" decimal(3, 2)[] NOT NULL DEFAULT \'{1.1, 2.2, 3.3}\'');
+  });
+
   test('6.1 real simple column', () {
     final column = RealColumn('column_name');
     expect(column.sqlSnippet, '"column_name" real NOT NULL');
@@ -142,6 +230,18 @@ void executeColumnImplementationUnitTests() {
   test('6.2 real column with default', () {
     final column = RealColumn('column_name', defaultValue: 2);
     expect(column.sqlSnippet, '"column_name" real NOT NULL DEFAULT 2.0');
+  });
+
+  test('6.3 real array column', () {
+    final column = RealColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" real[] NOT NULL');
+  });
+
+  test('6.4 real array column with default', () {
+    final column =
+        RealColumn.array('column_name', defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" real[] NOT NULL DEFAULT \'{1.0, 2.0, 3.0}\'');
   });
 
   test('7.1 double precision simple column', () {
@@ -153,6 +253,18 @@ void executeColumnImplementationUnitTests() {
     final column = DoublePrecisionColumn('column_name', defaultValue: 2);
     expect(column.sqlSnippet,
         '"column_name" double precision NOT NULL DEFAULT 2.0');
+  });
+
+  test('7.3 double precision array column', () {
+    final column = DoublePrecisionColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" double precision[] NOT NULL');
+  });
+
+  test('7.4 double precision array column with default', () {
+    final column = DoublePrecisionColumn.array('column_name',
+        defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" double precision[] NOT NULL DEFAULT \'{1.0, 2.0, 3.0}\'');
   });
 
   test('8.1 float simple column', () {
@@ -168,6 +280,25 @@ void executeColumnImplementationUnitTests() {
   test('8.3 float column with default', () {
     final column = FloatColumn('column_name', defaultValue: 4.22);
     expect(column.sqlSnippet, '"column_name" float NOT NULL DEFAULT 4.22');
+  });
+
+  test('8.4 float array column', () {
+    final column = FloatColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" float[] NOT NULL');
+  });
+
+  test('8.5 float array column with default', () {
+    final column =
+        FloatColumn.array('column_name', defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" float[] NOT NULL DEFAULT \'{1.0, 2.0, 3.0}\'');
+  });
+
+  test('8.6 float array column with default & precision', () {
+    final column = FloatColumn.array('column_name',
+        precision: 3, defaultArrayValue: [1, 2, 3]);
+    expect(column.sqlSnippet,
+        '"column_name" float(3)[] NOT NULL DEFAULT \'{1.0, 2.0, 3.0}\'');
   });
 
   test('9.1 small serial column', () {
