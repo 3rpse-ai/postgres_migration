@@ -21,6 +21,21 @@ class SmallIntColumn extends Column<int> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  SmallIntColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for mid-range integers
@@ -46,6 +61,21 @@ class IntegerColumn extends Column<int> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  IntegerColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for large-range integers
@@ -69,6 +99,21 @@ class BigIntColumn extends Column<int> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  BigIntColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for storing numbers with large number of digits
@@ -87,24 +132,24 @@ class NumericColumn extends Column<double> {
   }
 
   @override
-  String get defaultValueAsString {
+  String convertInputValueToString(double inputValue) {
     if ((precision != null && scale == null) || scale == 0) {
-      final asString = defaultValue.toString();
-      final defaultAsInt = int.parse(
+      final asString = inputValue.toString();
+      final inputValueAsInt = int.parse(
         asString.substring(0, asString.length - 2),
       );
-      return defaultAsInt.toString();
+      return inputValueAsInt.toString();
     }
-    if (defaultValue == double.infinity) {
+    if (inputValue == double.infinity) {
       return "'INFINITY'";
     }
-    if (defaultValue == double.negativeInfinity) {
+    if (inputValue == double.negativeInfinity) {
       return "'-INFINITY'";
     }
-    if (defaultValue?.isNaN ?? false) {
+    if (inputValue.isNaN) {
       return "'NaN'";
     }
-    return defaultValue.toString();
+    return inputValue.toString();
   }
 
   /// The precision of a numeric is the total count of significant digits in the whole number, that is, the number of digits to both sides of the decimal point.
@@ -130,6 +175,31 @@ class NumericColumn extends Column<double> {
     this.precision,
     this.scale,
   }) : super(
+          // precision must always be provided if scale is provided.
+          args: (precision != null || (scale != null && precision != null))
+              ? [
+                  precision,
+                  if (scale != null) scale,
+                ].join(", ")
+              : null,
+        );
+
+  NumericColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+    this.precision,
+    this.scale,
+  }) : super.array(
           // precision must always be provided if scale is provided.
           args: (precision != null || (scale != null && precision != null))
               ? [
@@ -175,6 +245,23 @@ class DecimalColumn extends NumericColumn {
     super.precision,
     super.scale,
   });
+
+  DecimalColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+    super.precision,
+    super.scale,
+  }) : super.array();
 }
 
 /// Column for storing inexact decimal numbers
@@ -200,6 +287,21 @@ class RealColumn extends Column<double> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  RealColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for storing inexact decimal numbers
@@ -225,6 +327,21 @@ class DoublePrecisionColumn extends Column<double> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  DoublePrecisionColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Column for specifying inexact numeric types.
@@ -255,6 +372,22 @@ class FloatColumn extends Column<double> {
     super.uniqueConstraint,
     super.defaultValue,
   }) : super(args: precision?.toString());
+
+  FloatColumn.array(
+    super.name, {
+    this.precision,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array(args: precision?.toString());
 }
 
 /// Column for creating auto incrementing small integers
