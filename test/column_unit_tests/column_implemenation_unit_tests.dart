@@ -585,6 +585,20 @@ void executeColumnImplementationUnitTests() {
         '"column_name" test_enum NOT NULL DEFAULT \'firstValue\'');
   });
 
+  test('21.3 enum array column', () {
+    final column = EnumColumn.array('column_name', enumName: "test_enum");
+    expect(column.sqlSnippet, '"column_name" test_enum[] NOT NULL');
+  });
+
+  test('21.4 enum array column with default', () {
+    final column = EnumColumn.array('column_name',
+        enumName: "test_enum", defaultArrayValue: TestEnum.values);
+    expect(
+      column.sqlSnippet,
+      '"column_name" test_enum[] NOT NULL DEFAULT \'{\'firstValue\', \'secondValue\', \'thirdValue\'}\'',
+    );
+  });
+
   test('22.1 uuid simple column', () {
     final column = UUIDColumn('column_name');
     expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
@@ -599,12 +613,12 @@ void executeColumnImplementationUnitTests() {
         '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
   });
 
-  test('22.4 uuid array column', () {
+  test('22.3 uuid array column', () {
     final column = UUIDColumn.array('column_name');
     expect(column.sqlSnippet, '"column_name" uuid[] NOT NULL');
   });
 
-  test('22.5 uuid array column with default', () {
+  test('22.4 uuid array column with default', () {
     final column = UUIDColumn.array('column_name', defaultArrayValue: [
       "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
       "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
