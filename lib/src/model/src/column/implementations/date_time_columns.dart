@@ -60,6 +60,26 @@ class TimestampColumn extends Column<DateTime> {
           forceIncludeDefaultValue:
               defaultToCurrentTimeStamp || defaultToCurrentTimestampInUTC,
         );
+
+  TimestampColumn.array(
+    super.name, {
+    int? precision,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  })  : defaultToCurrentTimeStamp = false,
+        defaultToCurrentTimestampInUTC = false,
+        super.array(
+          args: precision?.toString(),
+        );
 }
 
 /// Column for defining a timestamp (equivalent of dart DateTime) respecting time zones.
@@ -111,6 +131,25 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
   }) : super(
           args: precision?.toString(),
           forceIncludeDefaultValue: defaultToCurrentTimeStamp,
+        );
+
+  TimestampWithTimeZoneColumn.array(
+    super.name, {
+    int? precision,
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  })  : defaultToCurrentTimeStamp = false,
+        super.array(
+          args: precision?.toString(),
         );
 }
 
@@ -166,6 +205,23 @@ class DateColumn extends Column<DateTime> {
           forceIncludeDefaultValue:
               defaultToCurrentDate || defaultToCurrentDateInUTC,
         );
+
+  DateColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  })  : defaultToCurrentDate = false,
+        defaultToCurrentDateInUTC = false,
+        super.array();
 }
 
 class IntervalColumn extends Column<Interval> {
@@ -191,6 +247,21 @@ class IntervalColumn extends Column<Interval> {
     super.uniqueConstraint,
     super.defaultValue,
   });
+
+  IntervalColumn.array(
+    super.name, {
+    super.isNullable = false,
+    super.manualDefaultValue,
+    super.isPrimaryKey = false,
+    super.isUnique = false,
+    super.foreignKeyForTable,
+    super.foreignKeyConstraint,
+    super.checkConstraint,
+    super.manualConstraint,
+    super.primaryKeyConstraint,
+    super.uniqueConstraint,
+    super.defaultArrayValue,
+  }) : super.array();
 }
 
 /// Represents the Postgresql Interval type
