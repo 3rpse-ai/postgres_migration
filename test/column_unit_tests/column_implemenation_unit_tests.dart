@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 
@@ -316,6 +314,37 @@ void executeColumnImplementationUnitTests() {
     expect(column.sqlSnippet, '"column_name" bigserial');
   });
 
+  test('12.1 uuid simple column', () {
+    final column = UUIDColumn('column_name');
+    expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
+  });
+
+  test('12.2 uuid column with default', () {
+    final column = UUIDColumn(
+      'column_name',
+      defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+    );
+    expect(column.sqlSnippet,
+        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+  });
+
+  test('12.3 uuid array column', () {
+    final column = UUIDColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" uuid[] NOT NULL');
+  });
+
+  test('12.4 uuid array column with default', () {
+    final column = UUIDColumn.array('column_name', defaultArrayValue: [
+      "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+      "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
+    ]);
+    expect(
+      column.sqlSnippet,
+      '"column_name" uuid[] NOT NULL DEFAULT \'{a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11}\'',
+    );
+  });
+
   test('13.1 text simple column', () {
     final column = TextColumn('column_name');
     expect(column.sqlSnippet, '"column_name" text NOT NULL');
@@ -490,6 +519,25 @@ void executeColumnImplementationUnitTests() {
         '"column_name" timestamp NOT NULL DEFAULT timezone(\'utc\', now())');
   });
 
+  test('17.7 timestamp array column', () {
+    final column = TimestampColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" timestamp[] NOT NULL');
+  });
+
+  test('17.8 timestamp array column with precision', () {
+    final column = TimestampColumn.array('column_name', precision: 2);
+    expect(column.sqlSnippet, '"column_name" timestamp(2)[] NOT NULL');
+  });
+
+  test('17.9 timestamp array column with default', () {
+    final column = TimestampColumn.array(
+      'column_name',
+      defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp[] NOT NULL DEFAULT \'{\'2022-03-02 00:00:00.000\', \'2022-03-02 00:00:00.000\'}\'');
+  });
+
   test('18.1 timestamp with time zone simple column', () {
     final column = TimestampWithTimeZoneColumn('column_name');
     expect(
@@ -525,6 +573,28 @@ void executeColumnImplementationUnitTests() {
     );
     expect(column.sqlSnippet,
         '"column_name" timestamp with time zone NOT NULL DEFAULT now()');
+  });
+
+  test('18.5 timestamp with time zone array column', () {
+    final column = TimestampWithTimeZoneColumn.array('column_name');
+    expect(
+        column.sqlSnippet, '"column_name" timestamp with time zone[] NOT NULL');
+  });
+
+  test('18.6 timestamp with time zone array column with precision', () {
+    final column =
+        TimestampWithTimeZoneColumn.array('column_name', precision: 2);
+    expect(column.sqlSnippet,
+        '"column_name" timestamp with time zone(2)[] NOT NULL');
+  });
+
+  test('18.7 timestamp with time zone array column with default', () {
+    final column = TimestampWithTimeZoneColumn.array(
+      'column_name',
+      defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" timestamp with time zone[] NOT NULL DEFAULT \'{\'2022-03-01T23:00:00.000Z\', \'2022-03-01T23:00:00.000Z\'}\'');
   });
 
   test('19.1 date simple column', () {
@@ -580,6 +650,20 @@ void executeColumnImplementationUnitTests() {
         '"column_name" date NOT NULL DEFAULT timezone(\'utc\', now())');
   });
 
+  test('19.7 date array column', () {
+    final column = DateColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" date[] NOT NULL');
+  });
+
+  test('19.8 date array column with default', () {
+    final column = DateColumn.array(
+      'column_name',
+      defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" date[] NOT NULL DEFAULT \'{\'2022-03-02 00:00:00.000\', \'2022-03-02 00:00:00.000\'}\'');
+  });
+
   test('20.1 interval simple column', () {
     final column = IntervalColumn('column_name');
     expect(column.sqlSnippet, '"column_name" interval NOT NULL');
@@ -624,6 +708,42 @@ void executeColumnImplementationUnitTests() {
         '"column_name" interval NOT NULL DEFAULT \'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\'');
   });
 
+  test('20.5 interval array column', () {
+    final column = IntervalColumn.array('column_name');
+    expect(column.sqlSnippet, '"column_name" interval[] NOT NULL');
+  });
+
+  test('20.6 interval array column with default', () {
+    final column = IntervalColumn.array(
+      'column_name',
+      defaultArrayValue: [
+        Interval(
+          millennium: 1,
+          century: 2,
+          decade: 3,
+          year: 4,
+          month: 5,
+          week: 6,
+          day: 7,
+          hour: 8,
+          minute: 9,
+          second: 10,
+          millisecond: 11,
+          microsecond: 12,
+        ),
+        Interval(
+          millennium: 1,
+          century: 2,
+          decade: 3,
+          year: 4,
+          month: 5,
+        ),
+      ],
+    );
+    expect(column.sqlSnippet,
+        '"column_name" interval[] NOT NULL DEFAULT \'{\'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\', \'1 millennium 2 century 3 decade 4 year 5 month\'}\'');
+  });
+
   test('21.1 enum simple column', () {
     final column = EnumColumn('column_name', enumName: "test_enum");
     expect(column.sqlSnippet, '"column_name" test_enum NOT NULL');
@@ -650,37 +770,6 @@ void executeColumnImplementationUnitTests() {
     expect(
       column.sqlSnippet,
       '"column_name" test_enum[] NOT NULL DEFAULT \'{\'firstValue\', \'secondValue\', \'thirdValue\'}\'',
-    );
-  });
-
-  test('22.1 uuid simple column', () {
-    final column = UUIDColumn('column_name');
-    expect(column.sqlSnippet, '"column_name" uuid NOT NULL');
-  });
-
-  test('22.2 uuid column with default', () {
-    final column = UUIDColumn(
-      'column_name',
-      defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
-    );
-    expect(column.sqlSnippet,
-        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
-  });
-
-  test('22.3 uuid array column', () {
-    final column = UUIDColumn.array('column_name');
-    expect(column.sqlSnippet, '"column_name" uuid[] NOT NULL');
-  });
-
-  test('22.4 uuid array column with default', () {
-    final column = UUIDColumn.array('column_name', defaultArrayValue: [
-      "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
-      "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
-      "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
-    ]);
-    expect(
-      column.sqlSnippet,
-      '"column_name" uuid[] NOT NULL DEFAULT \'{a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11}\'',
     );
   });
 }
