@@ -1,8 +1,6 @@
 import 'package:postgres_migration/postgres_migration.dart';
 import 'package:test/test.dart';
 
-import 'package:postgres_migration/src/model/model.dart';
-
 void executeConstraintUnitTests() {
   test(
     '1.1 CheckConstraint type test',

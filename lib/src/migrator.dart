@@ -1,6 +1,6 @@
 import 'package:postgres/postgres.dart';
 
-import 'model/model.dart';
+import 'columns/columns.dart';
 
 class PostgreSQLMigrator {
   final PostgreSQLConnection connection;
