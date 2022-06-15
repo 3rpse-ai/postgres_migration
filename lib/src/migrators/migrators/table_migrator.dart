@@ -7,6 +7,9 @@ class TableMigrator {
 
   String get _alterColumn => "$_alterTable ALTER COLUMN";
 
+  /// Creates TableMigrator instance
+  /// 
+  /// The tableName might need to be set in parantheses to avoid collision with certain keywords.
   TableMigrator(this.tableName);
 
   /// Returns SQL statement for creating a table with given properties
@@ -29,7 +32,7 @@ class TableMigrator {
   /// In case the column is referenced by a foreign key constraint of another table an error would be raised by the DB.
   /// Dropping foreign constraints when deleting the column can be achieved via setting `cascading=true`
   String removeColumn(String columnName, {bool cascading = false}) =>
-      "$_alterTable DROP COLUMN $columnName${cascading ? " CASCADE" : ""};";
+      "$_alterTable DROP COLUMN \"$columnName\"${cascading ? " CASCADE" : ""};";
 
   /// Adds a constraint to the table
   ///
@@ -47,7 +50,7 @@ class TableMigrator {
 
   /// Adds a not null constraints for a specific column
   String addNotNullConstraint(String columnName) =>
-      "$_alterColumn $columnName SET NOT NULL;";
+      "$_alterColumn \"$columnName\" SET NOT NULL;";
 
   /// Removes a constraint from the table.
   String removeConstraint(String constraintName) =>
@@ -55,13 +58,13 @@ class TableMigrator {
 
   /// Removes a not null constraints for a specific column
   String removeNotNullConstraint(String columnName) =>
-      "$_alterColumn $columnName DROP NOT NULL;";
+      "$_alterColumn \"$columnName\" DROP NOT NULL;";
 
   /// Removes a column's default value.
   ///
   /// This will effectively change the default NULL.
   String removeColumnDefaultValue(String columnName) =>
-      "$_alterColumn $columnName DROP DEFAULT;";
+      "$_alterColumn \"$columnName\" DROP DEFAULT;";
 
   /// Changes a column's default value.
   ///
@@ -69,7 +72,7 @@ class TableMigrator {
   ///
   /// It is sufficient to provide the columns name with the new default value. Other data will be ignored.
   String changeColumnDefaultValue(Column updatedColumn) =>
-      "$_alterColumn ${updatedColumn.name} SET DEFAULT ${updatedColumn.defaultValueAsString};";
+      "$_alterColumn \"${updatedColumn.name}\" SET DEFAULT ${updatedColumn.defaultValueAsString};";
 
   /// Changes a column's data type.
   ///
@@ -77,11 +80,11 @@ class TableMigrator {
   ///
   /// It is sufficient to provide the columns name + args (e.g. precision) where applicable. Other data will be ignored.
   String changeColumnDataType(Column updatedColumn) =>
-      "$_alterColumn ${updatedColumn.name} TYPE ${updatedColumn.typeWithArgs};";
+      "$_alterColumn \"${updatedColumn.name}\" TYPE ${updatedColumn.typeWithArgs};";
 
   /// Renames a column.
   String renameColumn(String oldColumnName, String newColumnName) =>
-      "$_alterTable RENAME COLUMN $oldColumnName TO $newColumnName;";
+      "$_alterTable RENAME COLUMN \"$oldColumnName\" TO \"$newColumnName\";";
 
   /// Renames a column.
   ///
