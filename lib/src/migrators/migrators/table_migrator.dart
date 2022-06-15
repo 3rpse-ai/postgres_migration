@@ -9,45 +9,82 @@ class TableMigrator {
 
   TableMigrator(this.tableName);
 
+  /// Returns SQL statement for creating a table with given properties
+  ///
+  /// Table properties are e.g. columns & constraints
   String createTable(List<TableProperty> properties) {
     List<String> propertyStrings =
         properties.map((property) => property.sqlSnippet).toList();
     return "CREATE TABLE $tableName (\n${propertyStrings.join(", ")}\n);";
   }
 
+  /// Returns SQL statement for adding a column.
   String addColumn(Column column) =>
       "$_alterTable ADD COLUMN ${column.sqlSnippet};";
 
+  /// Returns SQL statement for removing a column.
+  ///
+  /// All dat inside the column & constraints involving the column are dropped.
+  ///
+  /// In case the column is referenced by a foreign key constraint of another table an error would be raised by the DB.
+  /// Dropping foreign constraints when deleting the column can be achieved via setting `cascading=true`
   String removeColumn(String columnName, {bool cascading = false}) =>
       "$_alterTable DROP COLUMN $columnName${cascading ? " CASCADE" : ""};";
 
+  // TODO: double check adding constraint logic here. This will likely not work as column needs to be referenced...
+  /// Adds a constraint to the table
+  ///
+  /// For altering constraints afterwards it is advised (though not enforced) to always provide a constraint name.
   String addConstraint(TableProperty constraint) =>
-      "$_alterTable ADD COLUMN ${constraint.sqlSnippet};";
+      "$_alterTable ADD ${constraint.sqlSnippet};";
 
+  /// Adds a not null constraints for a specific column
   String addNotNullConstraint(String columnName) =>
       "$_alterColumn $columnName SET NOT NULL;";
 
+  /// Removes a constraint from the table.
   String removeConstraint(String constraintName) =>
       "$_alterTable DROP CONSTRAINT $constraintName;";
 
+  /// Removes a not null constraints for a specific column
   String removeNotNullConstraint(String columnName) =>
       "$_alterColumn $columnName DROP NOT NULL;";
 
+  /// Removes a column's default value.
+  ///
+  /// This will effectively change the default NULL.
   String removeColumnDefaultValue(String columnName) =>
       "$_alterColumn $columnName DROP DEFAULT;";
 
+  /// Changes a column's default value.
+  ///
+  /// This will only affect future inserts, not existing values within the column.
+  ///
+  /// It is sufficient to provide the columns name with the new default value. Other data will be ignored.
   String changeColumnDefaultValue(Column updatedColumn) =>
       "$_alterColumn ${updatedColumn.name} SET DEFAULT ${updatedColumn.defaultValueAsString};";
 
+  /// Changes a column's data type.
+  ///
+  /// In order to leverage the [Column] type safety, a column must be provided.
+  ///
+  /// It is sufficient to provide the columns name + args (e.g. precision) where applicable. Other data will be ignored.
   String changeColumnDataType(Column updatedColumn) =>
       "$_alterColumn ${updatedColumn.name} TYPE ${updatedColumn.typeWithArgs};";
 
+  /// Renames a column.
   String renameColumn(String oldColumnName, String newColumnName) =>
       "$_alterTable RENAME COLUMN $oldColumnName TO $newColumnName;";
 
-  String renameTable(String newName) {
+  /// Renames a column.
+  ///
+  /// In order to allow subsequent statement creation via the migrator the [tableName] fields is updated with it.
+  /// In case that is not desired set [updateTableNameInMigrator] to `false`.
+  String renameTable(String newName, {updateTableNameInMigrator = true}) {
     String sqlSnippet = "$_alterTable RENAME TO $newName;";
-    tableName = newName;
+    if (updateTableNameInMigrator) {
+      tableName = newName;
+    }
     return sqlSnippet;
   }
 }
