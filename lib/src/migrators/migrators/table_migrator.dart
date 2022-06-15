@@ -31,10 +31,17 @@ class TableMigrator {
   String removeColumn(String columnName, {bool cascading = false}) =>
       "$_alterTable DROP COLUMN $columnName${cascading ? " CASCADE" : ""};";
 
-  // TODO: double check adding constraint logic here. This will likely not work as column needs to be referenced...
   /// Adds a constraint to the table
   ///
   /// For altering constraints afterwards it is advised (though not enforced) to always provide a constraint name.
+  ///
+  /// Be aware that some constraints require a column name (or multiple) when not being declared with specific column. Those are:
+  /// * [PrimaryKeyConstraint]
+  /// * [UniqueConstraint]
+  ///
+  /// [ForeignKeyConstraint] needs a specific constructor to work as a TableProperty. Possible constructors are:
+  /// * [ForeignKeyConstraint.tableProperty]
+  /// * [ForeignKeyConstraint.multiColumn]
   String addConstraint(TableProperty constraint) =>
       "$_alterTable ADD ${constraint.sqlSnippet};";
 
