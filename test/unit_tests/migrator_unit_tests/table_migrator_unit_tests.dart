@@ -112,4 +112,10 @@ void executeTableMigratorUnitTests() {
     expect(snippet, 'ALTER TABLE table_name RENAME TO new_table_name;');
     expect(migrator.tableName == "new_table_name", isFalse);
   });
+
+  test('14. Remove Table', () {
+    final migrator = TableMigrator('table_name');
+    final snippet = migrator.removeTable();
+    expect(snippet, 'DROP TABLE table_name;');
+  });
 }
