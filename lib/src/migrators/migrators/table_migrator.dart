@@ -8,7 +8,7 @@ class TableMigrator {
   String get _alterColumn => "$_alterTable ALTER COLUMN";
 
   /// Creates TableMigrator instance
-  /// 
+  ///
   /// The tableName might need to be set in parantheses to avoid collision with certain keywords.
   TableMigrator(this.tableName);
 
@@ -97,4 +97,7 @@ class TableMigrator {
     }
     return sqlSnippet;
   }
+
+  /// Removes (DROP) the referenced table
+  String removeTable() => "DROP TABLE $tableName;";
 }
