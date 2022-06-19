@@ -99,5 +99,25 @@ class TableMigrator {
   }
 
   /// Removes (DROP) the referenced table
-  String removeTable() => "DROP TABLE $tableName;";
+  ///
+  /// Use `mode` to specify what should happen if other tables depend on this table
+  ///
+  /// Use `ifExists` to not raise an expection if the table does not exist
+  String removeTable({bool ifExists = false, TableDeletionMode? mode}) =>
+      "DROP TABLE ${ifExists ? "IF EXISTS " : ""}$tableName${mode != null ? " ${mode.mode}" : ""};";
+}
+
+/// Choice of how table should be deleted
+/// * Use cascade to automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
+/// * Restrict is default. It leads to refusing to drop the table if any objects depend on it.
+enum TableDeletionMode {
+  /// Automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
+  cascade('CASCADE'),
+
+  /// Refuse to drop the table if any objects depend on it.
+  restrict('RESTRICT');
+
+  const TableDeletionMode(this.mode);
+
+  final String mode;
 }
