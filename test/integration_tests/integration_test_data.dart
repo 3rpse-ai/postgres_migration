@@ -1,11 +1,9 @@
 import 'package:postgres_migration/postgres_migration.dart';
 
 final tableCreationTestData = {
-  "Test Table Without Columns": {
-    "simple": List<TableProperty>.empty()
-  },
+  "Test Table Without Columns": {"simple": List<TableProperty>.empty()},
   "Test Numeric Columns": {
-    "simple": [
+    "Simple": [
       SmallIntColumn('small_int_column'),
       IntegerColumn('int_column'),
       BigIntColumn('big_int_column'),
@@ -18,7 +16,7 @@ final tableCreationTestData = {
       DecimalColumn('decimal_column'),
       RealColumn('real_column'),
     ],
-    "with_args": [
+    "With Arguments": [
       SmallIntColumn('small_int_column'),
       IntegerColumn('int_column'),
       BigIntColumn('big_int_column'),
@@ -31,7 +29,7 @@ final tableCreationTestData = {
       DecimalColumn('decimal_column', precision: 4, scale: 2),
       RealColumn('real_column'),
     ],
-    "with_default": [
+    "With Default": [
       SmallIntColumn('small_int_column', defaultValue: 3),
       IntegerColumn('int_column', defaultValue: 3),
       BigIntColumn('big_int_column', defaultValue: 3),
@@ -45,7 +43,7 @@ final tableCreationTestData = {
       DecimalColumn('decimal_column', precision: 4, scale: 2, defaultValue: 4),
       RealColumn('real_column', defaultValue: 1.555),
     ],
-    "with_constraints": [
+    "With Constraints": [
       SmallIntColumn('small_int_column', isNullable: true),
       IntegerColumn('int_column', isPrimaryKey: true),
       BigIntColumn('big_int_column', isUnique: true),
@@ -66,69 +64,69 @@ final tableCreationTestData = {
     ],
   },
   "Test Text Columns": {
-    "simple": [
+    "Simple": [
       TextColumn("text_column"),
       CharColumn("char_column"),
       VarcharColumn("varchar_column"),
     ],
-    "with_args": [
+    "With Arguments": [
       TextColumn("text_column"),
       CharColumn("char_column", length: 16),
       VarcharColumn("varchar_column", maxLength: 12),
     ],
-    "with_default": [
+    "With Default": [
       TextColumn("text_column", defaultValue: "my default"),
       CharColumn("char_column", defaultValue: "my default"),
       VarcharColumn("varchar_column", defaultValue: "my default"),
     ],
-    "with_constraints": [
+    "With Constraints": [
       TextColumn("text_column", isNullable: false),
       CharColumn("char_column", isPrimaryKey: true),
       VarcharColumn("varchar_column", isUnique: true),
     ],
   },
   "Test Boolean Columns": {
-    "simple": [
+    "Simple": [
       BooleanColumn("bool_column"),
     ],
-    "with_default": [
+    "With Default": [
       BooleanColumn("bool_column", defaultValue: true),
       BooleanColumn("bool_column_2", defaultValue: false),
     ],
-    "with_constraints": [
+    "With Constraints": [
       BooleanColumn("bool_column", isPrimaryKey: true),
       BooleanColumn("bool_column_2", isUnique: true),
       BooleanColumn("bool_column_3", isNullable: false),
     ]
   },
   "Test UUID Columns": {
-    "simple": [
+    "Simple": [
       UUIDColumn("uuid_column"),
     ],
-    "with_default": [
+    "With Default": [
       UUIDColumn("uuid_column",
           defaultValue: "12345678-1234-1234-1234-123456789012"),
     ],
-    "with_constraints": [
+    "With Constraints": [
       UUIDColumn("uuid_column", isPrimaryKey: true),
       UUIDColumn("uuid_column_2", isUnique: true),
       UUIDColumn("uuid_column_3", isNullable: false),
     ],
   },
   "Test DateTime Columns": {
-    "simple": [
+    "Simple": [
       TimestampColumn("timestamp_column"),
       TimestampWithTimeZoneColumn("timestamp_w_tz_column"),
       DateColumn("date_column"),
       IntervalColumn("interval_column"),
     ],
-    "with_args": [
+    "With Arguments": [
       TimestampColumn("timestamp_column", precision: 4),
       TimestampWithTimeZoneColumn("timestamp_w_tz_column", precision: 10),
       DateColumn("date_column"),
       IntervalColumn("interval_column"),
     ],
-    "with_default": [
+    "With Default": [
       TimestampColumn("timestamp_column", defaultToCurrentTimeStamp: true),
       TimestampColumn("timestamp_column_2",
           defaultToCurrentTimestampInUTC: true),
@@ -146,7 +144,7 @@ final tableCreationTestData = {
       DateColumn("date_column_3", defaultValue: DateTime.now()),
       IntervalColumn("interval_column", defaultValue: Interval(century: 1)),
     ],
-    "with_constraints": [
+    "With Constraints": [
       TimestampColumn("timestamp_column", isPrimaryKey: true),
       TimestampWithTimeZoneColumn("timestamp_w_tz_column", isUnique: true),
       DateColumn("date_column", isNullable: false),
