@@ -14,49 +14,24 @@ void executeIntegrationTests(
   tearDown(() async => await callDB(migrator.removeTable(ifExists: true)));
 
   group('1. Create Table //', () {
-    test('1. Simple table', () async {
-      final statement = migrator.createTable([]);
-      await callDB(statement);
-    });
-
-    test('2. Test numeric columns', () async {
-      for (final dataSet in numericColumns.values) {
-        final statement = migrator.createTable(dataSet);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
+    // extract data from integration_test_data
+    // creates a test per column type with respective use case
+    for (int i = 0; i < tableCreationTestData.entries.length; i++) {
+      final columnCategory = tableCreationTestData.entries.elementAt(i);
+      for (int ii = 0; ii < columnCategory.value.entries.length; ii++) {
+        final dataSet = columnCategory.value.entries.elementAt(ii);
+        final categoryName = columnCategory.key;
+        final categoryCount = i + 1;
+        final dataSetname = dataSet.key;
+        final dataSetCount = ii + 1;
+        final testName =
+            "$categoryCount.$categoryName // $dataSetCount.$dataSetname";
+        test(testName, () async {
+          final statement = migrator.createTable(dataSet.value);
+          await callDB(statement);
+          await callDB(migrator.removeTable());
+        });
       }
-    });
-
-    test('3. Test text columns', () async {
-      for (final dataSet in textColumns.values) {
-        final statement = migrator.createTable(dataSet);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
-      }
-    });
-
-    test('4. Test boolean columns', () async {
-      for (final dataSet in booleanColumns.values) {
-        final statement = migrator.createTable(dataSet);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
-      }
-    });
-
-    test('5. Test uuid columns', () async {
-      for (final dataSet in uuidColumns.values) {
-        final statement = migrator.createTable(dataSet);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
-      }
-    });
-
-    test('6. Test datetime columns', () async {
-      for (final dataSet in dateTimeColumns.values) {
-        final statement = migrator.createTable(dataSet);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
-      }
-    });
+    }
   });
 }
