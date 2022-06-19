@@ -24,7 +24,7 @@ void main() {
     });
   });
 
-  group('Integration Test', () {
+  group('Integration Tests', () {
     group('// 1. PostgreSQL //', () {
       executePostgreSQLIntegrationTests();
     });
