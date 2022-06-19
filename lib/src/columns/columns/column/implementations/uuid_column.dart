@@ -10,6 +10,9 @@ class UUIDColumn extends Column<String> {
   @override
   String convertInputValueToString(String inputValue) => "'$inputValue'";
 
+  @override
+  String convertArrayInputValueToString(String inputValue) => '"$inputValue"';
+
   UUIDColumn(
     super.name, {
     super.isNullable = false,

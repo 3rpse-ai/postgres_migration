@@ -39,6 +39,11 @@ class TimestampColumn extends Column<DateTime> {
     return "'$inputValue'";
   }
 
+  @override
+  String convertArrayInputValueToString(DateTime inputValue) {
+    return '"$inputValue"';
+  }
+
   TimestampColumn(
     super.name, {
     int? precision,
@@ -98,7 +103,8 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
   int? precision;
 
   @override
-  String get type => 'timestamp${precision != null ? "($precision)" : ""} with time zone';
+  String get type =>
+      'timestamp${precision != null ? "($precision)" : ""} with time zone';
 
   @override
   String get defaultValueAsString {
@@ -112,6 +118,11 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
   @override
   String convertInputValueToString(DateTime inputValue) {
     return "'${(inputValue.toUtc().toIso8601String()).toString()}'";
+  }
+
+  @override
+  String convertArrayInputValueToString(DateTime inputValue) {
+    return '"$inputValue"';
   }
 
   TimestampWithTimeZoneColumn(
@@ -184,6 +195,11 @@ class DateColumn extends Column<DateTime> {
     return "'$inputValue'";
   }
 
+  @override
+  String convertArrayInputValueToString(DateTime inputValue) {
+    return '"$inputValue"';
+  }
+
   DateColumn(
     super.name, {
     this.defaultToCurrentDate = false,
@@ -229,6 +245,11 @@ class IntervalColumn extends Column<Interval> {
   @override
   String convertInputValueToString(Interval inputValue) {
     return "'$inputValue'";
+  }
+
+  @override
+  String convertArrayInputValueToString(Interval inputValue) {
+    return '"$inputValue"';
   }
 
   IntervalColumn(

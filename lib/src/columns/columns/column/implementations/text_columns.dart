@@ -10,6 +10,11 @@ class TextColumn extends Column<String> {
     return "'$inputValue'";
   }
 
+  @override
+  String convertArrayInputValueToString(String inputValue) {
+    return '"$inputValue"';
+  }
+
   TextColumn(
     super.name, {
     super.isNullable = false,
@@ -53,6 +58,11 @@ class VarcharColumn extends Column<String> {
   @override
   String convertInputValueToString(String inputValue) {
     return "'$inputValue'";
+  }
+
+  @override
+  String convertArrayInputValueToString(String inputValue) {
+    return '"$inputValue"';
   }
 
   VarcharColumn(
@@ -100,6 +110,11 @@ class CharColumn extends Column<String> {
   @override
   String convertInputValueToString(String inputValue) {
     return "'$inputValue'";
+  }
+
+  @override
+  String convertArrayInputValueToString(String inputValue) {
+    return '"$inputValue"';
   }
 
   CharColumn(
