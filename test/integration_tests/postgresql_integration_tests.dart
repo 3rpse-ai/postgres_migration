@@ -9,6 +9,8 @@ void executePostgreSQLIntegrationTests() async {
     "integration_tests",
     username: "postgres",
   );
-  setUp(() async => await connection.open());
+
+  setUpAll(() async => await connection.open());
+  tearDownAll(() async => await connection.close());
   executeIntegrationTests((sqlStatement) => connection.execute(sqlStatement));
 }
