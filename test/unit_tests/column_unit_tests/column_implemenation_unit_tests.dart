@@ -341,7 +341,7 @@ void executeColumnImplementationUnitTests() {
     ]);
     expect(
       column.sqlSnippet,
-      '"column_name" uuid[] NOT NULL DEFAULT \'{\'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\', \'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\', \'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\'}\'',
+      '"column_name" uuid[] NOT NULL DEFAULT \'{"a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"}\'',
     );
   });
 
@@ -365,7 +365,7 @@ void executeColumnImplementationUnitTests() {
     final column =
         TextColumn.array('column_name', defaultArrayValue: ["1", "2", "3"]);
     expect(column.sqlSnippet,
-        '"column_name" text[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+        '"column_name" text[] NOT NULL DEFAULT \'{"1", "2", "3"}\'');
   });
 
   test('14.1 varchar simple column', () {
@@ -395,14 +395,14 @@ void executeColumnImplementationUnitTests() {
       defaultArrayValue: ["1", "2", "3"],
     );
     expect(column.sqlSnippet,
-        '"column_name" varchar[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+        '"column_name" varchar[] NOT NULL DEFAULT \'{"1", "2", "3"}\'');
   });
 
   test('14.6 varchar array column with default & max length', () {
     final column = VarcharColumn.array('column_name',
         maxLength: 3, defaultArrayValue: ["1", "2", "3"]);
     expect(column.sqlSnippet,
-        '"column_name" varchar(3)[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+        '"column_name" varchar(3)[] NOT NULL DEFAULT \'{"1", "2", "3"}\'');
   });
 
   test('15.1 char simple column', () {
@@ -431,14 +431,14 @@ void executeColumnImplementationUnitTests() {
       defaultArrayValue: ["1", "2", "3"],
     );
     expect(column.sqlSnippet,
-        '"column_name" char[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+        '"column_name" char[] NOT NULL DEFAULT \'{"1", "2", "3"}\'');
   });
 
   test('15.6 char array column with default & max length', () {
     final column = CharColumn.array('column_name',
         length: 3, defaultArrayValue: ["1", "2", "3"]);
     expect(column.sqlSnippet,
-        '"column_name" char(3)[] NOT NULL DEFAULT \'{\'1\', \'2\', \'3\'}\'');
+        '"column_name" char(3)[] NOT NULL DEFAULT \'{"1", "2", "3"}\'');
   });
 
   test('16.1 boolean simple column', () {
@@ -535,7 +535,7 @@ void executeColumnImplementationUnitTests() {
       defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
     );
     expect(column.sqlSnippet,
-        '"column_name" timestamp[] NOT NULL DEFAULT \'{\'2022-03-02 00:00:00.000\', \'2022-03-02 00:00:00.000\'}\'');
+        '"column_name" timestamp[] NOT NULL DEFAULT \'{"2022-03-02 00:00:00.000", "2022-03-02 00:00:00.000"}\'');
   });
 
   test('18.1 timestamp with time zone simple column', () {
@@ -595,7 +595,7 @@ void executeColumnImplementationUnitTests() {
       defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
     );
     expect(column.sqlSnippet,
-        '"column_name" timestamp with time zone[] NOT NULL DEFAULT \'{\'2022-03-01T23:00:00.000Z\', \'2022-03-01T23:00:00.000Z\'}\'');
+        '"column_name" timestamp with time zone[] NOT NULL DEFAULT \'{"2022-03-01T23:00:00.000Z", "2022-03-01T23:00:00.000Z"}\'');
   });
 
   test('19.1 date simple column', () {
@@ -662,7 +662,7 @@ void executeColumnImplementationUnitTests() {
       defaultArrayValue: [DateTime(2022, 02, 30), DateTime(2022, 02, 30)],
     );
     expect(column.sqlSnippet,
-        '"column_name" date[] NOT NULL DEFAULT \'{\'2022-03-02 00:00:00.000\', \'2022-03-02 00:00:00.000\'}\'');
+        '"column_name" date[] NOT NULL DEFAULT \'{"2022-03-02 00:00:00.000", "2022-03-02 00:00:00.000"}\'');
   });
 
   test('20.1 interval simple column', () {
@@ -742,7 +742,7 @@ void executeColumnImplementationUnitTests() {
       ],
     );
     expect(column.sqlSnippet,
-        '"column_name" interval[] NOT NULL DEFAULT \'{\'1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond\', \'1 millennium 2 century 3 decade 4 year 5 month\'}\'');
+        '"column_name" interval[] NOT NULL DEFAULT \'{"1 millennium 2 century 3 decade 4 year 5 month 6 week 7 day 8 hour 9 minute 10 second 11 millisecond 12 microsecond", "1 millennium 2 century 3 decade 4 year 5 month"}\'');
   });
 
   test('21.1 enum simple column', () {
