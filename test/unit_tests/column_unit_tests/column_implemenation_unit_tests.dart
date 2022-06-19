@@ -564,15 +564,16 @@ void executeColumnImplementationUnitTests() {
   });
 
   test(
-      '18.4 timestamp with time zone column default vs defaultToCurrentTimestamp',
+      '18.4 timestamp with time zone column default vs defaultToCurrentTimestamp + precision',
       () {
     final column = TimestampWithTimeZoneColumn(
       'column_name',
+      precision: 2,
       defaultToCurrentTimeStamp: true,
       defaultValue: DateTime(0),
     );
     expect(column.sqlSnippet,
-        '"column_name" timestamp with time zone NOT NULL DEFAULT now()');
+        '"column_name" timestamp(2) with time zone NOT NULL DEFAULT now()');
   });
 
   test('18.5 timestamp with time zone array column', () {
@@ -585,7 +586,7 @@ void executeColumnImplementationUnitTests() {
     final column =
         TimestampWithTimeZoneColumn.array('column_name', precision: 2);
     expect(column.sqlSnippet,
-        '"column_name" timestamp with time zone(2)[] NOT NULL');
+        '"column_name" timestamp(2) with time zone[] NOT NULL');
   });
 
   test('18.7 timestamp with time zone array column with default', () {
