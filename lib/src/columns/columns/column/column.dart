@@ -111,7 +111,7 @@ abstract class Column<T> implements TableProperty {
     } else if (isArray) {
       if (defaultArrayValue != null) {
         final defaultValuesAsStrings = defaultArrayValue!
-            .map((value) => convertInputValueToString(value))
+            .map((value) => convertArrayInputValueToString(value))
             .toList();
         defaultValueString = "'{${defaultValuesAsStrings.join(", ")}}'";
       }
@@ -149,9 +149,11 @@ abstract class Column<T> implements TableProperty {
   /// * E.g. `manualDefault: "'defaultWithParantheses'"`
   String? manualDefaultValue;
 
-  /// Overwrite this getter to provide a column specific default value. Otherwise [convertInputValueToString] is returned, which again defaults to `defaultValue.toString()`.
+  /// Overwrite this getter to provide a column specific default value. Otherwise [convertInputValueToString] / [convertArrayInputValueToString]  is returned, which again defaults to `defaultValue.toString()`.
   String get defaultValueAsString => defaultValue != null
-      ? convertInputValueToString(defaultValue as T)
+      ? isArray
+          ? convertArrayInputValueToString(defaultValue as T)
+          : convertInputValueToString(defaultValue as T)
       : defaultValue.toString();
 
   /// Used to define a default value. Results in sql snippet `DEFAULT $_defaultValue`.
@@ -162,6 +164,11 @@ abstract class Column<T> implements TableProperty {
   /// Converts data input to sql friendly string. Defaults to inputValue.toString(). Overwrite this method to e.g. support parantheses on around String inputs.
   String convertInputValueToString(T inputValue) {
     return inputValue.toString();
+  }
+
+  /// Converts data input to sql friendly string. Defaults to inputValue.toString(). Overwrite this method to e.g. support parantheses on around String inputs.
+  String convertArrayInputValueToString(T inputValue) {
+    return convertInputValueToString(inputValue);
   }
 
   /// Used to define a default value for Array Columns. Results in sql snippet `DEFAULT {$_defaultValue[0], $_defaultValue[1]}`.
