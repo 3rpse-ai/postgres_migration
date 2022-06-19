@@ -95,9 +95,10 @@ class TimestampColumn extends Column<DateTime> {
 class TimestampWithTimeZoneColumn extends Column<DateTime> {
   /// Set this flag to default to the corresponding transaction's current timestamp in the sql server's localized time (which is converted to & stored in UTC). If this is set [defaultValue] will be ignored.
   bool defaultToCurrentTimeStamp;
+  int? precision;
 
   @override
-  String get type => 'timestamp with time zone';
+  String get type => 'timestamp${precision != null ? "($precision)" : ""} with time zone';
 
   @override
   String get defaultValueAsString {
@@ -115,7 +116,7 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
 
   TimestampWithTimeZoneColumn(
     super.name, {
-    int? precision,
+    this.precision,
     this.defaultToCurrentTimeStamp = false,
     super.isNullable = false,
     super.manualDefaultValue,
@@ -129,13 +130,12 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
     super.uniqueConstraint,
     super.defaultValue,
   }) : super(
-          args: precision?.toString(),
           forceIncludeDefaultValue: defaultToCurrentTimeStamp,
         );
 
   TimestampWithTimeZoneColumn.array(
     super.name, {
-    int? precision,
+    this.precision,
     super.isNullable = false,
     super.manualDefaultValue,
     super.isPrimaryKey = false,
@@ -148,9 +148,7 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
     super.uniqueConstraint,
     super.defaultArrayValue,
   })  : defaultToCurrentTimeStamp = false,
-        super.array(
-          args: precision?.toString(),
-        );
+        super.array();
 }
 
 /// Column for defining a date.
