@@ -28,6 +28,7 @@ void executeIntegrationTests(
             "$categoryCount.$categoryName // $dataSetCount.$dataSetname";
         test(testName, () async {
           final statement = migrator.createTable(dataSet.value);
+          printOnFailure(statement);
           await callDB(statement);
           await callDB(migrator.removeTable());
         });
