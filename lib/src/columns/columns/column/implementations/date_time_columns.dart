@@ -122,7 +122,7 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
 
   @override
   String convertArrayInputValueToString(DateTime inputValue) {
-    return '"$inputValue"';
+    return '"${(inputValue.toUtc().toIso8601String()).toString()}"';
   }
 
   TimestampWithTimeZoneColumn(
