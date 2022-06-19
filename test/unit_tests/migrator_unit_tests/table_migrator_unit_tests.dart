@@ -118,4 +118,28 @@ void executeTableMigratorUnitTests() {
     final snippet = migrator.removeTable();
     expect(snippet, 'DROP TABLE table_name;');
   });
+
+  test('15. Remove Table if exists', () {
+    final migrator = TableMigrator('table_name');
+    final snippet = migrator.removeTable(ifExists: true);
+    expect(snippet, 'DROP TABLE IF EXISTS table_name;');
+  });
+
+  test('16. Remove Table cascade', () {
+    final migrator = TableMigrator('table_name');
+    final snippet = migrator.removeTable(mode: TableDeletionMode.cascade);
+    expect(snippet, 'DROP TABLE table_name CASCADE;');
+  });
+
+  test('17. Remove Table restrict', () {
+    final migrator = TableMigrator('table_name');
+    final snippet = migrator.removeTable(mode: TableDeletionMode.restrict);
+    expect(snippet, 'DROP TABLE table_name RESTRICT;');
+  });
+
+  test('18. Remove Table if exists restrict', () {
+    final migrator = TableMigrator('table_name');
+    final snippet = migrator.removeTable(ifExists: true, mode: TableDeletionMode.restrict);
+    expect(snippet, 'DROP TABLE IF EXISTS table_name RESTRICT;');
+  });
 }
