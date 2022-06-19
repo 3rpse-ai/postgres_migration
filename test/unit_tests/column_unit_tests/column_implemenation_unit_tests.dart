@@ -325,7 +325,7 @@ void executeColumnImplementationUnitTests() {
       defaultValue: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
     );
     expect(column.sqlSnippet,
-        '"column_name" uuid NOT NULL DEFAULT a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11');
+        '"column_name" uuid NOT NULL DEFAULT \'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\'');
   });
 
   test('12.3 uuid array column', () {
@@ -341,7 +341,7 @@ void executeColumnImplementationUnitTests() {
     ]);
     expect(
       column.sqlSnippet,
-      '"column_name" uuid[] NOT NULL DEFAULT \'{a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11, c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11}\'',
+      '"column_name" uuid[] NOT NULL DEFAULT \'{\'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\', \'b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\', \'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11\'}\'',
     );
   });
 

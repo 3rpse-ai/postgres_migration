@@ -7,6 +7,9 @@ class UUIDColumn extends Column<String> {
   @override
   String get type => 'uuid';
 
+  @override
+  String convertInputValueToString(String inputValue) => "'$inputValue'";
+
   UUIDColumn(
     super.name, {
     super.isNullable = false,
