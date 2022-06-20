@@ -75,31 +75,50 @@ void executeIntegrationTests(
       return;
     });
 
-    group('1. Add Columns // ', () {
-      for (int i = 0; i < columnTestData.entries.length; i++) {
-        final columnCategory = columnTestData.entries.elementAt(i);
-        for (int ii = 0; ii < columnCategory.value.entries.length; ii++) {
-          final dataSet = columnCategory.value.entries.elementAt(ii);
-          final categoryName = columnCategory.key;
-          final categoryCount = i + 1;
-          final dataSetname = dataSet.key;
-          final dataSetCount = ii + 1;
-          final testName =
-              "$categoryCount. $categoryName // $dataSetCount. $dataSetname // ";
-          for (final column in dataSet.value) {
-            test("$testName${column.runtimeType}", () async {
-              final statement = migrator.addColumn(column);
-              printOnFailure(statement);
-              await callDB(statement);
-            });
+    group('1. Columns // ', () {
+      group('1. Add Column // ', () {
+        for (int i = 0; i < columnTestData.entries.length; i++) {
+          final columnCategory = columnTestData.entries.elementAt(i);
+          for (int ii = 0; ii < columnCategory.value.entries.length; ii++) {
+            final dataSet = columnCategory.value.entries.elementAt(ii);
+            final categoryName = columnCategory.key;
+            final categoryCount = i + 1;
+            final dataSetname = dataSet.key;
+            final dataSetCount = ii + 1;
+            final testName =
+                "$categoryCount. $categoryName // $dataSetCount. $dataSetname // ";
+            for (final column in dataSet.value) {
+              test("$testName${column.runtimeType}", () async {
+                final statement = migrator.addColumn(column);
+                printOnFailure(statement);
+                await callDB(statement);
+              });
+            }
           }
         }
-      }
+      });
     });
 
-    // migrator.addColumn(column);
-    // migrator.addConstraint(constraint);
-    // migrator.addNotNullConstraint(columnName);
+    group('2. Constraints // ', () {
+      group("1. Add Constraint // ", () {
+        for (int i = 0; i < updateTableConstraintTestData.length; i++) {
+          final constraint = updateTableConstraintTestData[i];
+          final constraintCount = i + 1;
+          final testName = "$constraintCount. ${constraint.runtimeType}";
+
+          test(testName, () async {
+            final statement = migrator.addConstraint(constraint);
+            printOnFailure(statement);
+            await callDB(statement);
+          });
+        }
+
+        test("${updateTableConstraintTestData.length + 1}. NOT NULL Constraint",
+            () {
+          migrator.addNotNullConstraint('main_date_column');
+        });
+      });
+    });
     // migrator.removeColumn(columnName);
     // migrator.removeConstraint(constraintName);
     // migrator.removeNotNullConstraint(columnName);
