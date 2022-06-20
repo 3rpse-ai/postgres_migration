@@ -2,6 +2,7 @@ import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
 import 'test_data/column_data.dart';
 import 'test_data/constraint_data.dart';
+import 'test_data/table_updates.dart';
 
 /// Collection of tests to run against DB
 ///
@@ -39,7 +40,8 @@ void executeIntegrationTests(
 
   group('2. Create Table Constraints //', () {
     final ftMigrator = TableMigrator("foreign_table");
-    setUp(() async => callDB(ftMigrator.createTable(foreignTableConstraintTestData)));
+    setUp(() async =>
+        callDB(ftMigrator.createTable(foreignTableConstraintTestData)));
     tearDown(() async => callDB(ftMigrator.removeTable()));
 
     // extract data from integration_test_data
@@ -62,24 +64,50 @@ void executeIntegrationTests(
 
   group('3. Update Table //', () {
     final ftMigrator = TableMigrator("foreign_table");
-    setUp(() async => callDB(ftMigrator.createTable(foreignTableConstraintTestData)));
-    tearDown(() async => callDB(ftMigrator.removeTable()));
+    setUp(() async {
+      await callDB(ftMigrator.createTable(updateTableForeignTableTestData));
+      await callDB(migrator.createTable(updateTableMainTableTestData));
+      return;
+    });
+    tearDown(() async {
+      await callDB(migrator.removeTable());
+      await callDB(ftMigrator.removeTable());
+      return;
+    });
 
-    // extract data from integration_test_data
-    // creates a test per column type with respective use case
-    for (int i = 0; i < constraintTestData.entries.length; i++) {
-      final constraintCategory = constraintTestData.entries.elementAt(i);
-      final dataSet = constraintCategory.value;
-      final categoryName = constraintCategory.key;
-      final categoryCount = i + 1;
-      final testName = "$categoryCount. $categoryName";
+    group('1. Add Columns // ', () {
+      for (int i = 0; i < columnTestData.entries.length; i++) {
+        final columnCategory = columnTestData.entries.elementAt(i);
+        for (int ii = 0; ii < columnCategory.value.entries.length; ii++) {
+          final dataSet = columnCategory.value.entries.elementAt(ii);
+          final categoryName = columnCategory.key;
+          final categoryCount = i + 1;
+          final dataSetname = dataSet.key;
+          final dataSetCount = ii + 1;
+          final testName =
+              "$categoryCount. $categoryName // $dataSetCount. $dataSetname // ";
+          for (final column in dataSet.value) {
+            test("$testName${column.runtimeType}", () async {
+              final statement = migrator.addColumn(column);
+              printOnFailure(statement);
+              await callDB(statement);
+            });
+          }
+        }
+      }
+    });
 
-      test(testName, () async {
-        final statement = migrator.createTable(dataSet);
-        printOnFailure(statement);
-        await callDB(statement);
-        await callDB(migrator.removeTable());
-      });
-    }
+    // migrator.addColumn(column);
+    // migrator.addConstraint(constraint);
+    // migrator.addNotNullConstraint(columnName);
+    // migrator.removeColumn(columnName);
+    // migrator.removeConstraint(constraintName);
+    // migrator.removeNotNullConstraint(columnName);
+    // migrator.removeTable();
+    // migrator.removeColumnDefaultValue(columnName);
+    // migrator.changeColumnDataType(updatedColumn);
+    // migrator.changeColumnDefaultValue(updatedColumn);
+    // migrator.renameColumn(oldColumnName, newColumnName);
+    // migrator.renameTable(newName);
   });
 }
