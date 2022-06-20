@@ -26,7 +26,7 @@ void executeIntegrationTests(
         final dataSetname = dataSet.key;
         final dataSetCount = ii + 1;
         final testName =
-            "$categoryCount.$categoryName // $dataSetCount.$dataSetname";
+            "$categoryCount. $categoryName // $dataSetCount. $dataSetname";
         test(testName, () async {
           final statement = migrator.createTable(dataSet.value);
           printOnFailure(statement);
@@ -49,7 +49,7 @@ void executeIntegrationTests(
       final dataSet = constraintCategory.value;
       final categoryName = constraintCategory.key;
       final categoryCount = i + 1;
-      final testName = "$categoryCount.$categoryName";
+      final testName = "$categoryCount. $categoryName";
 
       test(testName, () async {
         final statement = migrator.createTable(dataSet);
