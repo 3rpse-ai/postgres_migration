@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
-import './integration_test_data.dart';
+import 'column_data.dart';
+import 'constraint_data.dart';
 
 /// Collection of tests to run against DB
 ///
@@ -13,11 +14,11 @@ void executeIntegrationTests(
   // Remove table after every run
   tearDown(() async => await callDB(migrator.removeTable(ifExists: true)));
 
-  group('1. Create Table //', () {
+  group('1. Create Table Columns //', () {
     // extract data from integration_test_data
     // creates a test per column type with respective use case
-    for (int i = 0; i < tableCreationTestData.entries.length; i++) {
-      final columnCategory = tableCreationTestData.entries.elementAt(i);
+    for (int i = 0; i < columnTestData.entries.length; i++) {
+      final columnCategory = columnTestData.entries.elementAt(i);
       for (int ii = 0; ii < columnCategory.value.entries.length; ii++) {
         final dataSet = columnCategory.value.entries.elementAt(ii);
         final categoryName = columnCategory.key;
@@ -33,6 +34,29 @@ void executeIntegrationTests(
           await callDB(migrator.removeTable());
         });
       }
+    }
+  });
+
+  group('2. Create Table Constraints //', () {
+    final ftMigrator = TableMigrator("foreign_table");
+    setUp(() async => callDB(ftMigrator.createTable(foreignTableTestData)));
+    tearDown(() async => callDB(ftMigrator.removeTable()));
+
+    // extract data from integration_test_data
+    // creates a test per column type with respective use case
+    for (int i = 0; i < constraintTestData.entries.length; i++) {
+      final constraintCategory = constraintTestData.entries.elementAt(i);
+      final dataSet = constraintCategory.value;
+      final categoryName = constraintCategory.key;
+      final categoryCount = i + 1;
+      final testName = "$categoryCount.$categoryName";
+
+      test(testName, () async {
+        final statement = migrator.createTable(dataSet);
+        printOnFailure(statement);
+        await callDB(statement);
+        await callDB(migrator.removeTable());
+      });
     }
   });
 }
