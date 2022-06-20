@@ -67,12 +67,10 @@ void executeIntegrationTests(
     setUp(() async {
       await callDB(ftMigrator.createTable(updateTableForeignTableTestData));
       await callDB(migrator.createTable(updateTableMainTableTestData));
-      return;
     });
     tearDown(() async {
       await callDB(migrator.removeTable());
       await callDB(ftMigrator.removeTable());
-      return;
     });
 
     group('1. Columns // ', () {
@@ -97,6 +95,43 @@ void executeIntegrationTests(
           }
         }
       });
+      group('2. Remove Column // ', () {
+        test("1. Cascading False", () async {
+          await callDB(migrator.removeColumn("main_date_column"));
+        });
+
+        test("2. Cascading True", () async {
+          await callDB(migrator.removeColumn("main_date_column"));
+        });
+      });
+      group("3. Change Default Value // ", () {
+        test("1. Set text column default value", () async {
+          await callDB(migrator.changeColumnDefaultValue(
+              TextColumn("main_text_column", defaultValue: "HELLO THERE")));
+        });
+      });
+      group("4. Remove Default Value // ", () {
+        test("1. Remove column default value", () async {
+          await callDB(migrator.changeColumnDefaultValue(
+              TextColumn("main_text_column", defaultValue: "HELLO THERE")));
+          await callDB(migrator.removeColumnDefaultValue("main_text_column"));
+        });
+      });
+      // TODO: fix this test
+      // group("5. Change Type // ", () {
+      //   test("1. Change text to integer type", () async {
+      //     await callDB(
+      //       migrator.changeColumnDataType(IntegerColumn("main_text_column")),
+      //     );
+      //   });
+      // });
+      group("6. Rename Column // ", () {
+        test("1. Rename text column", () async {
+          await callDB(
+            migrator.renameColumn("main_text_column", "new_text_column"),
+          );
+        });
+      });
     });
 
     group('2. Constraints // ', () {
@@ -114,19 +149,78 @@ void executeIntegrationTests(
         }
 
         test("${updateTableConstraintTestData.length + 1}. NOT NULL Constraint",
-            () {
-          migrator.addNotNullConstraint('main_date_column');
+            () async {
+          await callDB(migrator.addNotNullConstraint('main_date_column'));
+        });
+      });
+      group("2. Remove Constraint // ", () {
+        test("1. Regular Constraint", () async {
+          await callDB(migrator.addConstraint(
+            UniqueConstraint(name: "unique_constraint", columnNames: [
+              "main_text_column",
+              "main_date_column",
+            ]),
+          ));
+          await callDB(migrator.removeConstraint('unique_constraint'));
+        });
+
+        test("2. NOT NULL constraint", () async {
+          await callDB(migrator.addNotNullConstraint("main_date_column"));
+          await callDB(migrator.removeNotNullConstraint('main_date_column'));
         });
       });
     });
-    // migrator.removeColumn(columnName);
-    // migrator.removeConstraint(constraintName);
-    // migrator.removeNotNullConstraint(columnName);
-    // migrator.removeTable();
-    // migrator.removeColumnDefaultValue(columnName);
-    // migrator.changeColumnDataType(updatedColumn);
-    // migrator.changeColumnDefaultValue(updatedColumn);
-    // migrator.renameColumn(oldColumnName, newColumnName);
-    // migrator.renameTable(newName);
+
+    group("3. Whole Table // ", () {
+      group("1. Rename Table // ", () {
+        test("1. Rename table", () async {
+          final testMigrator = TableMigrator("Test_Table");
+          await callDB(testMigrator.createTable([]));
+          await callDB(testMigrator.renameTable("New_Name"));
+          await callDB(testMigrator.removeTable());
+        });
+
+        test("2. Rename table, no migrator update", () async {
+          final testMigrator = TableMigrator("Test_Table");
+          await callDB(testMigrator.createTable([]));
+          await callDB(testMigrator.renameTable("New_Name"));
+
+          final newMigrator = TableMigrator(("New_Name"));
+          await callDB(newMigrator.removeTable());
+        });
+      });
+
+        group("2. Remove Table // ", () {
+          test("1. Remove table simple", () async {
+            final testMigrator = TableMigrator("New_Table");
+
+            await callDB(testMigrator.createTable([]));
+            await callDB(testMigrator.removeTable());
+          });
+
+          test("2. Remove table simple if exists", () async {
+            final testMigrator = TableMigrator("New_Table");
+
+            await callDB(testMigrator.createTable([]));
+            await callDB(testMigrator.removeTable(ifExists: true));
+          });
+
+          test("3. Remove table mode: CASCADE", () async {
+            final testMigrator = TableMigrator("New_Table");
+
+            await callDB(testMigrator.createTable([]));
+            await callDB(
+                testMigrator.removeTable(mode: TableDeletionMode.cascade));
+          });
+
+          test("4. Remove table mode: RESTRICT", () async {
+            final testMigrator = TableMigrator("New_Table");
+
+            await callDB(testMigrator.createTable([]));
+            await callDB(
+                testMigrator.removeTable(mode: TableDeletionMode.restrict));
+          });
+        });
+    });
   });
 }
