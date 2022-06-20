@@ -1,8 +1,8 @@
 import 'package:postgres_migration/postgres_migration.dart';
 
-final columnTestData = {
-  "Test Table Without Columns": {"simple": List<TableProperty>.empty()},
-  "Test Numeric Columns": {
+final Map<String, Map<String, List<Column>>> columnTestData = {
+  "Table Without Columns": {"simple": []},
+  "Numeric Columns": {
     "Simple": [
       SmallIntColumn('small_int_column'),
       IntegerColumn('int_column'),
@@ -70,10 +70,10 @@ final columnTestData = {
       SmallSerialColumn('small_serial_column)', isUnique: true),
       SerialColumn('serial_column'),
       BigSerialColumn('big_serial_column)'),
-      FloatColumn('float_column',
-          isUnique: true,
-          checkConstraint:
-              CheckConstraint(check: "serial_column < small_int_column")),
+      FloatColumn(
+        'float_column',
+        isUnique: true,
+      ),
       DoublePrecisionColumn(
         'double_column',
         isUnique: true,
@@ -91,7 +91,7 @@ final columnTestData = {
       RealColumn.array('real_column_array', isUnique: true),
     ],
   },
-  "Test Text Columns": {
+  "Text Columns": {
     "Simple": [
       TextColumn("text_column"),
       CharColumn("char_column"),
@@ -109,11 +109,11 @@ final columnTestData = {
     ],
     "With Default": [
       TextColumn("text_column", defaultValue: "my default"),
-      CharColumn("char_column", defaultValue: "my default"),
+      CharColumn("char_column", length: 10, defaultValue: "my default"),
       VarcharColumn("varchar_column", defaultValue: "my default"),
       TextColumn.array("text_column_array",
           defaultArrayValue: ["my default", "my default"]),
-      CharColumn.array("char_column_array",
+      CharColumn.array("char_column_array", length: 10,
           defaultArrayValue: ["my default", "my default"]),
       VarcharColumn.array("varchar_column_array",
           defaultArrayValue: ["my default", "my default"]),
@@ -128,7 +128,7 @@ final columnTestData = {
           isPrimaryKey: true, isUnique: true),
     ],
   },
-  "Test Boolean Columns": {
+  "Boolean Columns": {
     "Simple": [
       BooleanColumn("bool_column"),
       BooleanColumn.array("bool_column_array"),
@@ -148,7 +148,7 @@ final columnTestData = {
       BooleanColumn.array("bool_column_3_array", isNullable: false),
     ]
   },
-  "Test UUID Columns": {
+  "UUID Columns": {
     "Simple": [
       UUIDColumn("uuid_column"),
       UUIDColumn.array("uuid_column_array"),
@@ -170,7 +170,7 @@ final columnTestData = {
       UUIDColumn.array("uuid_column_3_array", isNullable: true),
     ],
   },
-  "Test DateTime Columns": {
+  "DateTime Columns": {
     "Simple": [
       TimestampColumn("timestamp_column"),
       TimestampWithTimeZoneColumn("timestamp_w_tz_column"),
