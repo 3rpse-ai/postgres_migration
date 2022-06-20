@@ -117,14 +117,13 @@ void executeIntegrationTests(
           await callDB(migrator.removeColumnDefaultValue("main_text_column"));
         });
       });
-      // TODO: fix this test
-      // group("5. Change Type // ", () {
-      //   test("1. Change text to integer type", () async {
-      //     await callDB(
-      //       migrator.changeColumnDataType(IntegerColumn("main_text_column")),
-      //     );
-      //   });
-      // });
+      group("5. Change Type // ", () {
+        test("1. Change integer to text type", () async {
+          await callDB(
+            migrator.changeColumnDataType(TextColumn("main_integer_column_2")),
+          );
+        });
+      });
       group("6. Rename Column // ", () {
         test("1. Rename text column", () async {
           await callDB(

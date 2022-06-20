@@ -12,6 +12,7 @@ final updateTableMainTableTestData = [
   TextColumn("main_text_column", isUnique: true),
   DateColumn("main_date_column", isNullable: true),
   IntegerColumn("main_integer_column", foreignKeyForTable: "foreign_table"),
+  IntegerColumn("main_integer_column_2"),
 ];
 
 final List<TableProperty> updateTableConstraintTestData = [
