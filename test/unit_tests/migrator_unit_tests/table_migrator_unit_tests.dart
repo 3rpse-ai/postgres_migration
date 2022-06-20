@@ -83,10 +83,14 @@ void executeTableMigratorUnitTests() {
     final migrator = TableMigrator('table_name');
     final numericColumn =
         NumericColumn("int_column", defaultValue: 1, precision: 4);
-    final snippet = migrator.changeColumnDataType(numericColumn);
+    final snippet1 = migrator.changeColumnDataType(numericColumn);
+    final snippet2 =
+        migrator.changeColumnDataType(numericColumn, using: "TEST EXP");
 
-    expect(snippet,
+    expect(snippet1,
         'ALTER TABLE table_name ALTER COLUMN "int_column" TYPE numeric(4);');
+    expect(snippet2,
+        'ALTER TABLE table_name ALTER COLUMN "int_column" TYPE numeric(4) USING TEST EXP;');
   });
 
   test('11. Rename Column', () {
@@ -139,7 +143,8 @@ void executeTableMigratorUnitTests() {
 
   test('18. Remove Table if exists restrict', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeTable(ifExists: true, mode: TableDeletionMode.restrict);
+    final snippet =
+        migrator.removeTable(ifExists: true, mode: TableDeletionMode.restrict);
     expect(snippet, 'DROP TABLE IF EXISTS table_name RESTRICT;');
   });
 }

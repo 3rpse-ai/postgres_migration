@@ -78,9 +78,11 @@ class TableMigrator {
   ///
   /// In order to leverage the [Column] type safety, a column must be provided.
   ///
+  /// Additionally `using` string can be provided for passing an expression how to cast the data to the new type.
+  ///
   /// It is sufficient to provide the columns name + args (e.g. precision) where applicable. Other data will be ignored.
-  String changeColumnDataType(Column updatedColumn) =>
-      "$_alterColumn \"${updatedColumn.name}\" TYPE ${updatedColumn.typeWithArgs};";
+  String changeColumnDataType(Column updatedColumn, {String? using}) =>
+      "$_alterColumn \"${updatedColumn.name}\" TYPE ${updatedColumn.typeWithArgs}${using != null ? " USING $using" : ""};";
 
   /// Renames a column.
   String renameColumn(String oldColumnName, String newColumnName) =>
