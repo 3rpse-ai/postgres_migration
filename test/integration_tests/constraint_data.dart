@@ -1,6 +1,6 @@
 import 'package:postgres_migration/postgres_migration.dart';
 
-final foreignTableTestData = [
+final foreignTableConstraintTestData = [
   SerialColumn("ft_serial_column", isPrimaryKey: true),
   TextColumn("ft_text_column"),
   IntegerColumn("ft_integer_column", isUnique: true),
