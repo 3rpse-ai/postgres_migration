@@ -1,6 +1,6 @@
 import 'package:postgres_migration/postgres_migration.dart';
 
-final tableCreationTestData = {
+final columnTestData = {
   "Test Table Without Columns": {"simple": List<TableProperty>.empty()},
   "Test Numeric Columns": {
     "Simple": [
