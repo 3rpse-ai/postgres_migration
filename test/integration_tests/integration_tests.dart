@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:postgres_migration/postgres_migration.dart';
-import 'column_data.dart';
-import 'constraint_data.dart';
+import 'test_data/column_data.dart';
+import 'test_data/constraint_data.dart';
 
 /// Collection of tests to run against DB
 ///
