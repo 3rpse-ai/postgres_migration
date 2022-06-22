@@ -1,5 +1,5 @@
 import '../../../constraints/constraints.dart';
-import '../table_property.dart';
+import '../../../interfaces/table_property.dart';
 
 export 'implementations/numeric_columns.dart';
 export 'implementations/text_columns.dart';
