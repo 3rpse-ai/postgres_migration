@@ -120,7 +120,7 @@ class EnumMigrator {
     EnumDropMode? mode,
   }) {
     String preArgs = ifExists ? " IF EXISTS" : "";
-    String postArgs = mode?.mode ?? "";
+    String postArgs = mode?.mode != null ? " ${mode!.mode}" : "";
     return "DROP TYPE$preArgs $enumName$postArgs";
   }
 }
