@@ -11,3 +11,7 @@ pubspec.lock
 
 # Code coverage folder
 coverage/
+
+
+# Mac generated files
+.DS_Store
