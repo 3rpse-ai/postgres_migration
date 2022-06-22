@@ -22,7 +22,7 @@ void executeColumnIntegrationTests(
         final statement = migrator.createTable(dataSet.value);
         printOnFailure(statement);
         await callDB(statement);
-        await callDB(migrator.removeTable());
+        await callDB(migrator.dropTable());
       });
     }
   }

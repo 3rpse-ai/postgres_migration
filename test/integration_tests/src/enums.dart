@@ -20,7 +20,7 @@ void executeEnumIntegrationTests(
           EnumMigrator.createEnum(TestEnum.values, enumName: "MyEnum"));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("MyEnum"));
     });
 
@@ -29,7 +29,7 @@ void executeEnumIntegrationTests(
           enumValues: ["first", "second", "third"], enumName: "MyEnum"));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("MyEnum"));
     });
 
@@ -37,7 +37,7 @@ void executeEnumIntegrationTests(
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "TestEnum")]));
       await callDB(EnumMigrator.addEnumValue(TestEnum.third));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("4. Add Enum Value With Name", () async {
@@ -52,7 +52,7 @@ void executeEnumIntegrationTests(
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
       await callDB(
           EnumMigrator.addEnumValue(TestEnum.third, enumName: "MyEnum"));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("MyEnum"));
     });
 
@@ -61,7 +61,7 @@ void executeEnumIntegrationTests(
           .createTable([EnumColumn("enum_column", enumName: "TestEnum")]));
       await callDB(
           EnumMigrator.addEnumValue(TestEnum.third, ifNotExists: true));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("6. Add Enum Value If Not Exists + Before", () async {
@@ -72,7 +72,7 @@ void executeEnumIntegrationTests(
         ifNotExists: true,
         beforeValue: TestEnum.first,
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("7. Add Enum Value If Not Exists + After", () async {
@@ -83,7 +83,7 @@ void executeEnumIntegrationTests(
         ifNotExists: true,
         afterValue: TestEnum.first,
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("8. Add Enum Value Direct Input", () async {
@@ -91,7 +91,7 @@ void executeEnumIntegrationTests(
           .createTable([EnumColumn("enum_column", enumName: "TestEnum")]));
       await callDB(EnumMigrator.addEnumValueDirectInput(
           enumName: "TestEnum", enumValue: "third"));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("9. Add Enum Value Direct Input If Not Exists", () async {
@@ -99,7 +99,7 @@ void executeEnumIntegrationTests(
           .createTable([EnumColumn("enum_column", enumName: "TestEnum")]));
       await callDB(EnumMigrator.addEnumValueDirectInput(
           enumName: "TestEnum", enumValue: "third", ifNotExists: true));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("10. Add Enum Value Direct Input If Not Exists + Before", () async {
@@ -111,7 +111,7 @@ void executeEnumIntegrationTests(
         ifNotExists: true,
         beforeValue: "first",
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("11. Add Enum Value Direct Input After", () async {
@@ -122,7 +122,7 @@ void executeEnumIntegrationTests(
         enumValue: "third",
         afterValue: "first",
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("12. Drop Enum", () async {
@@ -132,7 +132,7 @@ void executeEnumIntegrationTests(
       ));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("MyEnum"));
     });
 
@@ -143,7 +143,7 @@ void executeEnumIntegrationTests(
       ));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum(
         "MyEnum",
         ifExists: true,
@@ -156,7 +156,7 @@ void executeEnumIntegrationTests(
       ));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum(
         "MyEnum",
         cascade: true,
@@ -170,7 +170,7 @@ void executeEnumIntegrationTests(
       ));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum(
         "MyEnum",
         restrict: true,
@@ -184,7 +184,7 @@ void executeEnumIntegrationTests(
       ));
       await callDB(migrator
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum(
         "MyEnum",
         ifExists: true,
@@ -201,7 +201,7 @@ void executeEnumIntegrationTests(
           .createTable([EnumColumn("enum_column", enumName: "MyEnum")]));
       await callDB(
           EnumMigrator.renameEnum(oldName: "MyEnum", newName: "NewEnum"));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("NewEnum"));
     });
 
@@ -212,7 +212,7 @@ void executeEnumIntegrationTests(
         oldValue: TestEnum.first,
         newValue: TestEnum.third,
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 
     test("19. Rename Enum Value With Name", () async {
@@ -229,7 +229,7 @@ void executeEnumIntegrationTests(
           oldValue: TestEnum.first,
           newValue: TestEnum.third,
           enumName: "MyEnum"));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
       await callDB(EnumMigrator.dropEnum("MyEnum"));
     });
 
@@ -241,6 +241,6 @@ void executeEnumIntegrationTests(
         oldValue: "first",
         newValue: "third",
       ));
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
 }

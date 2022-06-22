@@ -9,7 +9,7 @@ void executeConstraintIntegrationTests(
   final ftMigrator = TableMigrator("foreign_table");
   setUp(() async =>
       callDB(ftMigrator.createTable(foreignTableConstraintTestData)));
-  tearDown(() async => callDB(ftMigrator.removeTable()));
+  tearDown(() async => callDB(ftMigrator.dropTable()));
 
   // extract data from integration_test_data
   // creates a test per column type with respective use case
@@ -24,7 +24,7 @@ void executeConstraintIntegrationTests(
       final statement = migrator.createTable(dataSet);
       printOnFailure(statement);
       await callDB(statement);
-      await callDB(migrator.removeTable());
+      await callDB(migrator.dropTable());
     });
   }
 }

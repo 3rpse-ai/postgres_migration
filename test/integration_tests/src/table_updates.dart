@@ -13,8 +13,8 @@ void executeTableUpdateIntegrationTests(
     await callDB(migrator.createTable(updateTableMainTableTestData));
   });
   tearDown(() async {
-    await callDB(migrator.removeTable());
-    await callDB(ftMigrator.removeTable());
+    await callDB(migrator.dropTable());
+    await callDB(ftMigrator.dropTable());
   });
 
   group('1. Columns // ', () {
@@ -41,11 +41,11 @@ void executeTableUpdateIntegrationTests(
     });
     group('2. Remove Column // ', () {
       test("1. Cascading False", () async {
-        await callDB(migrator.removeColumn("main_date_column"));
+        await callDB(migrator.dropColumn("main_date_column"));
       });
 
       test("2. Cascading True", () async {
-        await callDB(migrator.removeColumn("main_date_column"));
+        await callDB(migrator.dropColumn("main_date_column"));
       });
     });
     group("3. Change Default Value // ", () {
@@ -58,7 +58,7 @@ void executeTableUpdateIntegrationTests(
       test("1. Remove column default value", () async {
         await callDB(migrator.changeColumnDefaultValue(
             TextColumn("main_text_column", defaultValue: "HELLO THERE")));
-        await callDB(migrator.removeColumnDefaultValue("main_text_column"));
+        await callDB(migrator.dropColumnDefaultValue("main_text_column"));
       });
     });
     group("5. Change Type // ", () {
@@ -106,12 +106,12 @@ void executeTableUpdateIntegrationTests(
                 "main_date_column",
               ]),
         ));
-        await callDB(migrator.removeConstraint('unique_constraint'));
+        await callDB(migrator.dropConstraint('unique_constraint'));
       });
 
       test("2. NOT NULL constraint", () async {
         await callDB(migrator.addNotNullConstraint("main_date_column"));
-        await callDB(migrator.removeNotNullConstraint('main_date_column'));
+        await callDB(migrator.dropNotNullConstraint('main_date_column'));
       });
     });
   });
@@ -122,7 +122,7 @@ void executeTableUpdateIntegrationTests(
         final testMigrator = TableMigrator("Test_Table");
         await callDB(testMigrator.createTable([]));
         await callDB(testMigrator.renameTable("New_Name"));
-        await callDB(testMigrator.removeTable());
+        await callDB(testMigrator.dropTable());
       });
 
       test("2. Rename table, no migrator update", () async {
@@ -131,7 +131,7 @@ void executeTableUpdateIntegrationTests(
         await callDB(testMigrator.renameTable("New_Name"));
 
         final newMigrator = TableMigrator(("New_Name"));
-        await callDB(newMigrator.removeTable());
+        await callDB(newMigrator.dropTable());
       });
     });
 
@@ -140,21 +140,21 @@ void executeTableUpdateIntegrationTests(
         final testMigrator = TableMigrator("New_Table");
 
         await callDB(testMigrator.createTable([]));
-        await callDB(testMigrator.removeTable());
+        await callDB(testMigrator.dropTable());
       });
 
       test("2. Remove table simple if exists", () async {
         final testMigrator = TableMigrator("New_Table");
 
         await callDB(testMigrator.createTable([]));
-        await callDB(testMigrator.removeTable(ifExists: true));
+        await callDB(testMigrator.dropTable(ifExists: true));
       });
 
       test("3. Remove table mode: CASCADE", () async {
         final testMigrator = TableMigrator("New_Table");
 
         await callDB(testMigrator.createTable([]));
-        await callDB(testMigrator.removeTable(mode: TableDeletionMode.cascade));
+        await callDB(testMigrator.dropTable(mode: TableDropMode.cascade));
       });
 
       test("4. Remove table mode: RESTRICT", () async {
@@ -162,7 +162,7 @@ void executeTableUpdateIntegrationTests(
 
         await callDB(testMigrator.createTable([]));
         await callDB(
-            testMigrator.removeTable(mode: TableDeletionMode.restrict));
+            testMigrator.dropTable(mode: TableDropMode.restrict));
       });
     });
   });
