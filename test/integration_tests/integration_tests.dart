@@ -14,7 +14,7 @@ void executeIntegrationTests(
   final migrator = TableMigrator('table_name');
 
   // Remove table after every run
-  tearDown(() async => await callDB(migrator.removeTable(ifExists: true)));
+  tearDown(() async => await callDB(migrator.dropTable(ifExists: true)));
 
   group('1. Create Table Columns //', () {
     executeColumnIntegrationTests(migrator, callDB);

@@ -26,7 +26,7 @@ void executeTableMigratorUnitTests() {
 
   test('3. Remove Column', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeColumn("int_column");
+    final snippet = migrator.dropColumn("int_column");
 
     expect(snippet, 'ALTER TABLE table_name DROP COLUMN "int_column";');
   });
@@ -50,14 +50,14 @@ void executeTableMigratorUnitTests() {
 
   test('6. Remove Constraint', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeConstraint("constraint_name");
+    final snippet = migrator.dropConstraint("constraint_name");
 
     expect(snippet, 'ALTER TABLE table_name DROP CONSTRAINT constraint_name;');
   });
 
   test('7. Remove NOT NULL Constraint', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeNotNullConstraint("int_column");
+    final snippet = migrator.dropNotNullConstraint("int_column");
 
     expect(snippet,
         'ALTER TABLE table_name ALTER COLUMN "int_column" DROP NOT NULL;');
@@ -65,7 +65,7 @@ void executeTableMigratorUnitTests() {
 
   test('8. Remove Column Default Value', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeColumnDefaultValue("int_column");
+    final snippet = migrator.dropColumnDefaultValue("int_column");
 
     expect(snippet,
         'ALTER TABLE table_name ALTER COLUMN "int_column" DROP DEFAULT;');
@@ -120,32 +120,32 @@ void executeTableMigratorUnitTests() {
 
   test('14. Remove Table', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeTable();
+    final snippet = migrator.dropTable();
     expect(snippet, 'DROP TABLE table_name;');
   });
 
   test('15. Remove Table if exists', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeTable(ifExists: true);
+    final snippet = migrator.dropTable(ifExists: true);
     expect(snippet, 'DROP TABLE IF EXISTS table_name;');
   });
 
   test('16. Remove Table cascade', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeTable(mode: TableDeletionMode.cascade);
+    final snippet = migrator.dropTable(mode: TableDropMode.cascade);
     expect(snippet, 'DROP TABLE table_name CASCADE;');
   });
 
   test('17. Remove Table restrict', () {
     final migrator = TableMigrator('table_name');
-    final snippet = migrator.removeTable(mode: TableDeletionMode.restrict);
+    final snippet = migrator.dropTable(mode: TableDropMode.restrict);
     expect(snippet, 'DROP TABLE table_name RESTRICT;');
   });
 
   test('18. Remove Table if exists restrict', () {
     final migrator = TableMigrator('table_name');
     final snippet =
-        migrator.removeTable(ifExists: true, mode: TableDeletionMode.restrict);
+        migrator.dropTable(ifExists: true, mode: TableDropMode.restrict);
     expect(snippet, 'DROP TABLE IF EXISTS table_name RESTRICT;');
   });
 }
