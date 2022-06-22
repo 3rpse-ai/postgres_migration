@@ -46,14 +46,16 @@ class CheckConstraint extends Constraint implements TableProperty {
 ///
 /// After setting this constraint there must not be any duplicate values for a column
 ///
-/// In case it should be created as a [TableProperty] the [columnNames] must be provided
+/// In case it should be created as a [TableProperty] use the [UniqueConstraint.tableProperty] constructor.
 ///
 /// *In case a single column should be marked as unique, without the need of naming the constraint, the `isUnique` flag of the [COLUMN] can be set.*
 class UniqueConstraint extends Constraint implements TableProperty {
   /// Combination of columns which should be unique.
   List<String>? columnNames;
 
-  UniqueConstraint({super.name, this.columnNames});
+  UniqueConstraint({super.name});
+
+  UniqueConstraint.tableProperty({super.name, this.columnNames});
 
   @override
   String get _constraintWithoutName {
@@ -91,14 +93,16 @@ class ManualConstraint extends Constraint implements TableProperty {
 ///
 /// Defines a column / multiple columns as unqiue identifier of a row
 ///
-/// In case it should be created as a [TableProperty] the [columnNames] must be provided
+/// In case it should be created as a [TableProperty] use the [PrimaryKeyConstraint.tableProperty] constructor.
 ///
 /// *In case a single column should be marked as primary key without the need of naming the constraint, the `isPrimaryKey` flag of the column can be directly set.*
 class PrimaryKeyConstraint extends Constraint implements TableProperty {
   /// Combination of columns which should be unique & identify a row.
   List<String>? columnNames;
 
-  PrimaryKeyConstraint({super.name, this.columnNames});
+  PrimaryKeyConstraint({super.name});
+
+  PrimaryKeyConstraint.tableProperty({super.name, this.columnNames});
 
   @override
   String get _constraintWithoutName {
