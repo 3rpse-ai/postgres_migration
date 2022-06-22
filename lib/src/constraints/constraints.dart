@@ -1,4 +1,4 @@
-import 'table_property.dart';
+import '../columns/columns/table_property.dart';
 
 /// Generic class for [Constraint]s.
 ///

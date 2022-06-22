@@ -1,4 +1,4 @@
-import '../constraint.dart';
+import '../../../constraints/constraints.dart';
 import '../table_property.dart';
 
 export 'implementations/numeric_columns.dart';
