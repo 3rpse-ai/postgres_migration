@@ -27,13 +27,11 @@ class TableMigrator {
 
   /// Returns SQL statement for removing a column.
   ///
-  /// All dat inside the column & constraints involving the column are dropped.
+  /// All data inside the column & constraints involving the column are dropped.
   ///
-  /// In case the column is referenced by a foreign key constraint of another table an error would be raised by the DB.
-  /// Dropping foreign constraints when deleting the column can be achieved via setting `cascading=true`
-  // TODO: check removal modes
-  String dropColumn(String columnName, {bool cascading = false}) =>
-      "$_alterTable DROP COLUMN \"$columnName\"${cascading ? " CASCADE" : ""};";
+  /// In order to define the behavior what happens if objects depend on the column use the mode arg.
+  String dropColumn(String columnName, {ColumnDropMode? mode}) =>
+      "$_alterTable DROP COLUMN \"$columnName\"${mode?.mode != null ? " ${mode!.mode}" : ""};";
 
   /// Adds a constraint to the table
   ///
@@ -112,15 +110,30 @@ class TableMigrator {
 
 /// Choice of how table should be deleted
 /// * Use cascade to automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
-/// * Restrict is default. It leads to refusing to drop the table if any objects depend on it.
+/// * Restrict is default. It leads to refusing to drop the table if any object depend on it.
 enum TableDropMode {
   /// Automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
   cascade('CASCADE'),
 
-  /// Refuse to drop the table if any objects depend on it.
+  /// Refuse to drop the table if any object depend on it.
   restrict('RESTRICT');
 
   const TableDropMode(this.mode);
+
+  final String mode;
+}
+
+/// Choice of how column should be deleted
+/// * Use cascade to automatically drop objects that depend on the column (such as foreing keys or views)
+/// * Restrict is default. It leads to refusing to drop the table if any object depend on it.
+enum ColumnDropMode {
+  /// Automatically drop objects that depend on the column (such as foreing keys or views)
+  cascade('CASCADE'),
+
+  /// Refuse to drop the column if any object depend on it.
+  restrict('RESTRICT');
+
+  const ColumnDropMode(this.mode);
 
   final String mode;
 }
