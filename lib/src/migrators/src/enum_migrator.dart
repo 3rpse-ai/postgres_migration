@@ -1,3 +1,5 @@
+// TODO: align naming with table migrator
+
 /// Class with convenience methods for handling enums:
 /// * Create enum (direct String input or provide enum)
 /// * Rename enum
@@ -115,6 +117,7 @@ class EnumMigrator {
   /// One can either set `cascade` **OR** `restrict` as argument.
   /// If both are provided only `cascade` is considered.
   static String dropEnum(String enumName,
+  //TODO: introduce dropmode for cascade / restrict
       {bool ifExists = false, cascade = false, restrict = false}) {
     String preArgs = ifExists ? " IF EXISTS" : "";
     List<String> postArgsList = [

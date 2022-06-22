@@ -31,6 +31,7 @@ class TableMigrator {
   ///
   /// In case the column is referenced by a foreign key constraint of another table an error would be raised by the DB.
   /// Dropping foreign constraints when deleting the column can be achieved via setting `cascading=true`
+  // TODO: check removal modes
   String removeColumn(String columnName, {bool cascading = false}) =>
       "$_alterTable DROP COLUMN \"$columnName\"${cascading ? " CASCADE" : ""};";
 
@@ -112,6 +113,7 @@ class TableMigrator {
 /// Choice of how table should be deleted
 /// * Use cascade to automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
 /// * Restrict is default. It leads to refusing to drop the table if any objects depend on it.
+// TODO: rename to drop or remove mode
 enum TableDeletionMode {
   /// Automatically drop objects that depend on the table (such as views), and in turn all objects that depend on those objects
   cascade('CASCADE'),
