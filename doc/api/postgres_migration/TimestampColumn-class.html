@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the TimestampColumn class from the postgres_migration library, for the Dart programming language.">
+  <title>TimestampColumn class - postgres_migration library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">postgres_migration</a></li>
+    <li><a href="../postgres_migration/postgres_migration-library.html">postgres_migration</a></li>
+    <li class="self-crumb">TimestampColumn class</li>
+  </ol>
+  <div class="self-name">TimestampColumn</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-class">TimestampColumn</span> class 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Column for defining a timestamp (equivalent of dart DateTime)</p>
+<p>Use the <code>precision</code> argument to specify the number of fractional digits retained in the seconds field.</p>
+<p>Be aware that when setting a default / inserting values no timezone will be respected.
+Hence one must ensure (especially when used with different clients) that the time inputs are normalized.</p>
+<p>Providing <code>DateTime.now()</code> as default value will result in the <strong>localized</strong> time when the migration is run being used as default. This is likely undesired. Use <code>defaultToCurrentTimeStamp</code>instead if a dynamic default is desired.</p>
+<p>For defaulting to the current time stamp of the transaction (on e.g every insert) on the sql server, use the <code>defaultToCurrentTimestamp</code> option. This can again yield different results as opposed to the <a href="../postgres_migration/TimestampWithTimeZoneColumn-class.html">TimestampWithTimeZoneColumn</a> implementation (as it is not defaulting to UTC).
+Use <code>defaultToCurrentTimestampInUTC</code> to avoid using the sql server's localized time.</p>
+<p>Please note that Postgresql <code>time</code> type is not supported as there is no native mapping in pure dart. In case you want to support this type you could use the <code>DateOfTime</code> class from the Flutter framework and extend the <a href="../postgres_migration/Column-class.html">Column</a> class.</p>
+</section>
+
+
+    <section>
+      <dl class="dl-horizontal">
+        
+  <dt>Inheritance</dt>
+  <dd>
+    <ul class="gt-separated dark clazz-relationships">
+      <li><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></li>
+        <li><a href="../postgres_migration/Column-class.html">Column</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span></li>
+      <li>TimestampColumn</li>
+    </ul>
+  </dd>
+
+        
+        
+
+
+
+        
+      </dl>
+    </section>
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="TimestampColumn" class="callable">
+          <span class="name"><a href="../postgres_migration/TimestampColumn/TimestampColumn.html">TimestampColumn</a></span><span class="signature">(<span class="parameter" id="-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="-param-precision">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">precision</span>, </span><span class="parameter" id="-param-defaultToCurrentTimeStamp"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">defaultToCurrentTimeStamp</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-defaultToCurrentTimestampInUTC"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">defaultToCurrentTimestampInUTC</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-isPrimaryKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isPrimaryKey</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-foreignKeyForTable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">foreignKeyForTable</span>, </span><span class="parameter" id="-param-isUnique"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUnique</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-isNullable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isNullable</span> = <span class="default-value">false</span>, </span><span class="parameter" id="-param-constraints"><span class="type-annotation"><a href="../postgres_migration/ColumnConstraints-class.html">ColumnConstraints</a>?</span> <span class="parameter-name">constraints</span>, </span><span class="parameter" id="-param-defaultValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">defaultValue</span>, </span><span class="parameter" id="-param-manualDefaultValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">manualDefaultValue</span>}</span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+        <dt id="TimestampColumn.array" class="callable">
+          <span class="name"><a href="../postgres_migration/TimestampColumn/TimestampColumn.array.html">TimestampColumn.array</a></span><span class="signature">(<span class="parameter" id="array-param-name"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">name</span>, </span><span class="parameter" id="array-param-precision">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">precision</span>, </span><span class="parameter" id="array-param-isPrimaryKey"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isPrimaryKey</span> = <span class="default-value">false</span>, </span><span class="parameter" id="array-param-foreignKeyForTable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">foreignKeyForTable</span>, </span><span class="parameter" id="array-param-isUnique"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isUnique</span> = <span class="default-value">false</span>, </span><span class="parameter" id="array-param-isNullable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isNullable</span> = <span class="default-value">false</span>, </span><span class="parameter" id="array-param-constraints"><span class="type-annotation"><a href="../postgres_migration/ColumnConstraints-class.html">ColumnConstraints</a>?</span> <span class="parameter-name">constraints</span>, </span><span class="parameter" id="array-param-defaultArrayValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span>?</span> <span class="parameter-name">defaultArrayValue</span>, </span><span class="parameter" id="array-param-manualDefaultValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">manualDefaultValue</span>}</span>)</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="args" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/args.html">args</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  Set this parameter to provide column arguments.
+E.g. type = "varchar", args = "9" results in varchar(9)
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="constraints" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/constraints.html">constraints</a></span>
+  <span class="signature">&#8596; <a href="../postgres_migration/ColumnConstraints-class.html">ColumnConstraints</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  Used to set and retrieve constraints
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="defaultArrayValue" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/defaultArrayValue.html">defaultArrayValue</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span>?</span> 
+
+</dt>
+<dd class="inherited">
+  Used to define a default value for Array Columns. Results in sql snippet <code>DEFAULT {$_defaultValue[0], $_defaultValue[1]}</code>.
+  <div class="features">final, inherited</div>
+
+</dd>
+
+        <dt id="defaultToCurrentTimeStamp" class="property">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/defaultToCurrentTimeStamp.html">defaultToCurrentTimeStamp</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+  Set this flag to default to the corresponding transaction's current timestamp in the sql server's localized time. If this is set <a href="../postgres_migration/Column/defaultValue.html">defaultValue</a> will be ignored.
+  <div class="features">read / write</div>
+
+</dd>
+
+        <dt id="defaultToCurrentTimestampInUTC" class="property">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/defaultToCurrentTimestampInUTC.html">defaultToCurrentTimestampInUTC</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd>
+  Set this flag to default to the corresponding transaction's current timestamp in UTC. If this is set, <a href="../postgres_migration/TimestampColumn/defaultToCurrentTimeStamp.html">defaultToCurrentTimeStamp</a> &amp;&amp; <a href="../postgres_migration/Column/defaultValue.html">defaultValue</a> will be ignored.
+  <div class="features">read / write</div>
+
+</dd>
+
+        <dt id="defaultValue" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/defaultValue.html">defaultValue</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  Used to define a default value. Results in sql snippet <code>DEFAULT $_defaultValue</code>.
+  <div class="features">final, inherited</div>
+
+</dd>
+
+        <dt id="defaultValueAsString" class="property">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/defaultValueAsString.html">defaultValueAsString</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  Overwrite this getter to provide a column specific default value. Otherwise <a href="../postgres_migration/TimestampColumn/convertInputValueToString.html">convertInputValueToString</a> / <a href="../postgres_migration/TimestampColumn/convertArrayInputValueToString.html">convertArrayInputValueToString</a>  is returned, which again defaults to <code>defaultValue.toString()</code>.
+  <div class="features">read-only, override</div>
+
+</dd>
+
+        <dt id="forceIncludeDefaultValue" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/forceIncludeDefaultValue.html">forceIncludeDefaultValue</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  Set this to true to enforce <a href="../postgres_migration/TimestampColumn/defaultValueAsString.html">defaultValueAsString</a> being included in <code>_defaultValueSnippet</code>.
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="foreignKeyForTable" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/foreignKeyForTable.html">foreignKeyForTable</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  Set this value with the referenced table's name to define the column as a foreign key
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="isArray" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/isArray.html">isArray</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="isNullable" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/isNullable.html">isNullable</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  Set this value to allow / prohibit null values. Defaults to not nullable.
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="isPrimaryKey" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/isPrimaryKey.html">isPrimaryKey</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  Set this value to define the column as a primary key
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="isUnique" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/isUnique.html">isUnique</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> 
+
+</dt>
+<dd class="inherited">
+  Set this value to enforce the column using only unique values
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="manualDefaultValue" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/manualDefaultValue.html">manualDefaultValue</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> 
+
+</dt>
+<dd class="inherited">
+  Possibility of inserting manual default statement
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="name" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/name.html">name</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">read / write, inherited</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="sqlSnippet" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/sqlSnippet.html">sqlSnippet</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="type" class="property">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/type.html">type</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">read-only, override</div>
+
+</dd>
+
+        <dt id="typeWithArgs" class="property inherited">
+  <span class="name"><a href="../postgres_migration/Column/typeWithArgs.html">typeWithArgs</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd class="inherited">
+  
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="convertArrayInputValueToString" class="callable">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/convertArrayInputValueToString.html">convertArrayInputValueToString</a></span><span class="signature">(<wbr><span class="parameter" id="convertArrayInputValueToString-param-inputValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">inputValue</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Converts data input to sql friendly string. Defaults to inputValue.toString(). Overwrite this method to e.g. support parantheses on around String inputs.
+  <div class="features">override</div>
+
+</dd>
+
+        <dt id="convertInputValueToString" class="callable">
+  <span class="name"><a href="../postgres_migration/TimestampColumn/convertInputValueToString.html">convertInputValueToString</a></span><span class="signature">(<wbr><span class="parameter" id="convertInputValueToString-param-inputValue"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">inputValue</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Converts data input to sql friendly string. Defaults to inputValue.toString(). Overwrite this method to e.g. support parantheses on around String inputs.
+  <div class="features">override</div>
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">postgres_migration</a></li>
+  <li><a href="../postgres_migration/postgres_migration-library.html">postgres_migration</a></li>
+  <li class="self-crumb">TimestampColumn class</li>
+</ol>
+
+
+    <h5>postgres_migration library</h5>
+    <ol>
+  <li class="section-title"><a href="../postgres_migration/postgres_migration-library.html#classes">Classes</a></li>
+  <li><a href="../postgres_migration/BigIntColumn-class.html">BigIntColumn</a></li>
+  <li><a href="../postgres_migration/BigSerialColumn-class.html">BigSerialColumn</a></li>
+  <li><a href="../postgres_migration/BooleanColumn-class.html">BooleanColumn</a></li>
+  <li><a href="../postgres_migration/CharColumn-class.html">CharColumn</a></li>
+  <li><a href="../postgres_migration/CheckConstraint-class.html">CheckConstraint</a></li>
+  <li><a href="../postgres_migration/Column-class.html">Column</a></li>
+  <li><a href="../postgres_migration/ColumnConstraints-class.html">ColumnConstraints</a></li>
+  <li><a href="../postgres_migration/Constraint-class.html">Constraint</a></li>
+  <li><a href="../postgres_migration/DateColumn-class.html">DateColumn</a></li>
+  <li><a href="../postgres_migration/DecimalColumn-class.html">DecimalColumn</a></li>
+  <li><a href="../postgres_migration/DoublePrecisionColumn-class.html">DoublePrecisionColumn</a></li>
+  <li><a href="../postgres_migration/EnumColumn-class.html">EnumColumn</a></li>
+  <li><a href="../postgres_migration/EnumMigrator-class.html">EnumMigrator</a></li>
+  <li><a href="../postgres_migration/FloatColumn-class.html">FloatColumn</a></li>
+  <li><a href="../postgres_migration/ForeignKeyConstraint-class.html">ForeignKeyConstraint</a></li>
+  <li><a href="../postgres_migration/IntegerColumn-class.html">IntegerColumn</a></li>
+  <li><a href="../postgres_migration/Interval-class.html">Interval</a></li>
+  <li><a href="../postgres_migration/IntervalColumn-class.html">IntervalColumn</a></li>
+  <li><a href="../postgres_migration/ManualConstraint-class.html">ManualConstraint</a></li>
+  <li><a href="../postgres_migration/ManualTableProperty-class.html">ManualTableProperty</a></li>
+  <li><a href="../postgres_migration/NumericColumn-class.html">NumericColumn</a></li>
+  <li><a href="../postgres_migration/PrimaryKeyConstraint-class.html">PrimaryKeyConstraint</a></li>
+  <li><a href="../postgres_migration/RealColumn-class.html">RealColumn</a></li>
+  <li><a href="../postgres_migration/SerialColumn-class.html">SerialColumn</a></li>
+  <li><a href="../postgres_migration/SmallIntColumn-class.html">SmallIntColumn</a></li>
+  <li><a href="../postgres_migration/SmallSerialColumn-class.html">SmallSerialColumn</a></li>
+  <li><a href="../postgres_migration/TableMigrator-class.html">TableMigrator</a></li>
+  <li><a href="../postgres_migration/TableProperty-class.html">TableProperty</a></li>
+  <li><a href="../postgres_migration/TextColumn-class.html">TextColumn</a></li>
+  <li><a href="../postgres_migration/TimestampColumn-class.html">TimestampColumn</a></li>
+  <li><a href="../postgres_migration/TimestampWithTimeZoneColumn-class.html">TimestampWithTimeZoneColumn</a></li>
+  <li><a href="../postgres_migration/UniqueConstraint-class.html">UniqueConstraint</a></li>
+  <li><a href="../postgres_migration/UUIDColumn-class.html">UUIDColumn</a></li>
+  <li><a href="../postgres_migration/VarcharColumn-class.html">VarcharColumn</a></li>
+
+
+
+
+
+
+  <li class="section-title"><a href="../postgres_migration/postgres_migration-library.html#enums">Enums</a></li>
+  <li><a href="../postgres_migration/ColumnDropMode.html">ColumnDropMode</a></li>
+  <li><a href="../postgres_migration/EnumDropMode.html">EnumDropMode</a></li>
+  <li><a href="../postgres_migration/ForeignKeyDeletionMode.html">ForeignKeyDeletionMode</a></li>
+  <li><a href="../postgres_migration/ForeignKeyUpdateMode.html">ForeignKeyUpdateMode</a></li>
+  <li><a href="../postgres_migration/TableDropMode.html">TableDropMode</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+        <li class="section-title"><a href="../postgres_migration/TimestampColumn-class.html#constructors">Constructors</a></li>
+          <li><a href="../postgres_migration/TimestampColumn/TimestampColumn.html">TimestampColumn</a></li>
+          <li><a href="../postgres_migration/TimestampColumn/TimestampColumn.array.html">array</a></li>
+
+
+    <li class="section-title">
+      <a href="../postgres_migration/TimestampColumn-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="../postgres_migration/Column/args.html">args</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/constraints.html">constraints</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/defaultArrayValue.html">defaultArrayValue</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/defaultToCurrentTimeStamp.html">defaultToCurrentTimeStamp</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/defaultToCurrentTimestampInUTC.html">defaultToCurrentTimestampInUTC</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/defaultValue.html">defaultValue</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/defaultValueAsString.html">defaultValueAsString</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/forceIncludeDefaultValue.html">forceIncludeDefaultValue</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/foreignKeyForTable.html">foreignKeyForTable</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/isArray.html">isArray</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/isNullable.html">isNullable</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/isPrimaryKey.html">isPrimaryKey</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/isUnique.html">isUnique</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/manualDefaultValue.html">manualDefaultValue</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/name.html">name</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/sqlSnippet.html">sqlSnippet</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/type.html">type</a></li>
+    <li class="inherited"><a href="../postgres_migration/Column/typeWithArgs.html">typeWithArgs</a></li>
+
+    <li class="section-title"><a href="../postgres_migration/TimestampColumn-class.html#instance-methods">Methods</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/convertArrayInputValueToString.html">convertArrayInputValueToString</a></li>
+    <li><a href="../postgres_migration/TimestampColumn/convertInputValueToString.html">convertInputValueToString</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../postgres_migration/TimestampColumn-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    postgres_migration
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

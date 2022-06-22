@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the TableMigrator class from the postgres_migration library, for the Dart programming language.">
+  <title>TableMigrator class - postgres_migration library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">postgres_migration</a></li>
+    <li><a href="../postgres_migration/postgres_migration-library.html">postgres_migration</a></li>
+    <li class="self-crumb">TableMigrator class</li>
+  </ol>
+  <div class="self-name">TableMigrator</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-class">TableMigrator</span> class 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+
+    <dl class="constructor-summary-list">
+        <dt id="TableMigrator" class="callable">
+          <span class="name"><a href="../postgres_migration/TableMigrator/TableMigrator.html">TableMigrator</a></span><span class="signature">(<span class="parameter" id="-param-tableName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">tableName</span></span>)</span>
+        </dt>
+        <dd>
+          Creates TableMigrator instance
+        </dd>
+    </dl>
+  </section>
+
+    <section class="summary offset-anchor" id="instance-properties">
+      <h2>Properties</h2>
+
+      <dl class="properties">
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> 
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span> 
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features">read-only, inherited</div>
+
+</dd>
+
+        <dt id="tableName" class="property">
+  <span class="name"><a href="../postgres_migration/TableMigrator/tableName.html">tableName</a></span>
+  <span class="signature">&#8596; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> 
+
+</dt>
+<dd>
+  
+  <div class="features">read / write</div>
+
+</dd>
+
+      </dl>
+    </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="addColumn" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/addColumn.html">addColumn</a></span><span class="signature">(<wbr><span class="parameter" id="addColumn-param-column"><span class="type-annotation"><a href="../postgres_migration/Column-class.html">Column</a></span> <span class="parameter-name">column</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns SQL statement for adding a column.
+  
+
+</dd>
+
+        <dt id="addConstraint" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/addConstraint.html">addConstraint</a></span><span class="signature">(<wbr><span class="parameter" id="addConstraint-param-constraint"><span class="type-annotation"><a href="../postgres_migration/TableProperty-class.html">TableProperty</a></span> <span class="parameter-name">constraint</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Adds a constraint to the table
+  
+
+</dd>
+
+        <dt id="addNotNullConstraint" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/addNotNullConstraint.html">addNotNullConstraint</a></span><span class="signature">(<wbr><span class="parameter" id="addNotNullConstraint-param-columnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">columnName</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Adds a not null constraints for a specific column
+  
+
+</dd>
+
+        <dt id="changeColumnDataType" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/changeColumnDataType.html">changeColumnDataType</a></span><span class="signature">(<wbr><span class="parameter" id="changeColumnDataType-param-updatedColumn"><span class="type-annotation"><a href="../postgres_migration/Column-class.html">Column</a></span> <span class="parameter-name">updatedColumn</span>, </span><span class="parameter" id="changeColumnDataType-param-using">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">using</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Changes a column's data type.
+  
+
+</dd>
+
+        <dt id="changeColumnDefaultValue" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/changeColumnDefaultValue.html">changeColumnDefaultValue</a></span><span class="signature">(<wbr><span class="parameter" id="changeColumnDefaultValue-param-updatedColumn"><span class="type-annotation"><a href="../postgres_migration/Column-class.html">Column</a></span> <span class="parameter-name">updatedColumn</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Changes a column's default value.
+  
+
+</dd>
+
+        <dt id="createTable" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/createTable.html">createTable</a></span><span class="signature">(<wbr><span class="parameter" id="createTable-param-properties"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../postgres_migration/TableProperty-class.html">TableProperty</a></span>&gt;</span></span> <span class="parameter-name">properties</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns SQL statement for creating a table with given properties
+  
+
+</dd>
+
+        <dt id="dropColumn" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/dropColumn.html">dropColumn</a></span><span class="signature">(<wbr><span class="parameter" id="dropColumn-param-columnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">columnName</span>, </span><span class="parameter" id="dropColumn-param-mode">{<span class="type-annotation"><a href="../postgres_migration/ColumnDropMode.html">ColumnDropMode</a>?</span> <span class="parameter-name">mode</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Returns SQL statement for removing a column.
+  
+
+</dd>
+
+        <dt id="dropColumnDefaultValue" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/dropColumnDefaultValue.html">dropColumnDefaultValue</a></span><span class="signature">(<wbr><span class="parameter" id="dropColumnDefaultValue-param-columnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">columnName</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Removes a column's default value.
+  
+
+</dd>
+
+        <dt id="dropConstraint" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/dropConstraint.html">dropConstraint</a></span><span class="signature">(<wbr><span class="parameter" id="dropConstraint-param-constraintName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">constraintName</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Removes a constraint from the table.
+  
+
+</dd>
+
+        <dt id="dropNotNullConstraint" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/dropNotNullConstraint.html">dropNotNullConstraint</a></span><span class="signature">(<wbr><span class="parameter" id="dropNotNullConstraint-param-columnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">columnName</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Removes a not null constraints for a specific column
+  
+
+</dd>
+
+        <dt id="dropTable" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/dropTable.html">dropTable</a></span><span class="signature">(<wbr><span class="parameter" id="dropTable-param-ifExists">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">ifExists</span> = <span class="default-value">false</span>, </span><span class="parameter" id="dropTable-param-mode"><span class="type-annotation"><a href="../postgres_migration/TableDropMode.html">TableDropMode</a>?</span> <span class="parameter-name">mode</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Removes (DROP) the referenced table
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a non-existent method or property is accessed.
+  <div class="features">inherited</div>
+
+</dd>
+
+        <dt id="renameColumn" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/renameColumn.html">renameColumn</a></span><span class="signature">(<wbr><span class="parameter" id="renameColumn-param-oldColumnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">oldColumnName</span>, </span><span class="parameter" id="renameColumn-param-newColumnName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">newColumnName</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Renames a column.
+  
+
+</dd>
+
+        <dt id="renameTable" class="callable">
+  <span class="name"><a href="../postgres_migration/TableMigrator/renameTable.html">renameTable</a></span><span class="signature">(<wbr><span class="parameter" id="renameTable-param-newName"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">newName</span>, </span><span class="parameter" id="renameTable-param-updateTableNameInMigrator">{<span class="type-annotation">dynamic</span> <span class="parameter-name">updateTableNameInMigrator</span> = <span class="default-value">true</span>}</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Renames a column.
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features">inherited</div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+    
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">postgres_migration</a></li>
+  <li><a href="../postgres_migration/postgres_migration-library.html">postgres_migration</a></li>
+  <li class="self-crumb">TableMigrator class</li>
+</ol>
+
+
+    <h5>postgres_migration library</h5>
+    <ol>
+  <li class="section-title"><a href="../postgres_migration/postgres_migration-library.html#classes">Classes</a></li>
+  <li><a href="../postgres_migration/BigIntColumn-class.html">BigIntColumn</a></li>
+  <li><a href="../postgres_migration/BigSerialColumn-class.html">BigSerialColumn</a></li>
+  <li><a href="../postgres_migration/BooleanColumn-class.html">BooleanColumn</a></li>
+  <li><a href="../postgres_migration/CharColumn-class.html">CharColumn</a></li>
+  <li><a href="../postgres_migration/CheckConstraint-class.html">CheckConstraint</a></li>
+  <li><a href="../postgres_migration/Column-class.html">Column</a></li>
+  <li><a href="../postgres_migration/ColumnConstraints-class.html">ColumnConstraints</a></li>
+  <li><a href="../postgres_migration/Constraint-class.html">Constraint</a></li>
+  <li><a href="../postgres_migration/DateColumn-class.html">DateColumn</a></li>
+  <li><a href="../postgres_migration/DecimalColumn-class.html">DecimalColumn</a></li>
+  <li><a href="../postgres_migration/DoublePrecisionColumn-class.html">DoublePrecisionColumn</a></li>
+  <li><a href="../postgres_migration/EnumColumn-class.html">EnumColumn</a></li>
+  <li><a href="../postgres_migration/EnumMigrator-class.html">EnumMigrator</a></li>
+  <li><a href="../postgres_migration/FloatColumn-class.html">FloatColumn</a></li>
+  <li><a href="../postgres_migration/ForeignKeyConstraint-class.html">ForeignKeyConstraint</a></li>
+  <li><a href="../postgres_migration/IntegerColumn-class.html">IntegerColumn</a></li>
+  <li><a href="../postgres_migration/Interval-class.html">Interval</a></li>
+  <li><a href="../postgres_migration/IntervalColumn-class.html">IntervalColumn</a></li>
+  <li><a href="../postgres_migration/ManualConstraint-class.html">ManualConstraint</a></li>
+  <li><a href="../postgres_migration/ManualTableProperty-class.html">ManualTableProperty</a></li>
+  <li><a href="../postgres_migration/NumericColumn-class.html">NumericColumn</a></li>
+  <li><a href="../postgres_migration/PrimaryKeyConstraint-class.html">PrimaryKeyConstraint</a></li>
+  <li><a href="../postgres_migration/RealColumn-class.html">RealColumn</a></li>
+  <li><a href="../postgres_migration/SerialColumn-class.html">SerialColumn</a></li>
+  <li><a href="../postgres_migration/SmallIntColumn-class.html">SmallIntColumn</a></li>
+  <li><a href="../postgres_migration/SmallSerialColumn-class.html">SmallSerialColumn</a></li>
+  <li><a href="../postgres_migration/TableMigrator-class.html">TableMigrator</a></li>
+  <li><a href="../postgres_migration/TableProperty-class.html">TableProperty</a></li>
+  <li><a href="../postgres_migration/TextColumn-class.html">TextColumn</a></li>
+  <li><a href="../postgres_migration/TimestampColumn-class.html">TimestampColumn</a></li>
+  <li><a href="../postgres_migration/TimestampWithTimeZoneColumn-class.html">TimestampWithTimeZoneColumn</a></li>
+  <li><a href="../postgres_migration/UniqueConstraint-class.html">UniqueConstraint</a></li>
+  <li><a href="../postgres_migration/UUIDColumn-class.html">UUIDColumn</a></li>
+  <li><a href="../postgres_migration/VarcharColumn-class.html">VarcharColumn</a></li>
+
+
+
+
+
+
+  <li class="section-title"><a href="../postgres_migration/postgres_migration-library.html#enums">Enums</a></li>
+  <li><a href="../postgres_migration/ColumnDropMode.html">ColumnDropMode</a></li>
+  <li><a href="../postgres_migration/EnumDropMode.html">EnumDropMode</a></li>
+  <li><a href="../postgres_migration/ForeignKeyDeletionMode.html">ForeignKeyDeletionMode</a></li>
+  <li><a href="../postgres_migration/ForeignKeyUpdateMode.html">ForeignKeyUpdateMode</a></li>
+  <li><a href="../postgres_migration/TableDropMode.html">TableDropMode</a></li>
+
+
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <ol>
+
+        <li class="section-title"><a href="../postgres_migration/TableMigrator-class.html#constructors">Constructors</a></li>
+          <li><a href="../postgres_migration/TableMigrator/TableMigrator.html">TableMigrator</a></li>
+
+
+    <li class="section-title">
+      <a href="../postgres_migration/TableMigrator-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../postgres_migration/TableMigrator/tableName.html">tableName</a></li>
+
+    <li class="section-title"><a href="../postgres_migration/TableMigrator-class.html#instance-methods">Methods</a></li>
+    <li><a href="../postgres_migration/TableMigrator/addColumn.html">addColumn</a></li>
+    <li><a href="../postgres_migration/TableMigrator/addConstraint.html">addConstraint</a></li>
+    <li><a href="../postgres_migration/TableMigrator/addNotNullConstraint.html">addNotNullConstraint</a></li>
+    <li><a href="../postgres_migration/TableMigrator/changeColumnDataType.html">changeColumnDataType</a></li>
+    <li><a href="../postgres_migration/TableMigrator/changeColumnDefaultValue.html">changeColumnDefaultValue</a></li>
+    <li><a href="../postgres_migration/TableMigrator/createTable.html">createTable</a></li>
+    <li><a href="../postgres_migration/TableMigrator/dropColumn.html">dropColumn</a></li>
+    <li><a href="../postgres_migration/TableMigrator/dropColumnDefaultValue.html">dropColumnDefaultValue</a></li>
+    <li><a href="../postgres_migration/TableMigrator/dropConstraint.html">dropConstraint</a></li>
+    <li><a href="../postgres_migration/TableMigrator/dropNotNullConstraint.html">dropNotNullConstraint</a></li>
+    <li><a href="../postgres_migration/TableMigrator/dropTable.html">dropTable</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../postgres_migration/TableMigrator/renameColumn.html">renameColumn</a></li>
+    <li><a href="../postgres_migration/TableMigrator/renameTable.html">renameTable</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../postgres_migration/TableMigrator-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    postgres_migration
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
