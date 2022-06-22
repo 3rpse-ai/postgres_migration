@@ -99,10 +99,12 @@ void executeTableUpdateIntegrationTests(
     group("2. Remove Constraint // ", () {
       test("1. Regular Constraint", () async {
         await callDB(migrator.addConstraint(
-          UniqueConstraint(name: "unique_constraint", columnNames: [
-            "main_text_column",
-            "main_date_column",
-          ]),
+          UniqueConstraint.tableProperty(
+              name: "unique_constraint",
+              columnNames: [
+                "main_text_column",
+                "main_date_column",
+              ]),
         ));
         await callDB(migrator.removeConstraint('unique_constraint'));
       });

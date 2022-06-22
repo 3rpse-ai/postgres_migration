@@ -4,7 +4,8 @@ final updateTableForeignTableTestData = [
   SerialColumn("ft_serial_column", isPrimaryKey: true),
   TextColumn("ft_text_column"),
   IntegerColumn("ft_integer_column", isUnique: true),
-  UniqueConstraint(columnNames: ["ft_integer_column", "ft_text_column"])
+  UniqueConstraint.tableProperty(
+      columnNames: ["ft_integer_column", "ft_text_column"])
 ];
 
 final updateTableMainTableTestData = [
@@ -16,22 +17,22 @@ final updateTableMainTableTestData = [
 ];
 
 final List<TableProperty> updateTableConstraintTestData = [
-  PrimaryKeyConstraint(
+  PrimaryKeyConstraint.tableProperty(
     name: "primary_key",
     columnNames: ['main_serial_column'],
   ),
-  PrimaryKeyConstraint(
+  PrimaryKeyConstraint.tableProperty(
     name: "primary_key",
     columnNames: [
       'main_serial_column',
       'main_text_column',
     ],
   ),
-  UniqueConstraint(
+  UniqueConstraint.tableProperty(
     name: "unique_constraint",
     columnNames: ['main_date_column'],
   ),
-  UniqueConstraint(name: "unique_constraint", columnNames: [
+  UniqueConstraint.tableProperty(name: "unique_constraint", columnNames: [
     'main_serial_column',
     'main_date_column',
   ]),

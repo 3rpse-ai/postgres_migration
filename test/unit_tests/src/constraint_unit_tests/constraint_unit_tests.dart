@@ -60,7 +60,7 @@ void executeConstraintUnitTests() {
     '2.4 UniqueConstraint simple with single column test',
     () {
       UniqueConstraint checkConstraint =
-          UniqueConstraint(columnNames: ["first_column"]);
+          UniqueConstraint.tableProperty(columnNames: ["first_column"]);
       expect(checkConstraint.sqlSnippet, equals('UNIQUE ("first_column")'));
     },
   );
@@ -68,7 +68,7 @@ void executeConstraintUnitTests() {
   test(
     '2.5 UniqueConstraint simple with multiples column test',
     () {
-      UniqueConstraint checkConstraint = UniqueConstraint(
+      UniqueConstraint checkConstraint = UniqueConstraint.tableProperty(
         columnNames: [
           "first_column",
           "second_column",
@@ -83,7 +83,7 @@ void executeConstraintUnitTests() {
   test(
     '2.6 UniqueConstraint with name & single column test',
     () {
-      UniqueConstraint checkConstraint = UniqueConstraint(
+      UniqueConstraint checkConstraint = UniqueConstraint.tableProperty(
           columnNames: ["first_column"], name: "unique_constraint");
       expect(checkConstraint.sqlSnippet,
           equals('CONSTRAINT "unique_constraint" UNIQUE ("first_column")'));
@@ -93,7 +93,7 @@ void executeConstraintUnitTests() {
   test(
     '2.7 UniqueConstraint  with name & with multiple columns test',
     () {
-      UniqueConstraint checkConstraint = UniqueConstraint(
+      UniqueConstraint checkConstraint = UniqueConstraint.tableProperty(
         columnNames: [
           "first_column",
           "second_column",
@@ -158,7 +158,7 @@ void executeConstraintUnitTests() {
     '4.3 PrimaryKeyConstraint simple with single column test',
     () {
       PrimaryKeyConstraint primary =
-          PrimaryKeyConstraint(columnNames: ["first_column"]);
+          PrimaryKeyConstraint.tableProperty(columnNames: ["first_column"]);
       expect(primary.sqlSnippet, equals('PRIMARY KEY ("first_column")'));
     },
   );
@@ -166,8 +166,8 @@ void executeConstraintUnitTests() {
   test(
     '4.4 PrimaryKeyConstraint simple with multiple columns test',
     () {
-      PrimaryKeyConstraint primary =
-          PrimaryKeyConstraint(columnNames: ["first_column", "second_column"]);
+      PrimaryKeyConstraint primary = PrimaryKeyConstraint.tableProperty(
+          columnNames: ["first_column", "second_column"]);
       expect(primary.sqlSnippet,
           equals('PRIMARY KEY ("first_column", "second_column")'));
     },
@@ -186,7 +186,7 @@ void executeConstraintUnitTests() {
   test(
     '4.6 PrimaryKeyConstraint with name & single column test',
     () {
-      PrimaryKeyConstraint primary = PrimaryKeyConstraint(
+      PrimaryKeyConstraint primary = PrimaryKeyConstraint.tableProperty(
           name: "primary_constraint", columnNames: ["first_column"]);
       expect(
           primary.sqlSnippet,
@@ -198,7 +198,7 @@ void executeConstraintUnitTests() {
   test(
     '4.7 PrimaryKeyConstraint with name & multiple columns test',
     () {
-      PrimaryKeyConstraint primary = PrimaryKeyConstraint(
+      PrimaryKeyConstraint primary = PrimaryKeyConstraint.tableProperty(
           name: "primary_constraint",
           columnNames: ["first_column", "second_column"]);
       expect(

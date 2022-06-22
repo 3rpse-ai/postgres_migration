@@ -33,7 +33,8 @@ void executeTableMigratorUnitTests() {
 
   test('4. Add Constraint', () {
     final migrator = TableMigrator('table_name');
-    final constraint = PrimaryKeyConstraint(columnNames: ["int_column"]);
+    final constraint =
+        PrimaryKeyConstraint.tableProperty(columnNames: ["int_column"]);
     final snippet = migrator.addConstraint(constraint);
 
     expect(snippet, 'ALTER TABLE table_name ADD PRIMARY KEY ("int_column");');

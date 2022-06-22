@@ -4,7 +4,8 @@ final foreignTableConstraintTestData = [
   SerialColumn("ft_serial_column", isPrimaryKey: true),
   TextColumn("ft_text_column"),
   IntegerColumn("ft_integer_column", isUnique: true),
-  UniqueConstraint(columnNames: ["ft_integer_column", "ft_text_column"])
+  UniqueConstraint.tableProperty(
+      columnNames: ["ft_integer_column", "ft_text_column"])
 ];
 
 final Map<String, List<TableProperty>> constraintTestData = {
@@ -176,14 +177,14 @@ final Map<String, List<TableProperty>> constraintTestData = {
     SerialColumn(
       "serial_column",
     ),
-    PrimaryKeyConstraint(
+    PrimaryKeyConstraint.tableProperty(
       name: "primary_key_constraint",
       columnNames: ["serial_column"],
     ),
     TextColumn(
       "text_column",
     ),
-    UniqueConstraint(
+    UniqueConstraint.tableProperty(
       name: "unique_constraint",
       columnNames: ["text_column"],
     ),
@@ -300,11 +301,11 @@ final Map<String, List<TableProperty>> constraintTestData = {
     TextColumn(
       "text_column",
     ),
-    PrimaryKeyConstraint(
+    PrimaryKeyConstraint.tableProperty(
       name: "primary_key_constraint",
       columnNames: ["serial_column", "text_column"],
     ),
-    UniqueConstraint(
+    UniqueConstraint.tableProperty(
       name: "unique_constraint",
       columnNames: ["serial_column", "text_column"],
     ),
