@@ -17,122 +17,158 @@ final Map<String, List<TableProperty>> constraintTestData = {
   'Inline Constraints': [
     SerialColumn(
       "serial_column",
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
+      constraints: ColumnConstraints(
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+      ),
     ),
     TextColumn(
       "text_column",
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      constraints: ColumnConstraints(
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      ),
     ),
     DateColumn(
       "date_column",
-      checkConstraint: CheckConstraint(
-        name: "check_constraint",
-        check: 'serial_column < integer_column',
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(
+          name: "check_constraint",
+          check: 'serial_column < integer_column',
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column",
-      foreignKeyConstraint:
-          ForeignKeyConstraint(referencedTable: "foreign_table"),
+      constraints: ColumnConstraints(
+        foreignKeyConstraint:
+            ForeignKeyConstraint(referencedTable: "foreign_table"),
+      ),
     ),
     IntegerColumn(
       "integer_column_2",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        referencedColumn: "ft_integer_column",
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          referencedColumn: "ft_integer_column",
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_3",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        referencedColumn: "ft_integer_column",
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          referencedColumn: "ft_integer_column",
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_4",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.cascade,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.cascade,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_5",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.restrict,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.restrict,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_6",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.noAction,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.noAction,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_7",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.setDefault,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.setDefault,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_8",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.setNull,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.setNull,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_9",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        deletionMode: ForeignKeyDeletionMode.restrict,
-        updateMode: ForeignKeyUpdateMode.cascade,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          deletionMode: ForeignKeyDeletionMode.restrict,
+          updateMode: ForeignKeyUpdateMode.cascade,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_10",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.cascade,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.cascade,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_11",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.noAction,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.noAction,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_12",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.restrict,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.restrict,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_13",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.setDefault,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.setDefault,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_14",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.setNull,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.setNull,
+        ),
       ),
     ),
     IntegerColumn(
       "integer_column_15",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        updateMode: ForeignKeyUpdateMode.undefined,
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          updateMode: ForeignKeyUpdateMode.undefined,
+        ),
       ),
     ),
   ],
@@ -171,9 +207,11 @@ final Map<String, List<TableProperty>> constraintTestData = {
     ),
     IntegerColumn(
       "integer_column_3",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "foreign_table",
-        referencedColumn: "ft_integer_column",
+      constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "foreign_table",
+          referencedColumn: "ft_integer_column",
+        ),
       ),
     ),
     ForeignKeyConstraint.tableProperty(

@@ -7,34 +7,25 @@ class ColumnImplementation extends Column {
 
   ColumnImplementation(
     super.name, {
-    super.checkConstraint,
-    super.defaultValue,
-    super.foreignKeyConstraint,
+    super.isPrimaryKey = false,
     super.foreignKeyForTable,
-    super.isNullable,
-    super.isPrimaryKey,
-    super.isUnique,
-    super.manualConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultValue,
     super.manualDefaultValue,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
     super.args,
     super.forceIncludeDefaultValue,
   });
 
   ColumnImplementation.array(
     super.name, {
-    super.checkConstraint,
-    super.defaultArrayValue,
-    super.foreignKeyConstraint,
+    super.isPrimaryKey = false,
     super.foreignKeyForTable,
-    super.isNullable,
-    super.isPrimaryKey,
-    super.isUnique,
-    super.manualConstraint,
-    super.manualDefaultValue,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultArrayValue,
     super.args,
   }) : super.array();
 }
@@ -67,15 +58,17 @@ void executeColumnAbstractClassUnitTests() {
   test('4 Detailed constraints', () {
     final column = ColumnImplementation(
       'column_name',
-      checkConstraint: CheckConstraint(check: "check"),
-      manualConstraint: ManualConstraint("manual_constraint"),
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "referenced_table",
-        name: "foreign_key_constraint",
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(check: "check"),
+        manualConstraint: ManualConstraint("manual_constraint"),
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "referenced_table",
+          name: "foreign_key_constraint",
+        ),
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       ),
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
     );
     expect(
       column.sqlSnippet,
@@ -88,19 +81,21 @@ void executeColumnAbstractClassUnitTests() {
   test('5 Detailed vs shorthand constraints', () {
     final column = ColumnImplementation(
       'column_name',
-      checkConstraint: CheckConstraint(check: "check"),
-      manualConstraint: ManualConstraint("manual_constraint"),
       isNullable: true,
       isPrimaryKey: true,
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
       foreignKeyForTable: "referenced_table",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "referenced_table",
-        name: "foreign_key_constraint",
-      ),
       isUnique: true,
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(check: "check"),
+        manualConstraint: ManualConstraint("manual_constraint"),
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "referenced_table",
+          name: "foreign_key_constraint",
+        ),
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      ),
     );
     expect(
       column.sqlSnippet,
@@ -152,15 +147,18 @@ void executeColumnAbstractClassUnitTests() {
   test('9 Default value with constraints', () {
     final column = ColumnImplementation(
       'column_name',
-      checkConstraint: CheckConstraint(check: "check"),
-      manualConstraint: ManualConstraint("manual_constraint"),
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "referenced_table",
-        name: "foreign_key_constraint",
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(check: "check"),
+        manualConstraint: ManualConstraint("manual_constraint"),
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "referenced_table",
+          name: "foreign_key_constraint",
+        ),
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       ),
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+
       // making sure toString method is called hence not providing string value here
       defaultValue: ColumnImplementation("test"),
     );
@@ -175,19 +173,21 @@ void executeColumnAbstractClassUnitTests() {
   test('10 Maximum example w/o args', () {
     final column = ColumnImplementation(
       'column_name',
-      checkConstraint: CheckConstraint(check: "check"),
-      manualConstraint: ManualConstraint("manual_constraint"),
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(check: "check"),
+        manualConstraint: ManualConstraint("manual_constraint"),
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "referenced_table",
+          name: "foreign_key_constraint",
+        ),
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      ),
       isNullable: true,
       isPrimaryKey: true,
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
       foreignKeyForTable: "referenced_table",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "referenced_table",
-        name: "foreign_key_constraint",
-      ),
       isUnique: true,
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       defaultValue: "default_value",
       manualDefaultValue: "manual_default",
       forceIncludeDefaultValue: true,
@@ -203,19 +203,21 @@ void executeColumnAbstractClassUnitTests() {
   test('11 Args with maximum declaration test', () {
     final column = ColumnImplementation(
       'column_name',
-      checkConstraint: CheckConstraint(check: "check"),
-      manualConstraint: ManualConstraint("manual_constraint"),
+      constraints: ColumnConstraints(
+        checkConstraint: CheckConstraint(check: "check"),
+        manualConstraint: ManualConstraint("manual_constraint"),
+        primaryKeyConstraint:
+            PrimaryKeyConstraint(name: "primary_key_constraint"),
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "referenced_table",
+          name: "foreign_key_constraint",
+        ),
+        uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
+      ),
       isNullable: true,
       isPrimaryKey: true,
-      primaryKeyConstraint:
-          PrimaryKeyConstraint(name: "primary_key_constraint"),
       foreignKeyForTable: "referenced_table",
-      foreignKeyConstraint: ForeignKeyConstraint(
-        referencedTable: "referenced_table",
-        name: "foreign_key_constraint",
-      ),
       isUnique: true,
-      uniqueConstraint: UniqueConstraint(name: "unique_constraint"),
       defaultValue: "default_value",
       manualDefaultValue: "manual_default",
       args: "ARGS",
@@ -263,7 +265,7 @@ void executeColumnAbstractClassUnitTests() {
 
   test('15 Array with default and args example', () {
     final column = ColumnImplementation.array('column_name',
-    args: "args",
+        args: "args",
         defaultArrayValue: ["default 1", "default 2", "default 3"]);
     expect(
       column.sqlSnippet,
