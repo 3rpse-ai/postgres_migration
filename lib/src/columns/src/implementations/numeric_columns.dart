@@ -9,32 +9,24 @@ class SmallIntColumn extends Column<int> {
 
   SmallIntColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   SmallIntColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -49,32 +41,24 @@ class IntegerColumn extends Column<int> {
 
   IntegerColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   IntegerColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -87,32 +71,24 @@ class BigIntColumn extends Column<int> {
 
   BigIntColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   BigIntColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -161,19 +137,15 @@ class NumericColumn extends Column<double> {
   int? scale;
   NumericColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
-    super.isPrimaryKey = false,
-    super.isUnique = false,
-    super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
-    super.defaultValue,
     this.precision,
     this.scale,
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultValue,
+    super.manualDefaultValue,
   }) : super(
           // precision must always be provided if scale is provided.
           args: (precision != null || (scale != null && precision != null))
@@ -186,19 +158,15 @@ class NumericColumn extends Column<double> {
 
   NumericColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
-    super.isPrimaryKey = false,
-    super.isUnique = false,
-    super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
-    super.defaultArrayValue,
     this.precision,
     this.scale,
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array(
           // precision must always be provided if scale is provided.
           args: (precision != null || (scale != null && precision != null))
@@ -231,36 +199,28 @@ class DecimalColumn extends NumericColumn {
 
   DecimalColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
-    super.isPrimaryKey = false,
-    super.isUnique = false,
-    super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
-    super.defaultValue,
     super.precision,
     super.scale,
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultValue,
+    super.manualDefaultValue,
   });
 
   DecimalColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
-    super.isPrimaryKey = false,
-    super.isUnique = false,
-    super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
-    super.defaultArrayValue,
     super.precision,
     super.scale,
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -275,32 +235,24 @@ class RealColumn extends Column<double> {
 
   RealColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   RealColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -315,32 +267,24 @@ class DoublePrecisionColumn extends Column<double> {
 
   DoublePrecisionColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   DoublePrecisionColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -360,33 +304,25 @@ class FloatColumn extends Column<double> {
   FloatColumn(
     super.name, {
     this.precision,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(args: precision?.toString());
 
   FloatColumn.array(
     super.name, {
     this.precision,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array(args: precision?.toString());
 }
 
@@ -398,13 +334,9 @@ class SmallSerialColumn extends Column<int> {
   SmallSerialColumn(
     super.name, {
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.constraints,
   }) : super(isNullable: true);
 }
 
@@ -416,13 +348,9 @@ class SerialColumn extends Column<int> {
   SerialColumn(
     super.name, {
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.constraints,
   }) : super(isNullable: true);
 }
 
@@ -431,15 +359,10 @@ class BigSerialColumn extends Column<int> {
   @override
   String get type => 'bigserial';
 
-  BigSerialColumn(
-    super.name, {
-    super.isPrimaryKey = false,
-    super.isUnique = false,
-    super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
-  }) : super(isNullable: true);
+  BigSerialColumn(super.name,
+      {super.isPrimaryKey = false,
+      super.foreignKeyForTable,
+      super.isUnique = false,
+      super.constraints})
+      : super(isNullable: true);
 }

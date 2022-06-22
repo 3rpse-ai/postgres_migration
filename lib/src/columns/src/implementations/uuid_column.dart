@@ -15,31 +15,23 @@ class UUIDColumn extends Column<String> {
 
   UUIDColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   UUIDColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }

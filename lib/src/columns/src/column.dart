@@ -21,39 +21,28 @@ abstract class Column<T> implements TableProperty {
   String get sqlSnippet =>
       "\"$name\" $typeWithArgs$_constraintsSnippet$_defaultValueSnippet";
 
-  /// Used to set check constraint.
-  CheckConstraint? checkConstraint;
-
-  /// Used to set manual constraint. Allows for freely defining any constraint.
-  ManualConstraint? manualConstraint;
-
-  /// Used to set unique constraint. If value is provided [isUnique] flag is ignored.
-  UniqueConstraint? uniqueConstraint;
-
-  /// Used to set foreign key constraint. If value is provided [foreignKeyForTable] shorthand is ignored.
-  ForeignKeyConstraint? foreignKeyConstraint;
-
-  /// Used to set primary key constraint. If value is provided [isPrimaryKey] flag is ignored.
-  PrimaryKeyConstraint? primaryKeyConstraint;
+  /// Used to set and retrieve constraints
+  ColumnConstraints? constraints;
 
   /// Internal property for retrieving check constraint
-  CheckConstraint? get _checkConstraint => checkConstraint;
+  CheckConstraint? get _checkConstraint => constraints?.checkConstraint;
 
   /// Internal property for retrieving manual constraint
-  ManualConstraint? get _manualConstraint => manualConstraint;
+  ManualConstraint? get _manualConstraint => constraints?.manualConstraint;
 
   /// Internal property for retrieving unique constraint.
   ///
   /// Returns default [UniqueConstraint] if is [isUnique]is set and [uniqueConstraint] is null.
   UniqueConstraint? get _uniqueConstraint {
-    return uniqueConstraint ?? (isUnique ? UniqueConstraint() : null);
+    return constraints?.uniqueConstraint ??
+        (isUnique ? UniqueConstraint() : null);
   }
 
   /// Internal property for retrieving foreign key constraint.
   ///
   /// Returns default [ForeignKeyConstraint] if [foreignKeyForTable]is set and [foreignKeyConstraint] is null.
   ForeignKeyConstraint? get _foreignKeyConstraint {
-    return foreignKeyConstraint ??
+    return constraints?.foreignKeyConstraint ??
         (foreignKeyForTable != null
             ? ForeignKeyConstraint(referencedTable: foreignKeyForTable!)
             : null);
@@ -63,7 +52,7 @@ abstract class Column<T> implements TableProperty {
   ///
   /// Returns default [PrimaryKeyConstraint] if is [isPrimaryKey]is set and [primaryKeyConstraint] is null.
   PrimaryKeyConstraint? get _primaryKeyConstraint {
-    return primaryKeyConstraint ??
+    return constraints?.primaryKeyConstraint ??
         (isPrimaryKey ? PrimaryKeyConstraint() : null);
   }
 
@@ -176,37 +165,54 @@ abstract class Column<T> implements TableProperty {
 
   Column(
     this.name, {
-    this.isNullable = false,
-    this.manualDefaultValue,
-    this.isPrimaryKey = false,
-    this.isUnique = false,
-    this.foreignKeyForTable,
-    this.foreignKeyConstraint,
-    this.checkConstraint,
-    this.manualConstraint,
-    this.primaryKeyConstraint,
-    this.uniqueConstraint,
-    this.defaultValue,
     this.args,
+    this.isPrimaryKey = false,
+    this.foreignKeyForTable,
+    this.isUnique = false,
+    this.isNullable = false,
+    this.constraints,
+    this.defaultValue,
+    this.manualDefaultValue,
     this.forceIncludeDefaultValue = false,
   })  : isArray = false,
         defaultArrayValue = null;
 
   Column.array(
     this.name, {
-    this.isNullable = false,
-    this.manualDefaultValue,
-    this.isPrimaryKey = false,
-    this.isUnique = false,
-    this.foreignKeyForTable,
-    this.foreignKeyConstraint,
-    this.checkConstraint,
-    this.manualConstraint,
-    this.primaryKeyConstraint,
-    this.uniqueConstraint,
-    this.defaultArrayValue,
     this.args,
+    this.isPrimaryKey = false,
+    this.foreignKeyForTable,
+    this.isUnique = false,
+    this.isNullable = false,
+    this.constraints,
+    this.defaultArrayValue,
+    this.manualDefaultValue,
   })  : isArray = true,
         forceIncludeDefaultValue = false,
         defaultValue = null;
+}
+
+class ColumnConstraints {
+  /// Used to set primary key constraint. If value is provided [isPrimaryKey] flag is ignored.
+  PrimaryKeyConstraint? primaryKeyConstraint;
+
+  /// Used to set foreign key constraint. If value is provided [foreignKeyForTable] shorthand is ignored.
+  ForeignKeyConstraint? foreignKeyConstraint;
+
+  /// Used to set unique constraint. If value is provided [isUnique] flag is ignored.
+  UniqueConstraint? uniqueConstraint;
+
+  /// Used to set check constraint.
+  CheckConstraint? checkConstraint;
+
+  /// Used to set manual constraint. Allows for freely defining any constraint.
+  ManualConstraint? manualConstraint;
+
+  ColumnConstraints({
+    this.primaryKeyConstraint,
+    this.foreignKeyConstraint,
+    this.uniqueConstraint,
+    this.checkConstraint,
+    this.manualConstraint,
+  });
 }

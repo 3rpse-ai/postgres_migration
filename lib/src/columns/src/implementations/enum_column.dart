@@ -19,32 +19,24 @@ class EnumColumn<T extends Enum> extends Column<Enum> {
   EnumColumn(
     super.name, {
     required this.enumName,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   EnumColumn.array(
     super.name, {
     required this.enumName,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }

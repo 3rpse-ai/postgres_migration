@@ -4,34 +4,26 @@ import '../column.dart';
 class BooleanColumn extends Column<bool> {
   @override
   String get type => 'boolean';
-  
+
   BooleanColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   BooleanColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }

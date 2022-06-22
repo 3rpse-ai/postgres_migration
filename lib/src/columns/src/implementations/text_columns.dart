@@ -17,32 +17,24 @@ class TextColumn extends Column<String> {
 
   TextColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   TextColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
@@ -68,33 +60,25 @@ class VarcharColumn extends Column<String> {
   VarcharColumn(
     super.name, {
     int? maxLength,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(args: maxLength?.toString());
 
   VarcharColumn.array(
     super.name, {
     int? maxLength,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array(args: maxLength?.toString());
 }
 
@@ -120,32 +104,24 @@ class CharColumn extends Column<String> {
   CharColumn(
     super.name, {
     int? length,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(args: length?.toString());
 
   CharColumn.array(
     super.name, {
     int? length,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array(args: length?.toString());
 }

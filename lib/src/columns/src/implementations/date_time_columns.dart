@@ -49,17 +49,13 @@ class TimestampColumn extends Column<DateTime> {
     int? precision,
     this.defaultToCurrentTimeStamp = false,
     this.defaultToCurrentTimestampInUTC = false,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(
           args: precision?.toString(),
           forceIncludeDefaultValue:
@@ -69,17 +65,13 @@ class TimestampColumn extends Column<DateTime> {
   TimestampColumn.array(
     super.name, {
     int? precision,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   })  : defaultToCurrentTimeStamp = false,
         defaultToCurrentTimestampInUTC = false,
         super.array(
@@ -129,17 +121,13 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
     super.name, {
     this.precision,
     this.defaultToCurrentTimeStamp = false,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(
           forceIncludeDefaultValue: defaultToCurrentTimeStamp,
         );
@@ -147,17 +135,13 @@ class TimestampWithTimeZoneColumn extends Column<DateTime> {
   TimestampWithTimeZoneColumn.array(
     super.name, {
     this.precision,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   })  : defaultToCurrentTimeStamp = false,
         super.array();
 }
@@ -204,17 +188,13 @@ class DateColumn extends Column<DateTime> {
     super.name, {
     this.defaultToCurrentDate = false,
     this.defaultToCurrentDateInUTC = false,
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   }) : super(
           forceIncludeDefaultValue:
               defaultToCurrentDate || defaultToCurrentDateInUTC,
@@ -222,17 +202,13 @@ class DateColumn extends Column<DateTime> {
 
   DateColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   })  : defaultToCurrentDate = false,
         defaultToCurrentDateInUTC = false,
         super.array();
@@ -254,32 +230,24 @@ class IntervalColumn extends Column<Interval> {
 
   IntervalColumn(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultValue,
+    super.manualDefaultValue,
   });
 
   IntervalColumn.array(
     super.name, {
-    super.isNullable = false,
-    super.manualDefaultValue,
     super.isPrimaryKey = false,
-    super.isUnique = false,
     super.foreignKeyForTable,
-    super.foreignKeyConstraint,
-    super.checkConstraint,
-    super.manualConstraint,
-    super.primaryKeyConstraint,
-    super.uniqueConstraint,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
     super.defaultArrayValue,
+    super.manualDefaultValue,
   }) : super.array();
 }
 
