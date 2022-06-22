@@ -29,6 +29,22 @@ void executeTableMigratorUnitTests() {
     final snippet = migrator.dropColumn("int_column");
 
     expect(snippet, 'ALTER TABLE table_name DROP COLUMN "int_column";');
+
+    final snippet2 =
+        migrator.dropColumn("int_column", mode: ColumnDropMode.cascade);
+
+    expect(
+      snippet2,
+      'ALTER TABLE table_name DROP COLUMN "int_column" CASCADE;',
+    );
+
+    final snippet3 =
+        migrator.dropColumn("int_column", mode: ColumnDropMode.restrict);
+
+    expect(
+      snippet3,
+      'ALTER TABLE table_name DROP COLUMN "int_column" RESTRICT;',
+    );
   });
 
   test('4. Add Constraint', () {

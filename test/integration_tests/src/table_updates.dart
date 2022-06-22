@@ -40,12 +40,22 @@ void executeTableUpdateIntegrationTests(
       }
     });
     group('2. Remove Column // ', () {
-      test("1. Cascading False", () async {
+      test("1. Default", () async {
         await callDB(migrator.dropColumn("main_date_column"));
       });
 
-      test("2. Cascading True", () async {
-        await callDB(migrator.dropColumn("main_date_column"));
+      test("2. Cascading", () async {
+        await callDB(migrator.dropColumn(
+          "main_date_column",
+          mode: ColumnDropMode.cascade,
+        ));
+      });
+
+      test("3. Restrict", () async {
+        await callDB(migrator.dropColumn(
+          "main_date_column",
+          mode: ColumnDropMode.restrict,
+        ));
       });
     });
     group("3. Change Default Value // ", () {
@@ -161,8 +171,7 @@ void executeTableUpdateIntegrationTests(
         final testMigrator = TableMigrator("New_Table");
 
         await callDB(testMigrator.createTable([]));
-        await callDB(
-            testMigrator.dropTable(mode: TableDropMode.restrict));
+        await callDB(testMigrator.dropTable(mode: TableDropMode.restrict));
       });
     });
   });
