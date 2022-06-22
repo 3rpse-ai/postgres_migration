@@ -1,2 +1,2 @@
-export 'migrators/enum_migrator.dart';
-export 'migrators/table_migrator.dart';
+export 'src/enum_migrator.dart';
+export 'src/table_migrator.dart';
