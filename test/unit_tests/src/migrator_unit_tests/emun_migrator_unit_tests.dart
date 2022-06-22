@@ -204,7 +204,7 @@ void executeEnumMigratorUnitTests() {
     String dropEnumIfExistsCascade = EnumMigrator.dropEnum(
       "TestEnum",
       ifExists: true,
-      cascade: true,
+      mode: EnumDropMode.cascade,
     );
 
     expect(
@@ -215,24 +215,12 @@ void executeEnumMigratorUnitTests() {
     String dropEnumIfExistsRestrict = EnumMigrator.dropEnum(
       "TestEnum",
       ifExists: true,
-      restrict: true,
+      mode: EnumDropMode.restrict,
     );
 
     expect(
       dropEnumIfExistsRestrict,
       "DROP TYPE IF EXISTS TestEnum RESTRICT",
-    );
-
-    String dropEnumIfExistsCascadeRestrict = EnumMigrator.dropEnum(
-      "TestEnum",
-      ifExists: true,
-      cascade: true,
-      restrict: true,
-    );
-
-    expect(
-      dropEnumIfExistsCascadeRestrict,
-      "DROP TYPE IF EXISTS TestEnum CASCADE",
     );
   });
 }
