@@ -77,8 +77,6 @@ class EnumMigrator {
     String? beforeValue,
     String? afterValue,
   }) {
-    
-
     String preNameArgsString = ifNotExists ? " IF NOT EXISTS" : "";
     List<String> postNameArgs = [
       if (beforeValue != null) "BEFORE '$beforeValue'",
