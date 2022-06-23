@@ -223,4 +223,10 @@ void executeEnumMigratorUnitTests() {
       "DROP TYPE IF EXISTS TestEnum RESTRICT",
     );
   });
+
+  test('8. Print EnumDropMode', () {
+    print(EnumDropMode.cascade);
+
+    expect(EnumDropMode.cascade.mode, "CASCADE");
+  });
 }
