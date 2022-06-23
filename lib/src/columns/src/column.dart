@@ -133,9 +133,7 @@ abstract class Column<T> implements TableProperty {
 
   /// Overwrite this getter to provide a column specific default value. Otherwise [convertInputValueToString] / [convertArrayInputValueToString]  is returned, which again defaults to `defaultValue.toString()`.
   String get defaultValueAsString => defaultValue != null
-      ? isArray
-          ? convertArrayInputValueToString(defaultValue as T)
-          : convertInputValueToString(defaultValue as T)
+      ? convertInputValueToString(defaultValue as T)
       : defaultValue.toString();
 
   /// Used to define a default value. Results in sql snippet `DEFAULT $_defaultValue`.
