@@ -586,6 +586,14 @@ void executeConstraintUnitTests() {
   );
 
   test(
+    '7.7 Print ForeignKeyDeleteMode',
+    () {
+      print(ForeignKeyDeletionMode.cascade);
+      expect(ForeignKeyDeletionMode.cascade.name, equals("cascade"));
+    },
+  );
+
+  test(
     '7.1 ForeignKeyUpdateMode.setNull value check',
     () {
       expect(ForeignKeyUpdateMode.setNull.sqlString,
@@ -629,6 +637,14 @@ void executeConstraintUnitTests() {
     '7.6 ForeignKeyUpdateMode.undefined value check',
     () {
       expect(ForeignKeyUpdateMode.undefined.sqlString, equals(""));
+    },
+  );
+
+  test(
+    '7.7 Print ForeignKeyUpdateMode',
+    () {
+      print(ForeignKeyUpdateMode.cascade);
+      expect(ForeignKeyUpdateMode.cascade.name, equals("cascade"));
     },
   );
 }
