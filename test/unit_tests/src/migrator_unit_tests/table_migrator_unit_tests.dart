@@ -164,4 +164,14 @@ void executeTableMigratorUnitTests() {
         migrator.dropTable(ifExists: true, mode: TableDropMode.restrict);
     expect(snippet, 'DROP TABLE IF EXISTS table_name RESTRICT;');
   });
+
+  test('19. Print TableDropMode', () {
+    print(TableDropMode.restrict);
+    expect(TableDropMode.restrict.mode, 'RESTRICT');
+  });
+
+  test('20. Print ColumnDropMode', () {
+    print(ColumnDropMode.restrict);
+    expect(ColumnDropMode.restrict.mode, 'RESTRICT');
+  });
 }
