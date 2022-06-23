@@ -86,7 +86,7 @@ class ManualConstraint extends Constraint implements TableProperty {
   String get _constraintWithoutName => constraintString;
 
   @override
-  String get sqlSnippet => constraintString;
+  String get sqlSnippet => _constraintWithoutName;
 }
 
 /// Class for defining primary keys.
