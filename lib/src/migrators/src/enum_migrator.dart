@@ -72,12 +72,12 @@ class EnumMigrator {
   /// Pass `beforeValue` **OR** `afterValue` arg to position the new value relative to the provided value.
   static String addEnumValueDirectInput({
     required String enumValue,
-    required String? enumName,
+    required String enumName,
     bool ifNotExists = false,
     String? beforeValue,
     String? afterValue,
   }) {
-    String typeName = enumName ?? enumValue.runtimeType.toString();
+    
 
     String preNameArgsString = ifNotExists ? " IF NOT EXISTS" : "";
     List<String> postNameArgs = [
@@ -87,7 +87,7 @@ class EnumMigrator {
 
     String postNameArgsString =
         postNameArgs.isEmpty ? "" : " ${postNameArgs.join(" ")}";
-    return "ALTER TYPE $typeName ADD VALUE$preNameArgsString '$enumValue'$postNameArgsString";
+    return "ALTER TYPE $enumName ADD VALUE$preNameArgsString '$enumValue'$postNameArgsString";
   }
 
   /// Renames an enum
