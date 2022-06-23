@@ -13,10 +13,10 @@ abstract class TableProperty {
 ///
 /// ```CREATE TABLE example(property1, property2, property3, etc)```
 class ManualTableProperty implements TableProperty {
-  String parameter;
+  final String _parameter;
 
-  ManualTableProperty(this.parameter);
+  ManualTableProperty(this._parameter);
 
   @override
-  String get sqlSnippet => parameter;
+  String get sqlSnippet => _parameter;
 }
