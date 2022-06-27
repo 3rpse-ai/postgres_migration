@@ -5,7 +5,7 @@ import 'package:postgres_migration/postgres_migration.dart';
 // - We will have 2 migrations. First create tables, then update them
 // - We are not using any specific package to connect to the db. Hence methods for connecting to db are only mocked.
 // 
-// There is no opinion on how to structure your migrations, as the package is built to allow for maximum flexibility.
+// There is no opinion on how to structure your migrations, as the package is built to allow maximum flexibility.
 // After all the package just helps in creating the correspoding sql statements with a wide range of possibilities.
 // You can e.g. build an automatic schema versioning on top which automatically runs your up / downgrades, or enhance an existing migration system with it.
 
