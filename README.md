@@ -11,12 +11,100 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# DB Helper
+
+A dart package for generating sql strings for DB migrations. Makes use of darts type system to eliminate human error. No code generation required.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* Create / Update / Delete Tables
+* Create / Update / Delete Columns
+    * Set default values
+    * Define constraints
+* Create / Update / Delete Enums
+
+## Supported postgres data types
+---
+### Numeric Types ✅
+
+| Type             | Supported  |
+|------------------|------------|
+| smallint         | ✅         |
+| integer          | ✅         |
+| bigint           | ✅         |
+| decimal          | ✅         |
+| numeric          | ✅         |
+| real             | ✅         |
+| double precision | ✅         |
+| smallserial      | ✅         |
+| serial           | ✅         |
+| bigserial        | ✅         |
+---
+### Character Types ✅
+
+| Type    | Supported  |
+|---------|------------|
+| varchar | ✅         |
+| char    | ✅         |
+| text    | ✅         |
+
+---
+### Date/Time Types 
+
+| Type                     | Supported  |
+|--------------------------|------------|
+| timestamp                | ✅         |
+| timestamp with time zone | ✅         |
+| date                     | ✅         |
+| time                     | ❌ |
+| time with time zone      | ❌ |
+| interval                 | ✅         |
+---
+
+### Boolean Types ✅
+
+| Type    | Supported  |
+|---------|------------|
+| boolean | ✅         |
+---
+### Enumerated Types ✅
+
+| Type | Supported  |
+|------|------------|
+| enum | ✅         |
+---
+### UUID Type ✅
+
+| Type  | Supported  |
+|-------|------------|
+| uuid  | ✅         |
+---
+## Unsupported postgres data type categories
+
+✅ On the roadmap
+❔ Considering support
+❌ No support planned
+
+> 💡 You can easily support needed types by extending column
+
+
+| Type Category     | Support Planned  |
+|-------------------|------------------|
+| Monetary          | ❌               |
+| Binary            | ❔               |
+| Geometric         | ❌               |
+| Network Address   | ❌               |
+| Bit String        | ❔               |
+| Text Search       | ❔               |
+| XML               | ✅               |
+| JSON              | ✅               |
+| Composite         | ❌               |
+| Range             | ❌               |
+| Domain            | ❌               |
+| Object Identifier | ❌               |
+| pg_lsn            | ❌               |
+| Pseudo            | ❔               |
+
 
 ## Getting started
 
