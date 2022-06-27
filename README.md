@@ -48,7 +48,7 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | char    | ✅         |
 | text    | ✅         |
 
-### Date/Time Types 
+### Date/Time Types ☑️
 
 | Type                     | Supported  |
 |--------------------------|------------|
@@ -79,9 +79,9 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 
 ## Unsupported postgres data type categories
 
-✅ On the roadmap
-❔ Considering support
-❌ No support planned
+✅ On the roadmap  
+🤔 Considering support  
+❌ No support planned  
 
 > 💡 You can easily support needed types by extending the abstract column class
 
@@ -89,11 +89,11 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | Type Category     | Support Planned  |
 |-------------------|------------------|
 | Monetary          | ❌               |
-| Binary            | ❔               |
+| Binary            | 🤔               |
 | Geometric         | ❌               |
 | Network Address   | ❌               |
-| Bit String        | ❔               |
-| Text Search       | ❔               |
+| Bit String        | 🤔               |
+| Text Search       | 🤔               |
 | XML               | ✅               |
 | JSON              | ✅               |
 | Composite         | ❌               |
@@ -101,7 +101,7 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | Domain            | ❌               |
 | Object Identifier | ❌               |
 | pg_lsn            | ❌               |
-| Pseudo            | ❔               |
+| Pseudo            | 🤔               |
 
 
 ## Getting started
