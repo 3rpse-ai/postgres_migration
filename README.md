@@ -83,7 +83,7 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 ❔ Considering support
 ❌ No support planned
 
-> 💡 You can easily support needed types by extending column
+> 💡 You can easily support needed types by extending the abstract column class
 
 
 | Type Category     | Support Planned  |
