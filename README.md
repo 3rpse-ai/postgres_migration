@@ -24,7 +24,7 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 * Create / Update / Delete Enums
 
 ## Supported postgres data types
----
+
 ### Numeric Types ✅
 
 | Type             | Supported  |
@@ -39,7 +39,7 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | smallserial      | ✅         |
 | serial           | ✅         |
 | bigserial        | ✅         |
----
+
 ### Character Types ✅
 
 | Type    | Supported  |
@@ -48,7 +48,6 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | char    | ✅         |
 | text    | ✅         |
 
----
 ### Date/Time Types 
 
 | Type                     | Supported  |
@@ -59,26 +58,25 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | time                     | ❌ |
 | time with time zone      | ❌ |
 | interval                 | ✅         |
----
 
 ### Boolean Types ✅
 
 | Type    | Supported  |
 |---------|------------|
 | boolean | ✅         |
----
+
 ### Enumerated Types ✅
 
 | Type | Supported  |
 |------|------------|
 | enum | ✅         |
----
+
 ### UUID Type ✅
 
 | Type  | Supported  |
 |-------|------------|
 | uuid  | ✅         |
----
+
 ## Unsupported postgres data type categories
 
 ✅ On the roadmap
