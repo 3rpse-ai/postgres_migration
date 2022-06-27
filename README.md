@@ -55,8 +55,8 @@ A dart package for generating sql strings for DB migrations. Makes use of darts 
 | timestamp                | ✅         |
 | timestamp with time zone | ✅         |
 | date                     | ✅         |
-| time                     | ❌ |
-| time with time zone      | ❌ |
+| time                     | ❌         |
+| time with time zone      | ❌         |
 | interval                 | ✅         |
 
 ### Boolean Types ✅
