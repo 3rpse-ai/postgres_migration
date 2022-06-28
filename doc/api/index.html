@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
   <meta name="generator" content="made with love by dartdoc 5.1.0-dev">
-  <meta name="description" content="postgres_migration API docs, for the Dart programming language.">
-  <title>postgres_migration - Dart API docs</title>
+  <meta name="description" content="db_migrator API docs, for the Dart programming language.">
+  <title>db_migrator - Dart API docs</title>
 
 
   
@@ -30,9 +30,9 @@
 <header id="title">
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li class="self-crumb">postgres_migration package</li>
+    <li class="self-crumb">db_migrator package</li>
   </ol>
-  <div class="self-name">postgres_migration</div>
+  <div class="self-name">db_migrator</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -44,42 +44,188 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-<p>TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.</p>
+  <h1 id="db-migrator">DB Migrator</h1>
+<p>A dart package for generating sql strings for DB migrations. Makes use of darts type system to eliminate human error. No code generation required.</p>
+<h2 id="db-support">DB Support</h2>
+<p>As of now only postgres version 10 or higher is supported.<br>
+It is planned to extend support to MySQL / MariaDB databases.</p>
 <h2 id="features">Features</h2>
-<p>TODO: List what your package can do. Maybe include images, gifs, or videos.</p>
+<p>Targeted for postgres, supporting version &gt;10.</p>
+<ul>
+<li>Create / Update / Delete Tables
+<ul>
+<li>Define columns</li>
+<li>Define constraints</li>
+</ul>
+</li>
+<li>Create / Update / Delete Columns
+<ul>
+<li>Set default values</li>
+<li>Define constraints</li>
+</ul>
+</li>
+<li>Create / Update / Delete Enums</li>
+</ul>
 <h2 id="getting-started">Getting started</h2>
-<p>TODO: List prerequisites and provide or point to information on how to
-start using the package.</p>
-<h2 id="usage">Usage</h2>
-<p>TODO: Include short and useful examples for package users. Add longer examples
-to <code>/example</code> folder.</p>
-<pre class="language-dart"><code class="language-dart">const like = 'sample';
+<p>To get started, add <code>db_migrator</code> as a dependency:</p>
+<pre class="language-shell"><code class="language-shell">dart pub add db_migrator
 </code></pre>
-<h2 id="additional-information">Additional information</h2>
-<p>TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.</p>
+<p>Additionally add any db driver of your choice.<br>
+E.g. postgres package:</p>
+<pre class="language-shell"><code class="language-shell">dart pub add postgres
+</code></pre>
+<h2 id="usage">Usage</h2>
+<p><code>db_migrator</code> provides fine grained control over your db migrations. However it is not opionated on how to structure those. Rather it is a collection of many helper classes to create sql statements for common migration scenarios, eliminating human error. Which driver is best suited for those scenarios is up to the user.</p>
+<h3 id="tables">Tables</h3>
+<pre class="language-dart"><code class="language-dart">// Create a simple table
+final exampleTable = TableMigrator("table_name");
+String createTable = exampleTable.createTable();
+</code></pre>
+<pre class="language-dart"><code class="language-dart">// The create table statement takes constraints &amp; columns as arguments.
+// So you can declare the table directly with them.
+final exampleTable = TableMigrator("table_name");
+final integerColumn = IntegerColumn("column_name");
+final checkConstraint = CheckConstraint(check: "column_name &lt; 10");
+final tableProperties = [integerColumn, checkConstraint];
+String createTable = exampleTable.createTable(tableProperties);
+</code></pre>
+<pre class="language-dart"><code class="language-dart">// You can also alter tables with the TableMigrator class
+final exampleTable = TableMigrator("table_name");
+final newColumn = TimeStampColumn("new_column");
+String updateTable = exampleTable.addColumn(newColumn);
+</code></pre>
+<h3 id="column">Column</h3>
+<pre class="language-dart"><code class="language-dart">// Create a simple column. Find the supported types below.
+final exampleColumn = TextColumn("column_name");
+</code></pre>
+<pre class="language-dart"><code class="language-dart">// You can also set a default value on columns. 
+// Provide manualDefaultValue if you want to provide a default string value which is directly interpolated into the sql statement
+final exampleColumn = BooleanColumn(
+    "column_name",
+    defaultValue: true,
+  );
+</code></pre>
+<pre class="language-dart"><code class="language-dart">// You can also set constraints on columns. There are a few convience arguments for that.
+final exampleColumn = IntegerColumn(
+    "column_name",
+    isPrimaryKey: true,
+    isUnique: true,
+  );
+
+// alternatively you can pass constraints for more granular control.
+final exampleColumn = IntegerColumn(
+    "column_name",
+    constraints: ColumnConstraints(
+        foreignKeyConstraint: ForeignKeyConstraint(
+          referencedTable: "other_table",
+          deletionMode: ForeignKeyDeletionMode.cascade,
+          name: "contraint_name",
+        ),
+      ),
+  );
+</code></pre>
+<pre class="language-dart"><code class="language-dart">// Lastly, for enumColumns an EnumMigrator class is provided
+enum TestEnum { first, second }
+
+String createEnum = EnumMigrator.createEnum(
+  TestEnum.values,
+  enumName: "test_enum",
+);
+
+// Now after creating the enum making use of above statment we can use enum columns.
+final enumColumn = EnumColumn(
+  "enum_column_name",
+  enumName: "test_enum",
+  defaultValue: TestEnum.first,
+);
+</code></pre>
+<h2 id="quality-assurance-">Quality Assurance 🕵️‍♂️</h2>
+<p>In order to ensure reliability every single feature of this package is tested both with unit tests &amp; integration tests.<br>
+For the integration tests the postgres dart package is used against a local postgres db, checking if the created statements throw any exceptions.<br>
+In case further dbs will be supported the integration tests will be run against those as well.</p>
+<p><strong>100% test coverage is achieved.</strong> 💪</p>
+<h2 id="supported-postgres-data-types">Supported postgres data types</h2>
+<h3 id="numeric-types-">Numeric Types ✅</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>smallint</td><td>✅</td></tr><tr><td>integer</td><td>✅</td></tr><tr><td>bigint</td><td>✅</td></tr><tr><td>decimal</td><td>✅</td></tr><tr><td>numeric</td><td>✅</td></tr><tr><td>real</td><td>✅</td></tr><tr><td>double precision</td><td>✅</td></tr><tr><td>smallserial</td><td>✅</td></tr><tr><td>serial</td><td>✅</td></tr><tr><td>bigserial</td><td>✅</td></tr></tbody></table>
+<h3 id="character-types-">Character Types ✅</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>varchar</td><td>✅</td></tr><tr><td>char</td><td>✅</td></tr><tr><td>text</td><td>✅</td></tr></tbody></table>
+<h3 id="datetime-types-">Date/Time Types ☑️</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>timestamp</td><td>✅</td></tr><tr><td>timestamp with time zone</td><td>✅</td></tr><tr><td>date</td><td>✅</td></tr><tr><td>time</td><td>❌</td></tr><tr><td>time with time zone</td><td>❌</td></tr><tr><td>interval</td><td>✅</td></tr></tbody></table>
+<h3 id="boolean-types-">Boolean Types ✅</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>boolean</td><td>✅</td></tr></tbody></table>
+<h3 id="enumerated-types-">Enumerated Types ✅</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>enum</td><td>✅</td></tr></tbody></table>
+<h3 id="uuid-type-">UUID Type ✅</h3>
+<table><thead><tr><th>Type</th><th>Supported</th></tr></thead><tbody><tr><td>uuid</td><td>✅</td></tr></tbody></table>
+<h2 id="unsupported-postgres-data-type-categories">Unsupported postgres data type categories</h2>
+<p>✅ On the roadmap<br>
+🤔 Considering support<br>
+❌ No support planned</p>
+<blockquote>
+<p>💡 You can easily support needed types by extending the abstract column class</p>
+</blockquote>
+<table><thead><tr><th>Type Category</th><th>Support Planned</th></tr></thead><tbody><tr><td>Monetary</td><td>❌</td></tr><tr><td>Binary</td><td>🤔</td></tr><tr><td>Geometric</td><td>❌</td></tr><tr><td>Network Address</td><td>❌</td></tr><tr><td>Bit String</td><td>🤔</td></tr><tr><td>Text Search</td><td>🤔</td></tr><tr><td>XML</td><td>✅</td></tr><tr><td>JSON</td><td>✅</td></tr><tr><td>Composite</td><td>❌</td></tr><tr><td>Range</td><td>❌</td></tr><tr><td>Domain</td><td>❌</td></tr><tr><td>Object Identifier</td><td>❌</td></tr><tr><td>pg_lsn</td><td>❌</td></tr><tr><td>Pseudo</td><td>🤔</td></tr></tbody></table>
+<h2 id="extending-column-support">Extending Column Support</h2>
+<p>You can easily add column data types you are missing by extending the abstract column class.</p>
+<pre class="language-dart"><code class="language-dart">
+// See this example for adding a "NewColumn".
+// In many cases it is enough to provide the constructors + override the type getter.
+class NewColumn extends Column&lt;CorrespodingDartType&gt; {
+
+  @override
+  String get type =&gt; 'sql_data_type';
+
+  @override
+  String get defaultValueAsString {
+    // Override this getter if you want to customize your default values.
+    return super.defaultValueAsString;
+  }
+
+  @override
+  String convertInputValueToString(CorrespodingDartType inputValue) {
+    // Override this method in order to convert your input type to sql friendly strings. 
+    // Needed for default values.
+    return super.convertInputValueToString(inputValue);
+  }
+
+  @override
+  String convertArrayInputValueToString(CorrespodingDartType inputValue) {
+    // Override this method in order to convert your input type to sql friendly strings. 
+    // Needed for array default values.
+    return super.convertArrayInputValueToString(inputValue);
+  }
+
+  NewColumn(
+    super.name, {
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultValue,
+    super.manualDefaultValue,
+  });
+
+  NewColumn.array(
+    super.name, {
+    super.isPrimaryKey = false,
+    super.foreignKeyForTable,
+    super.isUnique = false,
+    super.isNullable = false,
+    super.constraints,
+    super.defaultArrayValue,
+    super.manualDefaultValue,
+  })
+}
+</code></pre>
 </section>
 
 
       <section class="summary">
           <h2>Libraries</h2>
         <dl>
-          <dt id="postgres_migration">
-  <span class="name"><a href="postgres_migration/postgres_migration-library.html">postgres_migration</a></span> 
+          <dt id="db_migrator">
+  <span class="name"><a href="db_migrator/db_migrator-library.html">db_migrator</a></span> 
 
 </dt>
 <dd>
@@ -98,14 +244,14 @@ from the package authors, and more.</p>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li class="self-crumb">postgres_migration package</li>
+  <li class="self-crumb">db_migrator package</li>
 </ol>
 
 
-    <h5 class="hidden-xs"><span class="package-name">postgres_migration</span> <span class="package-kind">package</span></h5>
+    <h5 class="hidden-xs"><span class="package-name">db_migrator</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="postgres_migration/postgres_migration-library.html">postgres_migration</a></li>
+      <li><a href="db_migrator/db_migrator-library.html">db_migrator</a></li>
 </ol>
 
   </div>
@@ -117,7 +263,7 @@ from the package authors, and more.</p>
 
 <footer>
   <span class="no-break">
-    postgres_migration
+    db_migrator
       1.0.0
   </span>
 
