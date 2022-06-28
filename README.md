@@ -136,7 +136,8 @@ String createTable = exampleTable.createTable();
 ```
 
 ```dart
-// The create table statement takes constraints & columns as arguments. So you can declare the table directly with them.
+// The create table statement takes constraints & columns as arguments.
+// So you can declare the table directly with them.
 final exampleTable = TableMigrator("table_name");
 final integerColumn = IntegerColumn("column_name");
 final checkConstraint = CheckConstraint(check: "column_name < 10");
@@ -158,7 +159,8 @@ final exampleColumn = TextColumn("column_name");
 ```
 
 ```dart
-// You can also set a default value on columns. Provide manualDefaultValue if you want to provide a default string value which is directly interpolated into the sql statement
+// You can also set a default value on columns. 
+// Provide manualDefaultValue if you want to provide a default string value which is directly interpolated into the sql statement
 final exampleColumn = BooleanColumn(
     "column_name",
     defaultValue: true,
@@ -225,13 +227,15 @@ class NewColumn extends Column<CorrespodingDartType> {
 
   @override
   String convertInputValueToString(CorrespodingDartType inputValue) {
-    // Override this method in order to convert your input type to sql friendly strings. Needed for default values.
+    // Override this method in order to convert your input type to sql friendly strings. 
+    // Needed for default values.
     return super.convertInputValueToString(inputValue);
   }
 
   @override
   String convertArrayInputValueToString(CorrespodingDartType inputValue) {
-    // Override this method in order to convert your input type to sql friendly strings. Needed for array default values.
+    // Override this method in order to convert your input type to sql friendly strings. 
+    // Needed for array default values.
     return super.convertArrayInputValueToString(inputValue);
   }
 
