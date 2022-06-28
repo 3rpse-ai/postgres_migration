@@ -12,11 +12,13 @@ and the Flutter guide for
 -->
 
 # DB Migrator
-
 A dart package for generating sql strings for DB migrations. Makes use of darts type system to eliminate human error. No code generation required. 
 
-## Features
+## DB Support
+As of now only postgres version 10 or higher is supported.  
+It is planned to extend support to MySQL / MariaDB databases.
 
+## Features
 Targeted for postgres, supporting version >10.
 
 * Create / Update / Delete Tables
@@ -27,89 +29,7 @@ Targeted for postgres, supporting version >10.
     * Define constraints
 * Create / Update / Delete Enums
 
-## Supported postgres data types
-
-### Numeric Types ✅
-
-| Type             | Supported  |
-|------------------|------------|
-| smallint         | ✅         |
-| integer          | ✅         |
-| bigint           | ✅         |
-| decimal          | ✅         |
-| numeric          | ✅         |
-| real             | ✅         |
-| double precision | ✅         |
-| smallserial      | ✅         |
-| serial           | ✅         |
-| bigserial        | ✅         |
-
-### Character Types ✅
-
-| Type    | Supported  |
-|---------|------------|
-| varchar | ✅         |
-| char    | ✅         |
-| text    | ✅         |
-
-### Date/Time Types ☑️
-
-| Type                     | Supported  |
-|--------------------------|------------|
-| timestamp                | ✅         |
-| timestamp with time zone | ✅         |
-| date                     | ✅         |
-| time                     | ❌         |
-| time with time zone      | ❌         |
-| interval                 | ✅         |
-
-### Boolean Types ✅
-
-| Type    | Supported  |
-|---------|------------|
-| boolean | ✅         |
-
-### Enumerated Types ✅
-
-| Type | Supported  |
-|------|------------|
-| enum | ✅         |
-
-### UUID Type ✅
-
-| Type  | Supported  |
-|-------|------------|
-| uuid  | ✅         |
-
-## Unsupported postgres data type categories
-
-✅ On the roadmap  
-🤔 Considering support  
-❌ No support planned  
-
-> 💡 You can easily support needed types by extending the abstract column class
-
-
-| Type Category     | Support Planned  |
-|-------------------|------------------|
-| Monetary          | ❌               |
-| Binary            | 🤔               |
-| Geometric         | ❌               |
-| Network Address   | ❌               |
-| Bit String        | 🤔               |
-| Text Search       | 🤔               |
-| XML               | ✅               |
-| JSON              | ✅               |
-| Composite         | ❌               |
-| Range             | ❌               |
-| Domain            | ❌               |
-| Object Identifier | ❌               |
-| pg_lsn            | ❌               |
-| Pseudo            | 🤔               |
-
-
 ## Getting started
-
 To get started, add `db_migrator` as a dependency:
 
 ```shell
@@ -124,11 +44,9 @@ dart pub add postgres
 ```
 
 ## Usage
-
 `db_migrator` provides fine grained control over your db migrations. However it is not opionated on how to structure those. Rather it is a collection of many helper classes to create sql statements for common migration scenarios, eliminating human error. Which driver is best suited for those scenarios is up to the user.
 
 ### Tables
-
 ```dart
 // Create a simple table
 final exampleTable = TableMigrator("table_name");
@@ -151,10 +69,9 @@ final exampleTable = TableMigrator("table_name");
 final newColumn = TimeStampColumn("new_column");
 String updateTable = exampleTable.addColumn(newColumn);
 ```
-### Columns
-
+### Column
 ```dart
-// Create a simple column. Find the supported types above.
+// Create a simple column. Find the supported types below.
 final exampleColumn = TextColumn("column_name");
 ```
 
@@ -205,9 +122,81 @@ final enumColumn = EnumColumn(
 );
 ```
 
+## Supported postgres data types
+
+### Numeric Types ✅
+| Type             | Supported  |
+|------------------|------------|
+| smallint         | ✅         |
+| integer          | ✅         |
+| bigint           | ✅         |
+| decimal          | ✅         |
+| numeric          | ✅         |
+| real             | ✅         |
+| double precision | ✅         |
+| smallserial      | ✅         |
+| serial           | ✅         |
+| bigserial        | ✅         |
+
+### Character Types ✅
+| Type    | Supported  |
+|---------|------------|
+| varchar | ✅         |
+| char    | ✅         |
+| text    | ✅         |
+
+### Date/Time Types ☑️
+| Type                     | Supported  |
+|--------------------------|------------|
+| timestamp                | ✅         |
+| timestamp with time zone | ✅         |
+| date                     | ✅         |
+| time                     | ❌         |
+| time with time zone      | ❌         |
+| interval                 | ✅         |
+
+### Boolean Types ✅
+| Type    | Supported  |
+|---------|------------|
+| boolean | ✅         |
+
+### Enumerated Types ✅
+| Type | Supported  |
+|------|------------|
+| enum | ✅         |
+
+### UUID Type ✅
+| Type  | Supported  |
+|-------|------------|
+| uuid  | ✅         |
+
+## Unsupported postgres data type categories
+✅ On the roadmap  
+🤔 Considering support  
+❌ No support planned  
+
+> 💡 You can easily support needed types by extending the abstract column class
+
+
+| Type Category     | Support Planned  |
+|-------------------|------------------|
+| Monetary          | ❌               |
+| Binary            | 🤔               |
+| Geometric         | ❌               |
+| Network Address   | ❌               |
+| Bit String        | 🤔               |
+| Text Search       | 🤔               |
+| XML               | ✅               |
+| JSON              | ✅               |
+| Composite         | ❌               |
+| Range             | ❌               |
+| Domain            | ❌               |
+| Object Identifier | ❌               |
+| pg_lsn            | ❌               |
+| Pseudo            | 🤔               |
+
 
 ## Extending Column Support
-
 You can easily add column data types you are missing by extending the abstract column class. 
 
 ```dart
