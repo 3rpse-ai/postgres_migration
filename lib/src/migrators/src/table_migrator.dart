@@ -1,4 +1,4 @@
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 
 class TableMigrator {
   String tableName;

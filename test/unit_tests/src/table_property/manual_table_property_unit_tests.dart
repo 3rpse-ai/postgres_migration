@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 
 void executeManualTablePropertyUnitTests() {
   test('1. Check Type', (() {

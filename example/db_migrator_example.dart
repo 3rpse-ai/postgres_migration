@@ -1,4 +1,4 @@
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 
 // Example assumes following:
 // - There are 2 tables - students & schools. Any student can only be in one school

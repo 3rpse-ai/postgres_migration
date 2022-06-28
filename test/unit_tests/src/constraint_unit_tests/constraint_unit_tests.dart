@@ -1,4 +1,4 @@
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 import 'package:test/test.dart';
 
 void executeConstraintUnitTests() {

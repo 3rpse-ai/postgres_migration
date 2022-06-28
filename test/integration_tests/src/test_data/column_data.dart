@@ -1,4 +1,4 @@
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 
 final Map<String, Map<String, List<Column>>> columnTestData = {
   "Table Without Columns": {"simple": []},

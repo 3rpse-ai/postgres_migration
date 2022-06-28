@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 import 'src/columns.dart';
 import 'src/constraints.dart';
 import 'src/enums.dart';

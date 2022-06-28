@@ -1,4 +1,4 @@
-library postgres_migration;
+library db_migrator;
 
 export 'src/columns/columns.dart';
 export 'src/migrators/migrators.dart';

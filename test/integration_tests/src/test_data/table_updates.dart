@@ -1,4 +1,4 @@
-import 'package:postgres_migration/postgres_migration.dart';
+import 'package:db_migrator/db_migrator.dart';
 
 final updateTableForeignTableTestData = [
   SerialColumn("ft_serial_column", isPrimaryKey: true),
