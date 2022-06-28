@@ -122,6 +122,13 @@ final enumColumn = EnumColumn(
 );
 ```
 
+## Quality Assurance 🕵️‍♂️
+In order to ensure reliability every single feature of this package is tested both with unit tests & integration tests.  
+For the integration tests the postgres dart package is used against a local postgres db, checking if the created statements throw any exceptions.  
+In case further dbs will be supported the integration tests will be run against those as well.  
+
+**100% test coverage is achieved.** 💪
+
 ## Supported postgres data types
 
 ### Numeric Types ✅
