@@ -63,6 +63,11 @@ final exampleColumn = TextColumn("column_name");
 ```
 
 ```dart
+// Every column also provides an array constructor for 1-dimensional arrays.
+final exampleColumn = TextColumn.array("column_name");
+```
+
+```dart
 // You can also set a default value on columns. 
 // Provide manualDefaultValue if you want to provide a default string value which is directly interpolated into the sql statement
 final exampleColumn = BooleanColumn(
