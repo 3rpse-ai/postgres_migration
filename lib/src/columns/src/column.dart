@@ -32,7 +32,7 @@ abstract class Column<T> implements TableProperty {
 
   /// Internal property for retrieving unique constraint.
   ///
-  /// Returns default [UniqueConstraint] if is [isUnique]is set and [uniqueConstraint] is null.
+  /// Returns default [UniqueConstraint] if is [isUnique]is set and `constraints.uniqueConstraint` is null.
   UniqueConstraint? get _uniqueConstraint {
     return constraints?.uniqueConstraint ??
         (isUnique ? UniqueConstraint() : null);
@@ -40,7 +40,7 @@ abstract class Column<T> implements TableProperty {
 
   /// Internal property for retrieving foreign key constraint.
   ///
-  /// Returns default [ForeignKeyConstraint] if [foreignKeyForTable]is set and [foreignKeyConstraint] is null.
+  /// Returns default [ForeignKeyConstraint] if [foreignKeyForTable]is set and `constraints.foreignKeyConstraint` is null.
   ForeignKeyConstraint? get _foreignKeyConstraint {
     return constraints?.foreignKeyConstraint ??
         (foreignKeyForTable != null
@@ -50,7 +50,7 @@ abstract class Column<T> implements TableProperty {
 
   /// Internal property for retrieving primary key constraint.
   ///
-  /// Returns default [PrimaryKeyConstraint] if is [isPrimaryKey]is set and [primaryKeyConstraint] is null.
+  /// Returns default [PrimaryKeyConstraint] if is [isPrimaryKey]is set and `constraints.primaryKeyConstraint` is null.
   PrimaryKeyConstraint? get _primaryKeyConstraint {
     return constraints?.primaryKeyConstraint ??
         (isPrimaryKey ? PrimaryKeyConstraint() : null);
@@ -108,17 +108,17 @@ abstract class Column<T> implements TableProperty {
 
   /// Set this value to enforce the column using only unique values
   ///
-  /// If [uniqueConstraint] is provided this flag is ignored.
+  /// If `constraints.uniqueConstraint` is provided this flag is ignored.
   bool isUnique;
 
   /// Set this value to define the column as a primary key
   ///
-  /// If [primaryKeyConstraint] is provided this flag is ignored.
+  /// If `constraints.primaryKeyConstraint` is provided this flag is ignored.
   bool isPrimaryKey;
 
   /// Set this value with the referenced table's name to define the column as a foreign key
   ///
-  /// If [foreignKeyConstraint] is provided this input is ignored.
+  /// If `constraints.foreignKeyConstraint` is provided this input is ignored.
   String? foreignKeyForTable;
 
   /// Possibility of inserting manual default statement
@@ -191,13 +191,13 @@ abstract class Column<T> implements TableProperty {
 }
 
 class ColumnConstraints {
-  /// Used to set primary key constraint. If value is provided [isPrimaryKey] flag is ignored.
+  /// Used to set primary key constraint. If value is provided `isPrimaryKey` flag is ignored.
   PrimaryKeyConstraint? primaryKeyConstraint;
 
-  /// Used to set foreign key constraint. If value is provided [foreignKeyForTable] shorthand is ignored.
+  /// Used to set foreign key constraint. If value is provided `foreignKeyForTable` shorthand is ignored.
   ForeignKeyConstraint? foreignKeyConstraint;
 
-  /// Used to set unique constraint. If value is provided [isUnique] flag is ignored.
+  /// Used to set unique constraint. If value is provided `isUnique` flag is ignored.
   UniqueConstraint? uniqueConstraint;
 
   /// Used to set check constraint.

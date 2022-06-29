@@ -12,7 +12,7 @@ import '../column.dart';
 /// For defaulting to the current time stamp of the transaction (on e.g every insert) on the sql server, use the `defaultToCurrentTimestamp` option. This can again yield different results as opposed to the [TimestampWithTimeZoneColumn] implementation (as it is not defaulting to UTC).
 /// Use `defaultToCurrentTimestampInUTC` to avoid using the sql server's localized time.
 ///
-/// Please note that Postgresql `time` type is not supported as there is no native mapping in pure dart. In case you want to support this type you could use the [DateOfTime] class from the Flutter framework and extend the [Column] class.
+/// Please note that Postgresql `time` type is not supported as there is no native mapping in pure dart. In case you want to support this type you could use the `DateOfTime` class from the Flutter framework and extend the [Column] class.
 class TimestampColumn extends Column<DateTime> {
   /// Set this flag to default to the corresponding transaction's current timestamp in the sql server's localized time. If this is set [defaultValue] will be ignored.
   bool defaultToCurrentTimeStamp;
@@ -88,7 +88,7 @@ class TimestampColumn extends Column<DateTime> {
 ///
 /// For defaulting to the current time stamp of the transaction (on e.g every insert) on the sql server, use the `defaultToCurrentTimestamp` option. This will respect the sql server's local timezone effectively storing the value in UTC.
 ///
-/// Please note that Postgresql `time with time zone` type is not supported as there is no native mapping in pure dart. In case you want to support this type you could use the [DateOfTime] class from Flutter framework and extend the [Column] class.
+/// Please note that Postgresql `time with time zone` type is not supported as there is no native mapping in pure dart. In case you want to support this type you could use the `DateOfTime` class from Flutter framework and extend the [Column] class.
 class TimestampWithTimeZoneColumn extends Column<DateTime> {
   /// Set this flag to default to the corresponding transaction's current timestamp in the sql server's localized time (which is converted to & stored in UTC). If this is set [defaultValue] will be ignored.
   bool defaultToCurrentTimeStamp;

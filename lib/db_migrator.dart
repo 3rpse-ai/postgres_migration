@@ -1,3 +1,4 @@
+/// Library for creating sql statements for db migrations. 
 library db_migrator;
 
 export 'src/columns/columns.dart';

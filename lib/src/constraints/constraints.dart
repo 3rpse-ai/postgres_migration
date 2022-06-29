@@ -1,4 +1,4 @@
-import '../interfaces/table_property.dart';
+import '../../db_migrator.dart';
 
 /// Generic class for [Constraint]s.
 ///
@@ -48,7 +48,7 @@ class CheckConstraint extends Constraint implements TableProperty {
 ///
 /// In case it should be created as a [TableProperty] use the [UniqueConstraint.tableProperty] constructor.
 ///
-/// *In case a single column should be marked as unique, without the need of naming the constraint, the `isUnique` flag of the [COLUMN] can be set.*
+/// *In case a single column should be marked as unique, without the need of naming the constraint, the `isUnique` flag of the [Column] can be set.*
 class UniqueConstraint extends Constraint implements TableProperty {
   /// Combination of columns which should be unique.
   List<String>? columnNames;
@@ -127,7 +127,7 @@ class PrimaryKeyConstraint extends Constraint implements TableProperty {
 ///
 /// In case multiple columns should be combined to be a foreign key use the [ForeignKeyConstraint.multiColumn] constructor instead. If this constructor is used only usage as [TableProperty] is allowed by the DB.
 ///
-/// *In case a single column should be marked as a foreign key the [foreignKeyForTable] property can be set if*
+/// *In case a single column should be marked as a foreign key the `foreignKeyForTable` property can be set if*
 /// * *The column references a primary key*
 /// * *No deletion or update mode needs to be defined*
 /// * *No name for the foreign key constraints needs to be defined*
