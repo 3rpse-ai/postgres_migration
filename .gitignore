@@ -15,3 +15,7 @@ coverage/
 
 # Mac generated files
 .DS_Store
+
+
+# Generated docs folder
+doc/
