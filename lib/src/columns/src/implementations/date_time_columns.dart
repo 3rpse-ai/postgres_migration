@@ -214,6 +214,7 @@ class DateColumn extends Column<DateTime> {
         super.array();
 }
 
+/// Column for defining a time interval.
 class IntervalColumn extends Column<Interval> {
   @override
   String get type => 'interval';

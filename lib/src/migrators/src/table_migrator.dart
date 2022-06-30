@@ -1,5 +1,12 @@
 import 'package:db_migrator/db_migrator.dart';
 
+/// Class with convenience methods for handling table migrations:
+/// * Create / Rename / Drop table
+/// * Add / Rename / Drop column
+/// * Add / Drop constraint
+/// * Set / Drop column default value
+/// * Change column type
+/// * Rename enum value (direct String input or provide enumValue)
 class TableMigrator {
   String tableName;
 
@@ -70,7 +77,7 @@ class TableMigrator {
   /// This will only affect future inserts, not existing values within the column.
   ///
   /// It is sufficient to provide the columns name with the new default value. Other data will be ignored.
-  String changeColumnDefaultValue(Column updatedColumn) =>
+  String setColumnDefaultValue(Column updatedColumn) =>
       "$_alterColumn \"${updatedColumn.name}\" SET DEFAULT ${updatedColumn.defaultValueAsString};";
 
   /// Changes a column's data type.
@@ -130,7 +137,7 @@ enum ColumnDropMode {
   /// Automatically drop objects that depend on the column (such as foreing keys or views)
   cascade('CASCADE'),
 
-  /// Refuse to drop the column if any object depend on it.
+  /// Refuse to drop the column if any object depends on it.
   restrict('RESTRICT');
 
   const ColumnDropMode(this.mode);

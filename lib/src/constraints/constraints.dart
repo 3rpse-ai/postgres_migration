@@ -223,6 +223,7 @@ class ForeignKeyConstraint extends Constraint implements TableProperty {
   String get sqlSnippet => constraint;
 }
 
+/// Mode defining how foreign key should be dropped
 enum ForeignKeyDeletionMode {
   // Do not define any special deletion handling
   undefined(""),
@@ -246,6 +247,7 @@ enum ForeignKeyDeletionMode {
   const ForeignKeyDeletionMode(this.sqlString);
 }
 
+/// Mode defining how foreign key should be updated
 enum ForeignKeyUpdateMode {
   // Do not define any special update handling
   undefined(""),

@@ -4,6 +4,7 @@
 ///
 /// ```CREATE TABLE example(property1, property2, property3, etc)```
 abstract class TableProperty {
+  /// Getter for retrieving the sql String for the table property (column / constraint)
   String get sqlSnippet;
 }
 
@@ -13,8 +14,9 @@ abstract class TableProperty {
 ///
 /// ```CREATE TABLE example(property1, property2, property3, etc)```
 class ManualTableProperty implements TableProperty {
+  /// Sql String for the table property.
   final String _parameter;
-
+  
   ManualTableProperty(this._parameter);
 
   @override

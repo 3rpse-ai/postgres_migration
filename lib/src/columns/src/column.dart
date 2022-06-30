@@ -1,16 +1,32 @@
 import '../../constraints/constraints.dart';
 import '../../interfaces/table_property.dart';
 
+/// Interface for new columns
+///
+/// In case a new column type should be implemented extend this class
+///
+/// For a minimalistic implementation at least type needs to be overridden. See e.g. BooleanColumn for a minimalistic example.
 abstract class Column<T> implements TableProperty {
+  /// Name for this column.
+  ///
+  /// E.g. for users table: "id" / "first_name" / "last_name", etc.
   String name;
+
+  /// Type of the column. Override this getter when implementing new columns.
+  ///
+  /// E.g. "text" / "varchar" / "integer"
   String get type;
 
+  /// Defines if column is a one dimensional array
   bool isArray;
 
   /// Set this parameter to provide column arguments.
   /// E.g. type = "varchar", args = "9" results in varchar(9)
   String? args;
 
+  /// Getter which combines the type with optional arguments some column types use
+  ///
+  /// E.g. "numeric(4, 1)"
   String get typeWithArgs {
     String argsString = args != null ? "($args)" : "";
     String arrayString = isArray ? "[]" : "";
@@ -85,6 +101,9 @@ abstract class Column<T> implements TableProperty {
     return cString;
   }
 
+  /// Getter which returns the default value as a string for the column
+  ///
+  /// Consolidates manualDefaultValue / convertArrayInputValueToString / defaultValueAsString
   String get _defaultValueSnippet {
     String? defaultValueString;
 
@@ -161,6 +180,7 @@ abstract class Column<T> implements TableProperty {
   /// In case [manualDefaultValue] is provided this flag is ignored.
   bool forceIncludeDefaultValue;
 
+  /// Basic column constructor.
   Column(
     this.name, {
     this.args,
@@ -175,6 +195,7 @@ abstract class Column<T> implements TableProperty {
   })  : isArray = false,
         defaultArrayValue = null;
 
+  /// Column constructor for creating one dimensional arrays of defined column type.
   Column.array(
     this.name, {
     this.args,
@@ -190,6 +211,9 @@ abstract class Column<T> implements TableProperty {
         defaultValue = null;
 }
 
+/// Convenience wrapper of a column's constraints.
+///
+/// Use to make column constructor leaner.
 class ColumnConstraints {
   /// Used to set primary key constraint. If value is provided `isPrimaryKey` flag is ignored.
   PrimaryKeyConstraint? primaryKeyConstraint;

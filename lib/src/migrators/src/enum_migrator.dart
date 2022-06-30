@@ -123,10 +123,15 @@ class EnumMigrator {
   }
 }
 
+/// Mode defining how enum should be dropped
 enum EnumDropMode {
+  /// Automatically drop objects that depend on the enum (such as table columns, functions, and operators)
   cascade("CASCADE"),
+
+  /// Refuse to drop the enum if any object depends on it.
   restrict("RESTRICT");
 
+  /// SQL representation of the mode.
   final String mode;
 
   const EnumDropMode(this.mode);
