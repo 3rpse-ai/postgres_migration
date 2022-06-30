@@ -6,6 +6,7 @@ import '../column.dart';
 ///
 /// Use [EnumMigrator] and it's convenience methods for handling enums.
 class EnumColumn<T extends Enum> extends Column<Enum> {
+  /// Name of the enum type.
   String enumName;
 
   @override

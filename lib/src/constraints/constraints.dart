@@ -31,6 +31,9 @@ abstract class Constraint {
 ///
 /// Adding e.g. a CheckConstraint with `check="count<10"` will result in an added constraint of `CHECK (count < 10)`
 class CheckConstraint extends Constraint implements TableProperty {
+  /// Statement which should be checked against.
+  /// 
+  /// E.g. count<10
   String check;
 
   CheckConstraint({required this.check, super.name});

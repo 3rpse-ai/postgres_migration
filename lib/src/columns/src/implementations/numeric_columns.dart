@@ -296,6 +296,7 @@ class DoublePrecisionColumn extends Column<double> {
 ///
 /// float with no precision specified is taken to mean double precision.
 class FloatColumn extends Column<double> {
+  /// Minimum acceptable precision
   int? precision;
 
   @override

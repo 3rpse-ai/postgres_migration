@@ -92,6 +92,7 @@ class TimestampColumn extends Column<DateTime> {
 class TimestampWithTimeZoneColumn extends Column<DateTime> {
   /// Set this flag to default to the corresponding transaction's current timestamp in the sql server's localized time (which is converted to & stored in UTC). If this is set [defaultValue] will be ignored.
   bool defaultToCurrentTimeStamp;
+  /// Specifies the number of fractional digits retained in the seconds field.
   int? precision;
 
   @override
@@ -254,17 +255,29 @@ class IntervalColumn extends Column<Interval> {
 
 /// Represents the Postgresql Interval type
 class Interval {
+  /// Defines how many milleniums the interval should span
   int? millennium;
+  /// Defines how many milleniums the centuries should span
   int? century;
+  /// Defines how many milleniums the decades should span
   int? decade;
+  /// Defines how many milleniums the years should span
   int? year;
+  /// Defines how many milleniums the months should span
   int? month;
+  /// Defines how many milleniums the weeks should span
   int? week;
+  /// Defines how many milleniums the days should span
   int? day;
+  /// Defines how many milleniums the hours should span
   int? hour;
+  /// Defines how many milleniums the minutes should span
   int? minute;
+  /// Defines how many milleniums the seconds should span
   int? second;
+  /// Defines how many milleniums the milliseconds should span
   int? millisecond;
+  /// Defines how many milleniums the microseconds should span
   int? microsecond;
 
   Interval({
