@@ -257,27 +257,27 @@ class IntervalColumn extends Column<Interval> {
 class Interval {
   /// Defines how many milleniums the interval should span
   int? millennium;
-  /// Defines how many milleniums the centuries should span
+  /// Defines how many centuries the interval should span
   int? century;
-  /// Defines how many milleniums the decades should span
+  /// Defines how many decades the interval should span
   int? decade;
-  /// Defines how many milleniums the years should span
+  /// Defines how many years the interval should span
   int? year;
-  /// Defines how many milleniums the months should span
+  /// Defines how many months the interval should span
   int? month;
-  /// Defines how many milleniums the weeks should span
+  /// Defines how many weeks the interval should span
   int? week;
-  /// Defines how many milleniums the days should span
+  /// Defines how many days the interval should span
   int? day;
-  /// Defines how many milleniums the hours should span
+  /// Defines how many hours the interval should span
   int? hour;
-  /// Defines how many milleniums the minutes should span
+  /// Defines how many minutes the interval should span
   int? minute;
-  /// Defines how many milleniums the seconds should span
+  /// Defines how many seconds the interval should span
   int? second;
-  /// Defines how many milleniums the milliseconds should span
+  /// Defines how many milliseconds the interval should span
   int? millisecond;
-  /// Defines how many milleniums the microseconds should span
+  /// Defines how many microseconds the interval should span
   int? microsecond;
 
   Interval({
