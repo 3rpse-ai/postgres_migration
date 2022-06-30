@@ -60,13 +60,13 @@ void executeTableUpdateIntegrationTests(
     });
     group("3. Change Default Value // ", () {
       test("1. Set text column default value", () async {
-        await callDB(migrator.changeColumnDefaultValue(
+        await callDB(migrator.setColumnDefaultValue(
             TextColumn("main_text_column", defaultValue: "HELLO THERE")));
       });
     });
     group("4. Remove Default Value // ", () {
       test("1. Remove column default value", () async {
-        await callDB(migrator.changeColumnDefaultValue(
+        await callDB(migrator.setColumnDefaultValue(
             TextColumn("main_text_column", defaultValue: "HELLO THERE")));
         await callDB(migrator.dropColumnDefaultValue("main_text_column"));
       });

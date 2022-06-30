@@ -90,7 +90,7 @@ void executeTableMigratorUnitTests() {
   test('9. Change Column Default Value', () {
     final migrator = TableMigrator('table_name');
     final intColumn = IntegerColumn("int_column", defaultValue: 1);
-    final snippet = migrator.changeColumnDefaultValue(intColumn);
+    final snippet = migrator.setColumnDefaultValue(intColumn);
 
     expect(snippet,
         'ALTER TABLE table_name ALTER COLUMN "int_column" SET DEFAULT 1;');
